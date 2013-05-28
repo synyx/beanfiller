@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.synyx</groupId>
+    <artifactId>beanfiller</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <name>BeanFiller</name>
+    
+    <description>
+        Small library for filling Beans with random Data.
+    </description>
+    
+    <url>http://synyx.github.com/beanfiller</url>
+    
+    <organization>
+        <name>synyx GmbH &amp; Co. KG</name>
+        <url>http://www.synyx.de</url>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>tknell</id>
+            <name>Tobias Knell</name>
+            <email>knell@synyx.de</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    
+    <scm>
+        <url>scm:git:https://github.com/synyx/beanfiller.git</url>
+        <connection>scm:git:https://github.com/synyx/beanfiller.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/synyx/beanfiller.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    
+    <issueManagement>
+        <system>Github Issues</system>
+        <url>http://github.com/synyx/beanfiller/issues</url>
+    </issueManagement>
+
+    <dependencies>
+       
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        
+        
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+            <scope>test</scope>
+        </dependency>
+          
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
