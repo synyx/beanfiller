@@ -79,12 +79,12 @@ public class BeanFiller {
     }
 
     /**
-     * Fills the given Bean recursively with random data (the fields need to have correctly named setters for this to
-     * work!).
+     * Fills the given Bean recursively with random data (the fields need to have correctly named ('setVariableName'),
+     * public setters for this to work!).
      *
-     * @param  object  Object to fils.
+     * @param  object  Bean to fill.
      *
-     * @return  the filled Object or null if an error occured.
+     * @return  the filled Bean.
      *
      * @throws  FillingException  if an error occurred.
      */
@@ -500,7 +500,7 @@ public class BeanFiller {
      * @param  field  Field to fill (needed to get specific builders).
      * @param  type  Type of the Object
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the built Object.
      *
      * @throws  FillingException  if an error occurred.
      */
