@@ -29,7 +29,7 @@ Map (using HashMap)
 String
 </pre>
 
-Bean members are recursivle scanned for the above and also filled.
+Bean members of your Bean are scanned recursivly for the above classes and are also beeing filled.
 
 Support filling custom Objects in your Beans
 ============================================
