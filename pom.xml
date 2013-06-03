@@ -56,6 +56,17 @@
         <system>Github Issues</system>
         <url>http://github.com/synyx/beanfiller/issues</url>
     </issueManagement>
+    
+    <distributionManagement>
+        <repository>
+            <id>releases.public.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/public-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots.public.nexus.synyx.de</id>
+            <url>http://nexus.synyx.de/content/repositories/public-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
        
