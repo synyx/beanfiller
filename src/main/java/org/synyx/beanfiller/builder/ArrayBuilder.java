@@ -61,7 +61,7 @@ public class ArrayBuilder implements Builder<Object> {
         Object array = Array.newInstance(arrayType, getSize());
 
         // fill the array
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             Array.set(array, i, objects.get(i));
         }
 
@@ -72,7 +72,7 @@ public class ArrayBuilder implements Builder<Object> {
     /**
      * Get the size that is defined for the array.
      *
-     * @return
+     * @return  int size
      */
     public int getSize() {
 

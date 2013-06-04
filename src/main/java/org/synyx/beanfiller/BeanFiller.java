@@ -548,10 +548,6 @@ public class BeanFiller {
 
         List<Object> objectsForArray = new ArrayList<Object>();
 
-        for (int i = 0; i < 3; i++) {
-            objectsForArray.add(buildObjectForArray(arrayType, field));
-        }
-
         Builder b = getBuilderForClassAndField(clazz, field);
 
         if (b == null) {
@@ -569,6 +565,10 @@ public class BeanFiller {
             ArrayBuilder ab = (ArrayBuilder) b;
 
             LOG.debug(getSpaces() + "Using ArrayBuilder: " + ab.getClass().getName());
+
+            for (int i = 0; i < ab.getSize(); i++) {
+                objectsForArray.add(buildObjectForArray(arrayType, field));
+            }
 
             return ab.buildArray(objectsForArray, arrayType);
         }
