@@ -9,6 +9,7 @@ import org.synyx.beanfiller.builder.BigIntegerBuilder;
 import org.synyx.beanfiller.builder.BooleanBuilder;
 import org.synyx.beanfiller.builder.Builder;
 import org.synyx.beanfiller.builder.ByteBuilder;
+import org.synyx.beanfiller.builder.DateBuilder;
 import org.synyx.beanfiller.builder.DoubleBuilder;
 import org.synyx.beanfiller.builder.EnumBuilder;
 import org.synyx.beanfiller.builder.FloatBuilder;
@@ -654,6 +655,9 @@ public class BeanFiller {
 
         ArrayBuilder arrayBuilder = new ArrayBuilder();
         map.put("org.synyx.beanfiller.builder.ArrayBuilder", arrayBuilder);
+
+        DateBuilder dateBuilder = new DateBuilder();
+        map.put("java.util.Date", dateBuilder);
 
         return map;
     }
