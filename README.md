@@ -19,6 +19,7 @@ BigDecimal
 BigInteger
 Boolean (and boolean)
 Byte (and byte)
+Date
 Double (and double)
 Enums
 Float (and float)
