@@ -22,7 +22,7 @@ public class StringCriteria implements Criteria<String> {
     /**
      * @param  minlength  minimum length of the string
      * @param  maxlength  maximum length of the string
-     * @param  charset  charset that is used for randomly picking chars for the string.
+     * @param  charset  charset from where the characters for the String are randomly picked.
      */
     public StringCriteria(int minlength, int maxlength, String charset) {
 
@@ -62,7 +62,7 @@ public class StringCriteria implements Criteria<String> {
 
 
     /**
-     * set the charset that is used for randomly picking chars for the string.
+     * set the charset from where the characters for the String are randomly picked.
      *
      * @param  charset
      */
