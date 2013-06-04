@@ -10,12 +10,20 @@ public class StringCriteria implements Criteria<String> {
     private int maxlength;
     private String charset;
 
+    /**
+     * init with default values.
+     */
     public StringCriteria() {
 
         this(6, 8, "abcABCD0123äß!?");
     }
 
 
+    /**
+     * @param  minlength  minimum length of the string
+     * @param  maxlength  maximum length of the string
+     * @param  charset  charset that is used for randomly picking chars for the string.
+     */
     public StringCriteria(int minlength, int maxlength, String charset) {
 
         this.minlength = minlength;
@@ -53,6 +61,11 @@ public class StringCriteria implements Criteria<String> {
     }
 
 
+    /**
+     * set the charset that is used for randomly picking chars for the string.
+     *
+     * @param  charset
+     */
     public void setCharset(String charset) {
 
         this.charset = charset;
