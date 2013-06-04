@@ -143,6 +143,13 @@ public class BasicTest {
     }
 
 
+    @Test
+    public void testDateIsFilled() {
+
+        Assert.assertNotNull("Date is not beeing filled!", baseObject.getDate());
+    }
+
+
     public void testAddedBuilderIsUsed() throws FillingException {
 
         StringBuilder stringBuilder = mock(StringBuilder.class);

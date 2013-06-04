@@ -3,6 +3,8 @@ package org.synyx.beanfiller.testobjects;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.util.Date;
+
 
 /**
  * Object for testing the basic Object types.
@@ -27,6 +29,8 @@ public class BaseObject {
 
     private BigInteger bigIntegerNumber;
     private BigDecimal bigDecimalNumber;
+
+    private Date date;
 
     public String getText() {
 
@@ -205,5 +209,17 @@ public class BaseObject {
     public void setBigDecimalNumber(BigDecimal bigDecimalNumber) {
 
         this.bigDecimalNumber = bigDecimalNumber;
+    }
+
+
+    public Date getDate() {
+
+        return date;
+    }
+
+
+    public void setDate(Date date) {
+
+        this.date = date;
     }
 }
