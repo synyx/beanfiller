@@ -27,7 +27,7 @@ public class LongBuilder implements Builder<Long> {
     @Override
     public Long build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         return Math.round(rand.nextDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin());
     }

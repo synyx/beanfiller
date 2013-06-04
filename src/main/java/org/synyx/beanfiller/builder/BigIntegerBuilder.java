@@ -32,7 +32,7 @@ public class BigIntegerBuilder implements Builder<BigInteger> {
         BigInteger b;
 
         do {
-            b = new BigInteger(criteria.getMax().bitLength(), new Random());
+            b = new BigInteger(criteria.getMax().bitLength(), new Random(System.currentTimeMillis()));
         } while (b.compareTo(criteria.getMax()) >= 0);
 
         return b;

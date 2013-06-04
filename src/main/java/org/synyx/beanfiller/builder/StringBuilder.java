@@ -27,7 +27,7 @@ public class StringBuilder implements Builder<String> {
     public String build() {
 
         java.lang.StringBuilder builder = new java.lang.StringBuilder();
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
         int length = rand.nextInt(criteria.getMaxlength() - criteria.getMinlength() + 1) + criteria.getMinlength();
 
         for (int i = 0; i < length; i++) {

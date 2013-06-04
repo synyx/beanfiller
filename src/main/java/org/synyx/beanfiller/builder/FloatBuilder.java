@@ -29,7 +29,7 @@ public class FloatBuilder implements Builder<Float> {
     @Override
     public Float build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         float f = rand.nextFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 

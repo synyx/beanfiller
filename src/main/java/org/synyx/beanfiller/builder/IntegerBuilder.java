@@ -27,7 +27,7 @@ public class IntegerBuilder implements Builder<Integer> {
     @Override
     public Integer build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         return rand.nextInt(criteria.getMax() - criteria.getMin() + 1) + criteria.getMin();
     }

@@ -29,7 +29,7 @@ public class DoubleBuilder implements Builder<Double> {
     @Override
     public Double build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         double d = rand.nextDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 

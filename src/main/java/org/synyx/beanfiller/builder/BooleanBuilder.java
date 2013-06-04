@@ -12,7 +12,7 @@ public class BooleanBuilder implements Builder<Boolean> {
     @Override
     public Boolean build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         return rand.nextBoolean();
     }

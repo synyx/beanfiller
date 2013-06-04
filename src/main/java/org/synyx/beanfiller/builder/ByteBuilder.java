@@ -11,7 +11,7 @@ public class ByteBuilder implements Builder<Byte> {
     @Override
     public Byte build() {
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
         byte[] bytes = new byte[1];
 
