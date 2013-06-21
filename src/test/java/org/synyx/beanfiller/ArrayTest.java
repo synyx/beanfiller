@@ -2,7 +2,6 @@
 package org.synyx.beanfiller;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import org.mockito.Mockito;
@@ -27,86 +26,90 @@ public class ArrayTest {
     private BeanFiller beanfiller = new BeanFiller();
     private ArraysObject arraysObject;
 
-    @Before
-    public void setup() throws FillingException {
+    @Test
+    public void testObjectIsCreated() throws FillingException {
 
         arraysObject = beanfiller.fillBean(new ArraysObject());
-    }
-
-
-    @Test
-    public void testObjectIsCreated() {
-
         Assert.assertNotNull("ArraysObject is null!", arraysObject);
     }
 
 
     @Test
-    public void testStringArrayIsFilled() {
+    public void testStringArrayIsFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("StringArray is null!", arraysObject.getStringArray());
     }
 
 
     @Test
-    public void testStringArrayElementsAreFilled() {
+    public void testStringArrayElementsAreFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("StringArray Element is null!", arraysObject.getStringArray()[0]);
     }
 
 
     @Test
-    public void testIntArrayIsFilled() {
+    public void testIntArrayIsFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("IntArray is null!", arraysObject.getIntArray());
     }
 
 
     @Test
-    public void testIntArrayElementsAreFilled() {
+    public void testIntArrayElementsAreFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("IntArray Element is null!", arraysObject.getIntArray()[0]);
     }
 
 
     @Test
-    public void testObjectArrayIsFilled() {
+    public void testObjectArrayIsFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("ObjectArray is null!", arraysObject.getObjectArray());
     }
 
 
     @Test
-    public void testObjectArrayElementsAreFilled() {
+    public void testObjectArrayElementsAreFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("ObjectArray Element is null!", arraysObject.getObjectArray()[0]);
     }
 
 
     @Test
-    public void testEnumArrayIsFilled() {
+    public void testEnumArrayIsFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("EnumArray is null!", arraysObject.getEnumArray());
     }
 
 
     @Test
-    public void testEnumArrayElementsAreFilled() {
+    public void testEnumArrayElementsAreFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("EnumArray Element is null!", arraysObject.getEnumArray()[0]);
     }
 
 
     @Test
-    public void testListArrayIsFilled() {
+    public void testListArrayIsFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("ListArray is null!", arraysObject.getListArray());
     }
 
 
     @Test
-    public void testListArrayElementsAreFilled() {
+    public void testListArrayElementsAreFilled() throws FillingException {
 
+        arraysObject = beanfiller.fillBean(new ArraysObject());
         Assert.assertNotNull("ListArray Element is null!", arraysObject.getListArray()[0]);
     }
 

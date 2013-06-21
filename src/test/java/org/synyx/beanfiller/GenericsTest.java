@@ -1,8 +1,6 @@
-
 package org.synyx.beanfiller;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import org.mockito.Mockito;
@@ -31,39 +29,36 @@ public class GenericsTest {
     private BeanFiller beanfiller = new BeanFiller();
     private GenericsObject genericsObject;
 
-    @Before
-    public void setup() throws FillingException {
+    @Test
+    public void testGenericsObjectIsCreated() throws FillingException {
 
         genericsObject = beanfiller.fillBean(new GenericsObject());
-    }
-
-
-    @Test
-    public void testGenericsObjectIsCreated() {
-
         Assert.assertNotNull("GenericsObject is null!", genericsObject);
     }
 
 
     @Test
-    public void testListIsFilled() {
+    public void testListIsFilled() throws FillingException {
 
+        genericsObject = beanfiller.fillBean(new GenericsObject());
         Assert.assertNotNull("StringList is null!", genericsObject.getStringList());
         Assert.assertFalse("StringList is empty!", genericsObject.getStringList().isEmpty());
     }
 
 
     @Test
-    public void testMapIsFilled() {
+    public void testMapIsFilled() throws FillingException {
 
+        genericsObject = beanfiller.fillBean(new GenericsObject());
         Assert.assertNotNull("StringMap is null!", genericsObject.getStringMap());
         Assert.assertFalse("StringMap is empty!", genericsObject.getStringMap().isEmpty());
     }
 
 
     @Test
-    public void testListMapIsFilled() {
+    public void testListMapIsFilled() throws FillingException {
 
+        genericsObject = beanfiller.fillBean(new GenericsObject());
         Assert.assertNotNull("StringListMap is null!", genericsObject.getStringListMap());
         Assert.assertFalse("StringListMap is empty!", genericsObject.getStringListMap().isEmpty());
     }
