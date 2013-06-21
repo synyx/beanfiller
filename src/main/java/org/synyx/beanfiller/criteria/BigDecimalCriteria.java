@@ -14,7 +14,7 @@ public class BigDecimalCriteria implements Criteria<BigDecimal> {
 
     public BigDecimalCriteria() {
 
-        this(BigDecimal.ZERO, new BigDecimal(12.12));
+        this(BigDecimal.ZERO, BigDecimal.valueOf(12.12));
     }
 
 
