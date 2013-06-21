@@ -8,6 +8,7 @@ import org.synyx.beanfiller.creator.EnumCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.testobjects.EnumsObject;
+import org.synyx.beanfiller.testobjects.ErrorEnumObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
 
 import static org.mockito.Mockito.mock;
@@ -33,13 +34,10 @@ public class EnumTest {
     }
 
 
-    @Test
-    public void testErrorEnumIsNotFilled() throws FillingException {
+    @Test(expected = NoEnumConstantsException.class)
+    public void testNoEnumConstantsExceptionIsThrownOnEmptyEnum() throws FillingException {
 
-        // The ErrorEnum has no Enum fields set and should therefore not be filled (because theres nothing to fill it with).
-        EnumsObject o = beanfiller.fillBean(new EnumsObject());
-
-        Assert.assertNull("ErrorEnum should not be filled!", o.getEmptyEnum());
+        ErrorEnumObject o = beanfiller.fillBean(new ErrorEnumObject());
     }
 
 
