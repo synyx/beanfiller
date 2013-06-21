@@ -88,4 +88,18 @@ public class RandomGenerator {
 
         return RANDOM.nextInt(max);
     }
+
+
+    /**
+     * Gets an int value between (inclusive) the given min and max values.
+     *
+     * @param  min
+     * @param  max
+     *
+     * @return
+     */
+    public static int getRandomIntBetween(int min, int max) {
+
+        return getRandomInt(max - min + 1) + min;
+    }
 }
