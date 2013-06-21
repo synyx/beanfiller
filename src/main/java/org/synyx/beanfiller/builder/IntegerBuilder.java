@@ -2,8 +2,7 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.IntegerCriteria;
-
-import java.util.Random;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
@@ -27,8 +26,6 @@ public class IntegerBuilder implements Builder<Integer> {
     @Override
     public Integer build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
-        return rand.nextInt(criteria.getMax() - criteria.getMin() + 1) + criteria.getMin();
+        return RandomGenerator.getRandomInt(criteria.getMax() - criteria.getMin() + 1) + criteria.getMin();
     }
 }

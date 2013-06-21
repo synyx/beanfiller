@@ -2,8 +2,7 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.LongCriteria;
-
-import java.util.Random;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
@@ -27,8 +26,7 @@ public class LongBuilder implements Builder<Long> {
     @Override
     public Long build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
-        return Math.round(rand.nextDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin());
+        return Math.round(RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin())
+                + criteria.getMin());
     }
 }

@@ -1,11 +1,9 @@
-
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.FloatCriteria;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.math.BigDecimal;
-
-import java.util.Random;
 
 
 /**
@@ -29,9 +27,7 @@ public class FloatBuilder implements Builder<Float> {
     @Override
     public Float build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
-        float f = rand.nextFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
+        float f = RandomGenerator.getRandomFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 
         f = BigDecimal.valueOf(f).setScale(criteria.getDecimals(), BigDecimal.ROUND_HALF_UP).floatValue();
 

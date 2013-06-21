@@ -2,6 +2,7 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.BigDecimalCriteria;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.math.BigDecimal;
 
@@ -31,7 +32,7 @@ public class BigDecimalBuilder implements Builder<BigDecimal> {
         BigDecimal max = criteria.getMax();
 
         BigDecimal range = max.subtract(min);
-        BigDecimal result = min.add(range.multiply(new BigDecimal(Math.random())));
+        BigDecimal result = min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
 
         return result;
     }

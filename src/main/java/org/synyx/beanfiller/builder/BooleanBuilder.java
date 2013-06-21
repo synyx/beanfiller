@@ -1,7 +1,7 @@
 
 package org.synyx.beanfiller.builder;
 
-import java.util.Random;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
@@ -12,8 +12,6 @@ public class BooleanBuilder implements Builder<Boolean> {
     @Override
     public Boolean build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
-        return rand.nextBoolean();
+        return RandomGenerator.getRandomBoolean();
     }
 }

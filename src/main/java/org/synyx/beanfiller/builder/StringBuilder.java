@@ -1,8 +1,7 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.StringCriteria;
-
-import java.util.Random;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
@@ -27,11 +26,12 @@ public class StringBuilder implements Builder<String> {
     public String build() {
 
         java.lang.StringBuilder builder = new java.lang.StringBuilder();
-        Random rand = new Random(System.currentTimeMillis());
-        int length = rand.nextInt(criteria.getMaxlength() - criteria.getMinlength() + 1) + criteria.getMinlength();
+
+        int length = RandomGenerator.getRandomInt(criteria.getMaxlength() - criteria.getMinlength() + 1)
+            + criteria.getMinlength();
 
         for (int i = 0; i < length; i++) {
-            builder.append(criteria.getCharset().charAt(rand.nextInt(criteria.getCharset().length())));
+            builder.append(criteria.getCharset().charAt(RandomGenerator.getRandomInt(criteria.getCharset().length())));
         }
 
         return builder.toString();

@@ -1,6 +1,6 @@
 package org.synyx.beanfiller.builder;
 
-import java.util.Random;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
@@ -11,11 +11,9 @@ public class ByteBuilder implements Builder<Byte> {
     @Override
     public Byte build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
         byte[] bytes = new byte[1];
 
-        rand.nextBytes(bytes);
+        bytes = RandomGenerator.getRandomBytes(bytes);
 
         return bytes[0];
     }

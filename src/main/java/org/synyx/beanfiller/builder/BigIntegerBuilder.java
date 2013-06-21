@@ -2,10 +2,9 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.BigIntegerCriteria;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.math.BigInteger;
-
-import java.util.Random;
 
 
 /**
@@ -13,7 +12,7 @@ import java.util.Random;
  */
 public class BigIntegerBuilder implements Builder<BigInteger> {
 
-    private BigIntegerCriteria criteria;
+    private final BigIntegerCriteria criteria;
 
     public BigIntegerBuilder() {
 
@@ -32,7 +31,7 @@ public class BigIntegerBuilder implements Builder<BigInteger> {
         BigInteger b;
 
         do {
-            b = new BigInteger(criteria.getMax().bitLength(), new Random(System.currentTimeMillis()));
+            b = RandomGenerator.getRandomBigInteger(criteria.getMax().bitLength());
         } while (b.compareTo(criteria.getMax()) >= 0);
 
         return b;

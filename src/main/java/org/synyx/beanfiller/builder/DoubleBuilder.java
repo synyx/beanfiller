@@ -2,10 +2,9 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.DoubleCriteria;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.math.BigDecimal;
-
-import java.util.Random;
 
 
 /**
@@ -29,9 +28,7 @@ public class DoubleBuilder implements Builder<Double> {
     @Override
     public Double build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
-        double d = rand.nextDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
+        double d = RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 
         d = BigDecimal.valueOf(d).setScale(criteria.getDecimals(), BigDecimal.ROUND_HALF_UP).doubleValue();
 

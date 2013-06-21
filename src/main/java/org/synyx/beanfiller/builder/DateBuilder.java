@@ -2,9 +2,9 @@
 package org.synyx.beanfiller.builder;
 
 import org.synyx.beanfiller.criteria.DateCriteria;
+import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.util.Date;
-import java.util.Random;
 
 
 /**
@@ -28,11 +28,9 @@ public class DateBuilder implements Builder<Date> {
     @Override
     public Date build() {
 
-        Random rand = new Random(System.currentTimeMillis());
-
         // just use the long values for getting a random Date
         return new Date(Math.round(
-                    rand.nextDouble() * (criteria.getMaxDate().getTime() - criteria.getMinDate().getTime())
-                    + criteria.getMinDate().getTime()));
+                    RandomGenerator.getRandomDouble() * (criteria.getMaxDate().getTime()
+                        - criteria.getMinDate().getTime()) + criteria.getMinDate().getTime()));
     }
 }
