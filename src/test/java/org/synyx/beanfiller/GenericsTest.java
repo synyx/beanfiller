@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 import org.synyx.beanfiller.creator.GenericsCreator;
 import org.synyx.beanfiller.creator.ListCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
+import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.GenericsObject;
 import org.synyx.beanfiller.testobjects.SimpleGenericsObject;
 

@@ -1,6 +1,6 @@
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.FillingException;
+import org.synyx.beanfiller.exceptions.FillingException;
 
 
 /**

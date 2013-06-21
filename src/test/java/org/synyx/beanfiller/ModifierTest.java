@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.testobjects.ModifierObject;
 
 

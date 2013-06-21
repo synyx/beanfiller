@@ -24,6 +24,8 @@ import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.criteria.ListCriteria;
 import org.synyx.beanfiller.criteria.MapCriteria;
+import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.exceptions.WrongCreatorException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;

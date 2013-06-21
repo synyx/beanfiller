@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller;
+package org.synyx.beanfiller.exceptions;
 
 /**
  * Exception that gets thrown if another Creator is set for a class or a field as the BeanFiller expects (eg. a non

@@ -1,7 +1,7 @@
 
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.NoEnumConstantsException;
+import org.synyx.beanfiller.exceptions.NoEnumConstantsException;
 
 import java.util.Arrays;
 import java.util.Collections;

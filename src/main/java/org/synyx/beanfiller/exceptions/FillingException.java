@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller;
+package org.synyx.beanfiller.exceptions;
 
 /**
  * Exception for Errors on filling an Object.

@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller;
+package org.synyx.beanfiller.exceptions;
 
 /**
  * Thrown if there are no constants declared in an Enum that is tried to be created.

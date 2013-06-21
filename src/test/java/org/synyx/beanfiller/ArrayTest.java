@@ -9,6 +9,8 @@ import org.mockito.Mockito;
 import org.synyx.beanfiller.creator.ArrayCreator;
 import org.synyx.beanfiller.creator.SimpleArrayCreator;
 import org.synyx.beanfiller.creator.StringCreator;
+import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.ArraysObject;
 
 import static org.mockito.Mockito.mock;
