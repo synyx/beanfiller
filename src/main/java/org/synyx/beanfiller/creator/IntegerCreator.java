@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.IntegerCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -8,23 +8,23 @@ import org.synyx.beanfiller.services.RandomGenerator;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class IntegerBuilder implements Builder<Integer> {
+public class IntegerCreator implements SimpleCreator<Integer> {
 
     private IntegerCriteria criteria;
 
-    public IntegerBuilder() {
+    public IntegerCreator() {
 
         this(new IntegerCriteria());
     }
 
 
-    public IntegerBuilder(IntegerCriteria criteria) {
+    public IntegerCreator(IntegerCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public Integer build() {
+    public Integer create() {
 
         return RandomGenerator.getRandomInt(criteria.getMax() - criteria.getMin() + 1) + criteria.getMin();
     }

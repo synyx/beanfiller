@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.ListCriteria;
 
@@ -9,17 +9,17 @@ import java.util.List;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class ListBuilder extends GenericsBuilder<List<?>> {
+public class ListCreator implements GenericsCreator<List<?>> {
 
     private ListCriteria criteria;
 
-    public ListBuilder(ListCriteria criteria) {
+    public ListCreator(ListCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public List<?> buildWithGenerics(List<Object> genericObjects) {
+    public List<?> createWithGenerics(List<Object> genericObjects) {
 
         if (genericObjects.size() >= 1) {
             List<Object> list = new ArrayList<Object>();

@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.BigDecimalCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -10,23 +10,23 @@ import java.math.BigDecimal;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BigDecimalBuilder implements Builder<BigDecimal> {
+public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
 
     private BigDecimalCriteria criteria;
 
-    public BigDecimalBuilder() {
+    public BigDecimalCreator() {
 
         this(new BigDecimalCriteria());
     }
 
 
-    public BigDecimalBuilder(BigDecimalCriteria criteria) {
+    public BigDecimalCreator(BigDecimalCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public BigDecimal build() {
+    public BigDecimal create() {
 
         BigDecimal min = criteria.getMin();
         BigDecimal max = criteria.getMax();

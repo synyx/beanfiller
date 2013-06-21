@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.StringCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -7,25 +7,25 @@ import org.synyx.beanfiller.services.RandomGenerator;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class StringBuilder implements Builder<String> {
+public class StringCreator implements SimpleCreator<String> {
 
     private StringCriteria criteria;
 
-    public StringBuilder() {
+    public StringCreator() {
 
         this(new StringCriteria());
     }
 
 
-    public StringBuilder(StringCriteria criteria) {
+    public StringCreator(StringCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public String build() {
+    public String create() {
 
-        java.lang.StringBuilder builder = new java.lang.StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
         int length = RandomGenerator.getRandomInt(criteria.getMaxlength() - criteria.getMinlength() + 1)
             + criteria.getMinlength();

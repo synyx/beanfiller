@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.services.RandomGenerator;
 
@@ -6,10 +6,10 @@ import org.synyx.beanfiller.services.RandomGenerator;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class ByteBuilder implements Builder<Byte> {
+public class ByteCreator implements SimpleCreator<Byte> {
 
     @Override
-    public Byte build() {
+    public Byte create() {
 
         byte[] bytes = new byte[1];
 

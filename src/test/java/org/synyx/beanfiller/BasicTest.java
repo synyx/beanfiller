@@ -4,7 +4,7 @@ package org.synyx.beanfiller;
 import org.junit.Assert;
 import org.junit.Test;
 
-import org.synyx.beanfiller.builder.StringBuilder;
+import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.testobjects.ArraysObject;
 import org.synyx.beanfiller.testobjects.BaseObject;
 
@@ -159,30 +159,30 @@ public class BasicTest {
     }
 
 
-    public void testAddedBuilderIsUsed() throws FillingException {
+    public void testAddedCreatorIsUsed() throws FillingException {
 
-        StringBuilder stringBuilder = mock(StringBuilder.class);
-        when(stringBuilder.build()).thenReturn("test");
+        StringCreator stringCreator = mock(StringCreator.class);
+        when(stringCreator.create()).thenReturn("test");
 
-        beanfiller.addBuilder(String.class, stringBuilder);
+        beanfiller.addCreator(String.class, stringCreator);
 
         beanfiller.fillBean(new ArraysObject());
 
         // assert that our mock was called
-        verify(stringBuilder).build();
+        verify(stringCreator).create();
     }
 
 
-    public void testAddedSpecificBuilderIsUsed() throws FillingException {
+    public void testAddedSpecificCreatorIsUsed() throws FillingException {
 
-        StringBuilder stringBuilder = mock(StringBuilder.class);
-        when(stringBuilder.build()).thenReturn("test");
+        StringCreator stringCreator = mock(StringCreator.class);
+        when(stringCreator.create()).thenReturn("test");
 
-        beanfiller.addBuilderForClassAndAttribute(BaseObject.class, "string", stringBuilder);
+        beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "string", stringCreator);
 
         beanfiller.fillBean(new ArraysObject());
 
         // assert that our mock was called
-        verify(stringBuilder).build();
+        verify(stringCreator).create();
     }
 }

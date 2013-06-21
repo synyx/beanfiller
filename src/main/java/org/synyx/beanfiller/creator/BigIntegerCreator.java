@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.BigIntegerCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -10,23 +10,23 @@ import java.math.BigInteger;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BigIntegerBuilder implements Builder<BigInteger> {
+public class BigIntegerCreator implements SimpleCreator<BigInteger> {
 
     private final BigIntegerCriteria criteria;
 
-    public BigIntegerBuilder() {
+    public BigIntegerCreator() {
 
         this(new BigIntegerCriteria());
     }
 
 
-    public BigIntegerBuilder(BigIntegerCriteria criteria) {
+    public BigIntegerCreator(BigIntegerCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public BigInteger build() {
+    public BigInteger create() {
 
         BigInteger b;
 

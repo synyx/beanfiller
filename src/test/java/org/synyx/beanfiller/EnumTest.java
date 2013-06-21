@@ -4,8 +4,9 @@ package org.synyx.beanfiller;
 import org.junit.Assert;
 import org.junit.Test;
 
-import org.synyx.beanfiller.builder.Builder;
-import org.synyx.beanfiller.builder.EnumBuilder;
+import org.synyx.beanfiller.creator.EnumCreator;
+import org.synyx.beanfiller.creator.SimpleCreator;
+import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.testobjects.EnumsObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
 
@@ -43,40 +44,40 @@ public class EnumTest {
 
 
     @Test
-    public void testAddedEnumBuilderIsUsed() throws FillingException {
+    public void testAddedEnumCreatorIsUsed() throws FillingException {
 
-        EnumBuilder enumBuilder = mock(EnumBuilder.class);
-        when(enumBuilder.buildEnum(TestEnum.class)).thenReturn(TestEnum.TEST1);
-        beanfiller.addBuilder(TestEnum.class, enumBuilder);
+        SimpleEnumCreator enumCreator = mock(SimpleEnumCreator.class);
+        when(enumCreator.createEnum(TestEnum.class)).thenReturn(TestEnum.TEST1);
+        beanfiller.addCreator(TestEnum.class, enumCreator);
 
         beanfiller.fillBean(new EnumsObject());
 
-        // assert that our mock was called instead of the default EnumBuilder
-        verify(enumBuilder).buildEnum(TestEnum.class);
+        // assert that our mock was called instead of the default EnumCreator
+        verify(enumCreator).createEnum(TestEnum.class);
     }
 
 
     @Test
-    public void testAddedSpecificEnumBuilderIsUsed() throws FillingException {
+    public void testAddedSpecificEnumCreatorIsUsed() throws FillingException {
 
-        EnumBuilder enumBuilder = mock(EnumBuilder.class);
-        when(enumBuilder.buildEnum(TestEnum.class)).thenReturn(TestEnum.TEST1);
+        EnumCreator enumCreator = mock(EnumCreator.class);
+        when(enumCreator.createEnum(TestEnum.class)).thenReturn(TestEnum.TEST1);
 
-        beanfiller.addBuilderForClassAndAttribute(EnumsObject.class, "testEnum", enumBuilder);
+        beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", enumCreator);
 
         beanfiller.fillBean(new EnumsObject());
 
-        // assert that our mock was called instead of the default EnumBuilder
-        verify(enumBuilder).buildEnum(TestEnum.class);
+        // assert that our mock was called instead of the default EnumCreator
+        verify(enumCreator).createEnum(TestEnum.class);
     }
 
 
-    @Test(expected = WrongBuilderException.class)
-    public void testWrongBuilderExceptionIsThrownIfNonEnumBuilderIsUsed() throws FillingException {
+    @Test(expected = WrongCreatorException.class)
+    public void testWrongCreatorExceptionIsThrownIfNonEnumCreatorIsUsed() throws FillingException {
 
-        Builder stringBuilder = new org.synyx.beanfiller.builder.StringBuilder();
+        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator();
 
-        beanfiller.addBuilderForClassAndAttribute(EnumsObject.class, "testEnum", stringBuilder);
+        beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", stringCreator);
 
         beanfiller.fillBean(new EnumsObject());
     }

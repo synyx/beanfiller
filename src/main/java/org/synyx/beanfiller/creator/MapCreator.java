@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.MapCriteria;
 
@@ -10,17 +10,17 @@ import java.util.Map;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class MapBuilder extends GenericsBuilder<Map<?, ?>> {
+public class MapCreator implements GenericsCreator<Map<?, ?>> {
 
     private MapCriteria criteria;
 
-    public MapBuilder(MapCriteria criteria) {
+    public MapCreator(MapCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public Map<?, ?> buildWithGenerics(List<Object> genericObjects) {
+    public Map<?, ?> createWithGenerics(List<Object> genericObjects) {
 
         if (genericObjects.size() >= 2) {
             Map<Object, Object> map = new HashMap<Object, Object>();

@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import org.mockito.Mockito;
 
-import org.synyx.beanfiller.builder.Builder;
-import org.synyx.beanfiller.builder.GenericsBuilder;
-import org.synyx.beanfiller.builder.ListBuilder;
+import org.synyx.beanfiller.creator.GenericsCreator;
+import org.synyx.beanfiller.creator.ListCreator;
+import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.testobjects.GenericsObject;
 import org.synyx.beanfiller.testobjects.SimpleGenericsObject;
 
@@ -65,39 +65,39 @@ public class GenericsTest {
 
 
     @Test
-    public void testAddedGenericsBuilderIsUsed() throws FillingException {
+    public void testAddedGenericsCreatorIsUsed() throws FillingException {
 
-        GenericsBuilder genericsBuilder = mock(ListBuilder.class);
-        when(genericsBuilder.buildWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
-        beanfiller.addBuilder(List.class, genericsBuilder);
+        GenericsCreator genericsCreator = mock(ListCreator.class);
+        when(genericsCreator.createWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
+        beanfiller.addCreator(List.class, genericsCreator);
 
         beanfiller.fillBean(new SimpleGenericsObject());
 
         // assert that our mock was called
-        verify(genericsBuilder).buildWithGenerics(Mockito.anyList());
+        verify(genericsCreator).createWithGenerics(Mockito.anyList());
     }
 
 
     @Test
-    public void testAddedSpecificGenericsBuilderIsUsed() throws FillingException {
+    public void testAddedSpecificGenericsCreatorIsUsed() throws FillingException {
 
-        GenericsBuilder genericsBuilder = mock(ListBuilder.class);
-        when(genericsBuilder.buildWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
-        beanfiller.addBuilderForClassAndAttribute(SimpleGenericsObject.class, "stringList", genericsBuilder);
+        GenericsCreator genericsCreator = mock(ListCreator.class);
+        when(genericsCreator.createWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
+        beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", genericsCreator);
 
         beanfiller.fillBean(new SimpleGenericsObject());
 
         // assert that our mock was called
-        verify(genericsBuilder).buildWithGenerics(Mockito.anyList());
+        verify(genericsCreator).createWithGenerics(Mockito.anyList());
     }
 
 
-    @Test(expected = WrongBuilderException.class)
-    public void testWrongBuilderExceptionIsThrownIfNonGenericsBuilderIsUsed() throws FillingException {
+    @Test(expected = WrongCreatorException.class)
+    public void testWrongCreatorExceptionIsThrownIfNonGenericsCreatorIsUsed() throws FillingException {
 
-        Builder stringBuilder = new org.synyx.beanfiller.builder.StringBuilder();
+        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator();
 
-        beanfiller.addBuilderForClassAndAttribute(GenericsObject.class, "stringList", stringBuilder);
+        beanfiller.addCreatorForClassAndAttribute(GenericsObject.class, "stringList", stringCreator);
 
         beanfiller.fillBean(new GenericsObject());
     }

@@ -3,21 +3,25 @@ package org.synyx.beanfiller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.synyx.beanfiller.builder.ArrayBuilder;
-import org.synyx.beanfiller.builder.BigDecimalBuilder;
-import org.synyx.beanfiller.builder.BigIntegerBuilder;
-import org.synyx.beanfiller.builder.BooleanBuilder;
-import org.synyx.beanfiller.builder.Builder;
-import org.synyx.beanfiller.builder.ByteBuilder;
-import org.synyx.beanfiller.builder.DateBuilder;
-import org.synyx.beanfiller.builder.DoubleBuilder;
-import org.synyx.beanfiller.builder.EnumBuilder;
-import org.synyx.beanfiller.builder.FloatBuilder;
-import org.synyx.beanfiller.builder.GenericsBuilder;
-import org.synyx.beanfiller.builder.IntegerBuilder;
-import org.synyx.beanfiller.builder.ListBuilder;
-import org.synyx.beanfiller.builder.LongBuilder;
-import org.synyx.beanfiller.builder.MapBuilder;
+import org.synyx.beanfiller.creator.ArrayCreator;
+import org.synyx.beanfiller.creator.BigDecimalCreator;
+import org.synyx.beanfiller.creator.BigIntegerCreator;
+import org.synyx.beanfiller.creator.BooleanCreator;
+import org.synyx.beanfiller.creator.ByteCreator;
+import org.synyx.beanfiller.creator.Creator;
+import org.synyx.beanfiller.creator.DateCreator;
+import org.synyx.beanfiller.creator.DoubleCreator;
+import org.synyx.beanfiller.creator.EnumCreator;
+import org.synyx.beanfiller.creator.FloatCreator;
+import org.synyx.beanfiller.creator.GenericsCreator;
+import org.synyx.beanfiller.creator.IntegerCreator;
+import org.synyx.beanfiller.creator.ListCreator;
+import org.synyx.beanfiller.creator.LongCreator;
+import org.synyx.beanfiller.creator.MapCreator;
+import org.synyx.beanfiller.creator.SimpleArrayCreator;
+import org.synyx.beanfiller.creator.SimpleCreator;
+import org.synyx.beanfiller.creator.SimpleEnumCreator;
+import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.criteria.ListCriteria;
 import org.synyx.beanfiller.criteria.MapCriteria;
 
@@ -49,14 +53,14 @@ import java.util.Map;
 public class BeanFiller {
 
     private static final Logger LOG = LoggerFactory.getLogger(BeanFiller.class);
-    private Map<String, Builder> builderMap;
-    private Map<String, Builder> classAndAttributeSpecificBuilderMap = new HashMap<String, Builder>();
+    private Map<String, Creator> creatorMap;
+    private Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
     private int depth = 0;
 
     /**
-     * Create a new instance of the BeanFiller and use the default set of Builders that come with it (builders for
-     * specific classes can be added with addOrReplaceBuilder, Builders for a specific field of a specific class can be
-     * added with addBuilderForClassAndAttribute).
+     * Create a new instance of the BeanFiller and use the default set of Creators that come with it (Creators for
+     * specific classes can be added with addOrReplaceCreator, Creators for a specific field of a specific class can be
+     * added with addCreatorForClassAndAttribute).
      */
     public BeanFiller() {
 
@@ -65,17 +69,17 @@ public class BeanFiller {
 
 
     /**
-     * Instanciates the BeanFiller with the given builderMap instead of the default one. The builder Map consists of a
-     * mapping of the full qualified class names of classes to the Builders to use for them.
+     * Instanciates the BeanFiller with the given creatorMap instead of the default one. The creator Map consists of a
+     * mapping of the full qualified class names of classes to the Creator to use for them.
      *
-     * @param  builderMap  specific builderMap .
+     * @param  creatorMap  specific creatorMap .
      */
-    public BeanFiller(Map<String, Builder> builderMap) {
+    public BeanFiller(Map<String, Creator> creatorMap) {
 
-        if (builderMap != null) {
-            this.builderMap = builderMap;
+        if (creatorMap != null) {
+            this.creatorMap = creatorMap;
         } else {
-            this.builderMap = getDefaultBuilderMap();
+            this.creatorMap = getDefaultCreatorMap();
         }
     }
 
@@ -104,69 +108,69 @@ public class BeanFiller {
 
 
     /**
-     * Adds or replaces the builder for the given class. This builders have a lower priority than the ones specified for
+     * Adds or replaces the Creator for the given class. This Creators have a lower priority than the ones specified for
      * the attributes of classes.<br/>
      * NOTES:<br/>
-     * For replacing the default EnumBuilder, call with Enum.class<br/>
-     * For replacing the default ArrayBuilder, call with org.synyx.beanfiller.builder.ArrayBuilder.class<br/>
+     * For replacing the default EnumCreator, call with Enum.class<br/>
+     * For replacing the default ArrayCreator, call with org.synyx.beanfiller.creator.ArrayCreator.class<br/>
      * For arrays, use the array classes - e.g. String[].class
      *
-     * @param  clazz  class for which the builder should be used
-     * @param  builder  builder that should be used for the given class
+     * @param  clazz  class for which the creator should be used
+     * @param  creator  creator that should be used for the given class
      */
-    public void addBuilder(Class clazz, Builder builder) {
+    public void addCreator(Class clazz, Creator creator) {
 
-        if (clazz == null || builder == null) {
-            LOG.warn(getSpaces() + "Class or Builder is null, abort adding the builder!");
+        if (clazz == null || creator == null) {
+            LOG.warn(getSpaces() + "Class or Creator is null, abort adding the Creator!");
 
             return;
         }
 
-        LOG.debug(getSpaces() + "Adding  builder for class : " + clazz.getName()
-            + ". Added builder: " + builder.getClass().getName());
-        builderMap.put(clazz.getName(), builder);
+        LOG.debug(getSpaces() + "Adding  Creator for class : " + clazz.getName()
+            + ". Added Creator: " + creator.getClass().getName());
+        creatorMap.put(clazz.getName(), creator);
     }
 
 
     /**
-     * Add a builder that is only used for the given attribute of the given class. The builders specified here have
+     * Add a creator that is only used for the given attribute of the given class. The creators specified here have
      * higher priority than the class specific ones.
      *
-     * @param  clazz  class for which the builder should be used (for arrays, use the array classes - e.g.
+     * @param  clazz  class for which the creator should be used (for arrays, use the array classes - e.g.
      *                String[].class !)
-     * @param  attributeName  attribute for which the builder should be used
-     * @param  builder  builder that should be used for the given attribute of the given class
+     * @param  attributeName  attribute for which the creator should be used
+     * @param  creator  creator that should be used for the given attribute of the given class
      */
-    public void addBuilderForClassAndAttribute(Class clazz, String attributeName, Builder builder) {
+    public void addCreatorForClassAndAttribute(Class clazz, String attributeName, Creator creator) {
 
-        if (clazz == null || attributeName == null || builder == null) {
-            LOG.warn("Class, attributeName, or Builder is null, abort adding the builder!");
+        if (clazz == null || attributeName == null || creator == null) {
+            LOG.warn("Class, attributeName, or Creator is null, abort adding the creator!");
 
             return;
         }
 
-        LOG.debug(getSpaces() + "adding attribute specific builder for class and attribute: " + clazz.getName() + " - "
+        LOG.debug(getSpaces() + "adding attribute specific creator for class and attribute: " + clazz.getName() + " - "
             + attributeName
-            + ". Added builder: " + builder.getClass().getName());
-        classAndAttributeSpecificBuilderMap.put(clazz.getName() + "." + attributeName, builder);
+            + ". Added creator: " + creator.getClass().getName());
+        classAndAttributeSpecificCreatorMap.put(clazz.getName() + "." + attributeName, creator);
     }
 
 
     /**
-     * @return  copy of the map with the Builders mapped with classnames
+     * @return  copy of the map with the Creators mapped with classnames
      */
-    public Map<String, Builder> getBuilderMap() {
+    public Map<String, Creator> getCreatorMap() {
 
-        return new HashMap<String, Builder>(builderMap);
+        return new HashMap<String, Creator>(creatorMap);
     }
 
 
     /**
-     * @return  copy of the map with the Builders mapped with class and fieldname
+     * @return  copy of the map with the Creators mapped with class and fieldname
      */
-    public Map<String, Builder> getClassAndAttributeSpecificBuilderMap() {
+    public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
 
-        return new HashMap<String, Builder>(classAndAttributeSpecificBuilderMap);
+        return new HashMap<String, Creator>(classAndAttributeSpecificCreatorMap);
     }
 
 
@@ -205,7 +209,7 @@ public class BeanFiller {
                 for (int f = 0; f < parameterTypes.length; f++) {
                     Class parameterClass = parameterTypes[f];
                     depth++;
-                    parameters[f] = buildObject(parameterClass, field);
+                    parameters[f] = createObject(parameterClass, field);
                     depth--;
                 }
 
@@ -224,7 +228,7 @@ public class BeanFiller {
                         + c.getName(), ex);
                 }
 
-                // call the setter with the built parameters
+                // call the setter with the created parameters
                 try {
                     method.invoke(object, parameters);
                 } catch (IllegalAccessException ex) {
@@ -237,7 +241,7 @@ public class BeanFiller {
                 } catch (InvocationTargetException ex) {
                     throw new FillingException("Exception in the called setter '" + setter.toString() + "' on object "
                         + c.getName() + ". Parameters used: " + Arrays.toString(parameters)
-                        + " Probably a bug in the used Builder, or in the setter.", ex);
+                        + " Probably a bug in the used Creator, or in the setter.", ex);
                 }
             }
         }
@@ -271,41 +275,41 @@ public class BeanFiller {
 
 
     /**
-     * Get the builder for the given fieldname (variable name) in the given class. (exmple: 'name' of the class Customer
-     * searches for a builder with the key 'Customer.name').
+     * Get the creator for the given fieldname (variable name) in the given class. (exmple: 'name' of the class Customer
+     * searches for a creator with the key 'Customer.name').
      *
-     * @param  clazz  class to get the Builder for
-     * @param  field  field to get the Builder for
+     * @param  clazz  class to get the Creator for
+     * @param  field  field to get the Creator for
      *
-     * @return  the Builder or null, if none was found for this combination
+     * @return  the Creator or null, if none was found for this combination
      */
-    private Builder getSpecificBuilder(Class clazz, Field field) {
+    private Creator getSpecificCreator(Class clazz, Field field) {
 
-        Builder b;
+        Creator b;
 
-        // get the builder for the class and attribute
-        LOG.debug(getSpaces() + "getting Builder by class name and field name: " + clazz.getName() + " - "
+        // get the creator for the class and attribute
+        LOG.debug(getSpaces() + "getting Creator by class name and field name: " + clazz.getName() + " - "
             + field.getName());
-        b = classAndAttributeSpecificBuilderMap.get(clazz.getName() + "." + field.getName());
+        b = classAndAttributeSpecificCreatorMap.get(clazz.getName() + "." + field.getName());
 
         return b;
     }
 
 
     /**
-     * Tries to find a Builder in the two builder maps for the given class and field.
+     * Tries to find a Creator in the two creator maps for the given class and field.
      *
-     * @param  clazz  class to get the builder for
-     * @param  field  field to get the builder for
+     * @param  clazz  class to get the creator for
+     * @param  field  field to get the creator for
      *
-     * @return  a Builder or null if none was found.
+     * @return  a Creator or null if none was found.
      */
-    private Builder getBuilderForClassAndField(Class clazz, Field field) {
+    private Creator getCreatorForClassAndField(Class clazz, Field field) {
 
-        Builder b = getSpecificBuilder(field.getDeclaringClass(), field);
+        Creator b = getSpecificCreator(field.getDeclaringClass(), field);
 
         if (b == null) {
-            b = getBuilder(clazz);
+            b = getCreator(clazz);
         }
 
         return b;
@@ -313,57 +317,65 @@ public class BeanFiller {
 
 
     /**
-     * Gets the builder for the specified class.
+     * Gets the creator for the specified class.
      *
      * @param  clazz  class
      *
-     * @return  the Builder if found, or null.
+     * @return  the Creator if found, or null.
      */
-    private Builder getBuilder(Class clazz) {
+    private Creator getCreator(Class clazz) {
 
-        Builder b;
+        Creator b;
 
-        // if no specific builder for this field was set, get the builder for the class of the parameter
+        // if no specific creator for this field was set, get the creator for the class of the parameter
         // (class name because of primitive types)
-        LOG.debug(getSpaces() + "getting Builder by class name: " + clazz.getName());
-        b = builderMap.get(clazz.getName());
+        LOG.debug(getSpaces() + "getting Creator by class name: " + clazz.getName());
+        b = creatorMap.get(clazz.getName());
 
         return b;
     }
 
 
     /**
-     * Builds the Object for the given class and field - If no builder is found for this combination, this method tries
+     * Creates the Object for the given class and field - If no Creator is found for this combination, this method tries
      * to instanciate the given class and calls the fillObject method again to try to fill in the fields of that Object.
      *
      * @param  clazz  Class of the Object
-     * @param  field  Field to fill (needed to get specific builders).
+     * @param  field  Field to fill (needed to get specific creators).
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the created Object or null if an error occured.
      *
      * @throws  FillingException  if an error occurred.
      */
-    public Object buildObjectOfClassAndField(Class clazz, Field field) throws FillingException {
+    public Object createObjectOfClassAndField(Class clazz, Field field) throws FillingException {
 
         Object parameter;
 
-        Builder b = getBuilderForClassAndField(clazz, field);
+        Creator c = getCreatorForClassAndField(clazz, field);
 
-        if (b != null) {
-            LOG.debug(getSpaces() + "Using Builder: " + b.getClass().getName());
-            parameter = b.build();
+        if (c != null) {
+            if (!SimpleCreator.class.isAssignableFrom(c.getClass())) {
+                throw new WrongCreatorException("The Creator got for class " + clazz.getName() + " and field "
+                    + field.getName() + " does not extend " + SimpleCreator.class.getName());
+            }
+
+            LOG.debug(getSpaces() + "Using Creator: " + c.getClass().getName());
+
+            SimpleCreator sc = (SimpleCreator) c;
+
+            parameter = sc.create();
         } else {
             try {
-                // if we don't have a builder for it, instanciate the object and try to fill it.
-                LOG.debug(getSpaces() + "No Builder for class: " + clazz.getName()
+                // if we don't have a Creator for it, instanciate the object and try to fill it.
+                LOG.debug(getSpaces() + "No Creator for class: " + clazz.getName()
                     + ". Trying to create a new instance of it.");
                 parameter = clazz.newInstance();
             } catch (InstantiationException ex) {
-                throw new FillingException("There was no Builder set for the class " + clazz.getName() + " (field '"
+                throw new FillingException("There was no Creator set for the class " + clazz.getName() + " (field '"
                     + field.getName() + "' of class " + clazz.getDeclaringClass() + "). "
                     + " So we tried to instatiate it with the default constructor, but it failed! ", ex);
             } catch (IllegalAccessException ex) {
-                throw new FillingException("There was no Builder set for the class " + clazz.getName()
+                throw new FillingException("There was no Creator set for the class " + clazz.getName()
                     + " So we tried to instatiate it with the default constructor, but couldn't access it!", ex);
             }
 
@@ -375,27 +387,28 @@ public class BeanFiller {
 
 
     /**
-     * Builds an Object that has generic Types.
+     * Creates an Object that has generic Types.
      *
      * @param  clazz  Class of the Object
      * @param  pt  ParameterizedType of the class
-     * @param  field  Field to fill (needed to get specific builders).
+     * @param  field  Field to fill (needed to get specific Creators).
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the created Object or null if an error occured.
      *
      * @throws  FillingException  if an error occurred.
      */
-    private Object buildObjectWithGenericTypes(Class clazz, ParameterizedType pt, Field field) throws FillingException {
+    private Object createObjectWithGenericTypes(Class clazz, ParameterizedType pt, Field field)
+        throws FillingException {
 
-        Builder b = getBuilderForClassAndField(clazz, field);
+        Creator c = getCreatorForClassAndField(clazz, field);
 
-        if (b != null) {
-            if (!GenericsBuilder.class.isAssignableFrom(b.getClass())) {
-                throw new WrongBuilderException("The Builder got for class " + clazz.getName() + " and field "
-                    + field.getName() + " does not extend " + GenericsBuilder.class.getName());
+        if (c != null) {
+            if (!GenericsCreator.class.isAssignableFrom(c.getClass())) {
+                throw new WrongCreatorException("The Creator got for class " + clazz.getName() + " and field "
+                    + field.getName() + " does not extend " + GenericsCreator.class.getName());
             }
 
-            GenericsBuilder gb = (GenericsBuilder) b;
+            GenericsCreator gb = (GenericsCreator) c;
 
             List<Object> typeObjects = new ArrayList<Object>();
 
@@ -403,7 +416,7 @@ public class BeanFiller {
 
             for (int i = 0; i < gb.getSize(); i++) {
                 for (Type type : pt.getActualTypeArguments()) {
-                    // get the class of the generic type and build it
+                    // get the class of the generic type and create it
                     String classString = type.toString().contains("class ") ? type.toString().split(" ")[1]
                                                                             : type.toString();
 
@@ -415,7 +428,7 @@ public class BeanFiller {
                     Object typeObject;
 
                     try {
-                        typeObject = buildObject(Class.forName(classString), field, type);
+                        typeObject = createObject(Class.forName(classString), field, type);
                     } catch (ClassNotFoundException ex) {
                         throw new FillingException("Could not find the class " + classString
                             + " on Filling the Generic Parameters of the class " + clazz.getName()
@@ -426,12 +439,12 @@ public class BeanFiller {
                 }
             }
 
-            LOG.debug(getSpaces() + "using GenericsBuilder: " + gb.getClass().getName());
+            LOG.debug(getSpaces() + "using GenericsCreator: " + gb.getClass().getName());
 
-            return gb.buildWithGenerics(typeObjects);
+            return gb.createWithGenerics(typeObjects);
         }
 
-        LOG.warn(getSpaces() + "Could not find any Builder for class " + clazz.getName() + " and field "
+        LOG.warn(getSpaces() + "Could not find any Creator for class " + clazz.getName() + " and field "
             + field.getName());
 
         return null;
@@ -439,37 +452,37 @@ public class BeanFiller {
 
 
     /**
-     * Builds the given Enum Object.
+     * Creates the given Enum Object.
      *
      * @param  clazz  Class of the Object
-     * @param  field  Field to fill (needed to get specific builders).
+     * @param  field  Field to fill (needed to get specific creators).
      *
-     * @return  the built Enum (or null if no builder was found or the Enum had no Enum constants)
+     * @return  the created Enum (or null if no creator was found or the Enum had no Enum constants)
      */
-    private Object buildEnum(Class clazz, Field field) throws FillingException {
+    private Object createEnum(Class clazz, Field field) throws FillingException {
 
-        Builder b = getBuilderForClassAndField(clazz, field);
+        Creator c = getCreatorForClassAndField(clazz, field);
 
-        if (b == null) {
-            // get the generic enum builder
-            b = (EnumBuilder) getBuilder(java.lang.Enum.class);
+        if (c == null) {
+            // get the generic enum Creator
+            c = getCreator(java.lang.Enum.class);
         }
 
-        if (b != null) {
-            if (!EnumBuilder.class.isAssignableFrom(b.getClass())) {
-                throw new WrongBuilderException("The Builder got for class " + clazz.getName() + " and field "
+        if (c != null) {
+            if (!EnumCreator.class.isAssignableFrom(c.getClass())) {
+                throw new WrongCreatorException("The Creator got for class " + clazz.getName() + " and field "
                     + field.getName()
-                    + " does not extend " + EnumBuilder.class.getName());
+                    + " does not extend " + EnumCreator.class.getName());
             }
 
-            EnumBuilder eb = (EnumBuilder) b;
+            EnumCreator ec = (EnumCreator) c;
 
-            LOG.debug(getSpaces() + "using EnumBuilder: " + eb.getClass().getName());
+            LOG.debug(getSpaces() + "using EnumCreator: " + ec.getClass().getName());
 
-            return eb.buildEnum(clazz);
+            return ec.createEnum(clazz);
         }
 
-        LOG.warn(getSpaces() + "Could not find any Builder for class " + clazz.getName() + " and field "
+        LOG.warn(getSpaces() + "Could not find any Creator for class " + clazz.getName() + " and field "
             + field.getName());
 
         return null;
@@ -477,103 +490,103 @@ public class BeanFiller {
 
 
     /**
-     * Wrapper method for building Objects, enriches the call with the Type of the Object.
+     * Wrapper method for creating Objects, enriches the call with the Type of the Object.
      *
      * @param  parameterClass  Class of the Object
-     * @param  field  Field to fill (needed to get specific builders).
+     * @param  field  Field to fill (needed to get specific creators).
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the created Object or null if an error occured.
      *
      * @throws  FillingException  if an error occurred.
      */
-    private Object buildObject(Class parameterClass, Field field) throws FillingException {
+    private Object createObject(Class parameterClass, Field field) throws FillingException {
 
         Type type = field.getGenericType();
 
-        return buildObject(parameterClass, field, type);
+        return createObject(parameterClass, field, type);
     }
 
 
     /**
-     * Wrapper method for building Objects - delegates the work to the specific methods for different usecases.
+     * Wrapper method for creating Objects - delegates the work to the specific methods for different usecases.
      *
      * @param  parameterClass  Class of the Object
-     * @param  field  Field to fill (needed to get specific builders).
+     * @param  field  Field to fill (needed to get specific creators).
      * @param  type  Type of the Object
      *
-     * @return  the built Object.
+     * @return  the created Object.
      *
      * @throws  FillingException  if an error occurred.
      */
-    private Object buildObject(Class parameterClass, Field field, Type type) throws FillingException {
+    private Object createObject(Class parameterClass, Field field, Type type) throws FillingException {
 
-        LOG.debug(getSpaces() + "Calling buildObject with class: " + parameterClass.getName());
+        LOG.debug(getSpaces() + "Calling createObject with class: " + parameterClass.getName());
         depth++;
 
         Object object;
 
         if (parameterClass.isEnum()) {
-            object = buildEnum(parameterClass, field);
+            object = createEnum(parameterClass, field);
         } else if (parameterClass.isArray()) {
-            object = buildArray(parameterClass, field);
+            object = createArray(parameterClass, field);
         } else if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
             // if this is a ParameterizedType, the Object defines Generics
             ParameterizedType paramType = (ParameterizedType) type;
 
-            object = buildObjectWithGenericTypes(parameterClass, paramType, field);
+            object = createObjectWithGenericTypes(parameterClass, paramType, field);
         } else {
-            object = buildObjectOfClassAndField(parameterClass, field);
+            object = createObjectOfClassAndField(parameterClass, field);
         }
 
         depth--;
-        LOG.debug(getSpaces() + "Finished building Object: " + object);
+        LOG.debug(getSpaces() + "Finished creating Object: " + object);
 
         return object;
     }
 
 
     /**
-     * Method for building Arrays.
+     * Method for creating Arrays.
      *
-     * @param  clazz  class of the Object to build.
+     * @param  clazz  class of the Object to create.
      * @param  field  field to fill.
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the created Object or null if an error occured.
      *
      * @throws  FillingException  if an error occurred.
      */
-    private Object buildArray(Class clazz, Field field) throws FillingException {
+    private Object createArray(Class clazz, Field field) throws FillingException {
 
         Class arrayType = clazz.getComponentType();
 
         List<Object> objectsForArray = new ArrayList<Object>();
 
-        Builder b = getBuilderForClassAndField(clazz, field);
+        Creator b = getCreatorForClassAndField(clazz, field);
 
         if (b == null) {
-            // get the generic array builder
-            b = getBuilder(ArrayBuilder.class);
+            // get the generic array creator
+            b = getCreator(ArrayCreator.class);
         }
 
         if (b != null) {
-            if (!ArrayBuilder.class.isAssignableFrom(b.getClass())) {
-                throw new WrongBuilderException("The Builder got for class " + clazz.getName() + " and field "
+            if (!ArrayCreator.class.isAssignableFrom(b.getClass())) {
+                throw new WrongCreatorException("The Creator got for class " + clazz.getName() + " and field "
                     + field.getName()
-                    + " does not extend " + ArrayBuilder.class.getName());
+                    + " does not extend " + ArrayCreator.class.getName());
             }
 
-            ArrayBuilder ab = (ArrayBuilder) b;
+            ArrayCreator ac = (ArrayCreator) b;
 
-            LOG.debug(getSpaces() + "Using ArrayBuilder: " + ab.getClass().getName());
+            LOG.debug(getSpaces() + "Using ArrayCreator: " + ac.getClass().getName());
 
-            for (int i = 0; i < ab.getSize(); i++) {
-                objectsForArray.add(buildObjectForArray(arrayType, field));
+            for (int i = 0; i < ac.getSize(); i++) {
+                objectsForArray.add(createObjectForArray(arrayType, field));
             }
 
-            return ab.buildArray(objectsForArray, arrayType);
+            return ac.createArray(objectsForArray, arrayType);
         }
 
-        LOG.warn(getSpaces() + "Could not find any Builder for class " + clazz.getName() + " and field "
+        LOG.warn(getSpaces() + "Could not find any Creator for class " + clazz.getName() + " and field "
             + field.getName());
 
         return null;
@@ -581,16 +594,16 @@ public class BeanFiller {
 
 
     /**
-     * Wrapper method to build an Object for an Array that enriches the call with the Type of the field.
+     * Wrapper method to create an Object for an Array that enriches the call with the Type of the field.
      *
      * @param  arrayType  ComponentType class of the Array.
      * @param  field  field to fill.
      *
-     * @return  the built Object or null if an error occured.
+     * @return  the created Object or null if an error occured.
      *
      * @throws  FillingException  if an error occurred.
      */
-    private Object buildObjectForArray(Class arrayType, Field field) throws FillingException {
+    private Object createObjectForArray(Class arrayType, Field field) throws FillingException {
 
         Type type = field.getGenericType();
 
@@ -599,65 +612,65 @@ public class BeanFiller {
             type = ((GenericArrayType) type).getGenericComponentType();
         }
 
-        return buildObject(arrayType, field, type);
+        return createObject(arrayType, field, type);
     }
 
 
     /**
-     * Gets the default builder Map that contains the basic set of builders.
+     * Gets the default creator Map that contains the basic set of creators.
      *
-     * @return  Map of Builders
+     * @return  Map of Creators
      */
-    private Map<String, Builder> getDefaultBuilderMap() {
+    private Map<String, Creator> getDefaultCreatorMap() {
 
-        Map<String, Builder> map = new HashMap<String, Builder>();
+        Map<String, Creator> map = new HashMap<String, Creator>();
 
-        map.put(String.class.getName(), new org.synyx.beanfiller.builder.StringBuilder());
+        map.put(String.class.getName(), new StringCreator());
 
-        IntegerBuilder integerBuilder = new IntegerBuilder();
-        map.put("int", integerBuilder);
-        map.put(Integer.class.getName(), integerBuilder);
+        IntegerCreator integerCreator = new IntegerCreator();
+        map.put("int", integerCreator);
+        map.put(Integer.class.getName(), integerCreator);
 
-        FloatBuilder floatBuilder = new FloatBuilder();
-        map.put("float", floatBuilder);
-        map.put(Float.class.getName(), floatBuilder);
+        FloatCreator floatCreator = new FloatCreator();
+        map.put("float", floatCreator);
+        map.put(Float.class.getName(), floatCreator);
 
-        LongBuilder longBuilder = new LongBuilder();
-        map.put("long", longBuilder);
-        map.put(Long.class.getName(), longBuilder);
+        LongCreator longCreator = new LongCreator();
+        map.put("long", longCreator);
+        map.put(Long.class.getName(), longCreator);
 
-        DoubleBuilder doubleBuilder = new DoubleBuilder();
-        map.put("double", doubleBuilder);
-        map.put(Double.class.getName(), doubleBuilder);
+        DoubleCreator doubleCreator = new DoubleCreator();
+        map.put("double", doubleCreator);
+        map.put(Double.class.getName(), doubleCreator);
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        map.put("boolean", booleanBuilder);
-        map.put(Boolean.class.getName(), booleanBuilder);
+        BooleanCreator booleanCreator = new BooleanCreator();
+        map.put("boolean", booleanCreator);
+        map.put(Boolean.class.getName(), booleanCreator);
 
-        ByteBuilder byteBuilder = new ByteBuilder();
-        map.put("byte", byteBuilder);
-        map.put(Byte.class.getName(), byteBuilder);
+        ByteCreator byteCreator = new ByteCreator();
+        map.put("byte", byteCreator);
+        map.put(Byte.class.getName(), byteCreator);
 
-        BigIntegerBuilder bigIntegerBuilder = new BigIntegerBuilder();
-        map.put(BigInteger.class.getName(), bigIntegerBuilder);
+        BigIntegerCreator bigIntegerCreator = new BigIntegerCreator();
+        map.put(BigInteger.class.getName(), bigIntegerCreator);
 
-        BigDecimalBuilder bigDecimalBuilder = new BigDecimalBuilder();
-        map.put(BigDecimal.class.getName(), bigDecimalBuilder);
+        BigDecimalCreator bigDecimalCreator = new BigDecimalCreator();
+        map.put(BigDecimal.class.getName(), bigDecimalCreator);
 
-        MapBuilder mapBuilder = new MapBuilder(new MapCriteria());
-        map.put("java.util.Map", mapBuilder);
+        MapCreator mapCreator = new MapCreator(new MapCriteria());
+        map.put("java.util.Map", mapCreator);
 
-        ListBuilder listBuilder = new ListBuilder(new ListCriteria());
-        map.put("java.util.List", listBuilder);
+        ListCreator listCreator = new ListCreator(new ListCriteria());
+        map.put("java.util.List", listCreator);
 
-        EnumBuilder enumBuilder = new EnumBuilder();
-        map.put("java.lang.Enum", enumBuilder);
+        EnumCreator enumCreator = new SimpleEnumCreator();
+        map.put("java.lang.Enum", enumCreator);
 
-        ArrayBuilder arrayBuilder = new ArrayBuilder();
-        map.put("org.synyx.beanfiller.builder.ArrayBuilder", arrayBuilder);
+        ArrayCreator arrayCreator = new SimpleArrayCreator();
+        map.put("org.synyx.beanfiller.creator.ArrayCreator", arrayCreator);
 
-        DateBuilder dateBuilder = new DateBuilder();
-        map.put("java.util.Date", dateBuilder);
+        DateCreator dateCreator = new DateCreator();
+        map.put("java.util.Date", dateCreator);
 
         return map;
     }

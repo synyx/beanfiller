@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.DoubleCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -10,23 +10,23 @@ import java.math.BigDecimal;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class DoubleBuilder implements Builder<Double> {
+public class DoubleCreator implements SimpleCreator<Double> {
 
     private DoubleCriteria criteria;
 
-    public DoubleBuilder() {
+    public DoubleCreator() {
 
         this(new DoubleCriteria());
     }
 
 
-    public DoubleBuilder(DoubleCriteria criteria) {
+    public DoubleCreator(DoubleCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public Double build() {
+    public Double create() {
 
         double d = RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 

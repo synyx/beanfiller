@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.DateCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -10,23 +10,23 @@ import java.util.Date;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class DateBuilder implements Builder<Date> {
+public class DateCreator implements SimpleCreator<Date> {
 
     private DateCriteria criteria;
 
-    public DateBuilder() {
+    public DateCreator() {
 
         this.criteria = new DateCriteria();
     }
 
 
-    public DateBuilder(DateCriteria dateCriteria) {
+    public DateCreator(DateCriteria dateCriteria) {
 
         this.criteria = dateCriteria;
     }
 
     @Override
-    public Date build() {
+    public Date create() {
 
         // just use the long values for getting a random Date
         return new Date(Math.round(

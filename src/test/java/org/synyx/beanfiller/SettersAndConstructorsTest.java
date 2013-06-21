@@ -4,7 +4,8 @@ package org.synyx.beanfiller;
 import org.junit.Assert;
 import org.junit.Test;
 
-import org.synyx.beanfiller.builder.Builder;
+import org.synyx.beanfiller.creator.Creator;
+import org.synyx.beanfiller.creator.SimpleCreator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,164 +19,164 @@ import java.util.Map;
 public class SettersAndConstructorsTest {
 
     @Test
-    public void testDefaultBuilderMapIsUsed() {
+    public void testDefaultCreatorMapIsUsed() {
 
         BeanFiller beanfiller = new BeanFiller();
-        Assert.assertNotNull("The BuilderMap shouldn't be null if the default builder map is used!",
-            beanfiller.getBuilderMap());
-        Assert.assertEquals("The BuilderMap shouldn't be empty if the default builder map is used!", false,
-            beanfiller.getBuilderMap().isEmpty());
+        Assert.assertNotNull("The CreatorMap shouldn't be null if the default Creator map is used!",
+            beanfiller.getCreatorMap());
+        Assert.assertEquals("The CreatorMap shouldn't be empty if the default Creator map is used!", false,
+            beanfiller.getCreatorMap().isEmpty());
     }
 
 
     @Test
-    public void testSetBuilderMapWithConstructor() {
+    public void testSetCreatorMapWithConstructor() {
 
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
-        Assert.assertNotNull("The BuilderMap shouldn't be null", beanfiller.getBuilderMap());
-        Assert.assertEquals("The BuilderMap should be empty as we set it above!", true,
-            beanfiller.getBuilderMap().isEmpty());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        Assert.assertNotNull("The CreatorMap shouldn't be null", beanfiller.getCreatorMap());
+        Assert.assertEquals("The CreatorMap should be empty as we set it above!", true,
+            beanfiller.getCreatorMap().isEmpty());
     }
 
 
     /**
-     * Test the adding of Builders to the map.
+     * Test the adding of Creators to the map.
      */
     @Test
-    public void testAddBuilder() {
-
-        BeanFiller beanfiller = new BeanFiller();
-
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilder(this.getClass(), builder);
-
-        Map<String, Builder> builderMap = beanfiller.getBuilderMap();
-
-        Assert.assertEquals("Builder wasn't added under the expected key!", builder,
-            builderMap.get(this.getClass().getName()));
-    }
-
-
-    /**
-     * Test the adding of a Builder for an Array class to the map.
-     */
-    @Test
-    public void testAddArrayBuilder() {
+    public void testAddCreator() {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilder(String[].class, builder);
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(this.getClass(), Creator);
 
-        Map<String, Builder> builderMap = beanfiller.getBuilderMap();
+        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Builder wasn't added under the expected key!", builder,
-            builderMap.get("[Ljava.lang.String;"));
+        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
+            CreatorMap.get(this.getClass().getName()));
     }
 
 
     /**
-     * Test the adding of Builders to the map is not done without a class given.
+     * Test the adding of a Creator for an Array class to the map.
      */
     @Test
-    public void testAddBuilderWithoutClass() {
-
-        // we need an empty builder map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
-
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilder(null, builder);
-
-        Map<String, Builder> builderMap = beanfiller.getBuilderMap();
-
-        Assert.assertEquals("Builder map should be empty!", 0, builderMap.size());
-    }
-
-
-    /**
-     * Test the adding of Builders to the map is not done without a builder given.
-     */
-    @Test
-    public void testAddBuilderWithoutBuilder() {
-
-        // we need an empty builder map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
-
-        beanfiller.addBuilder(this.getClass(), null);
-
-        Map<String, Builder> builderMap = beanfiller.getBuilderMap();
-
-        Assert.assertEquals("Builder map should be empty!", 0, builderMap.size());
-    }
-
-
-    /**
-     * Test the adding of Builders to the specific builders map.
-     */
-    @Test
-    public void testAddSpecificBuilder() {
+    public void testAddArrayCreator() {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilderForClassAndAttribute(this.getClass(), "test", builder);
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(String[].class, Creator);
 
-        Map<String, Builder> builderMap = beanfiller.getClassAndAttributeSpecificBuilderMap();
+        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Builder wasn't added under the expected key!", builder,
-            builderMap.get(this.getClass().getName() + ".test"));
+        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
+            CreatorMap.get("[Ljava.lang.String;"));
     }
 
 
     /**
-     * Test the adding of Builders to the specific builders map is not done without a class given.
+     * Test the adding of Creators to the map is not done without a class given.
      */
     @Test
-    public void testAddSpecificBuilderWithoutClass() {
+    public void testAddCreatorWithoutClass() {
 
-        // we need an empty builder map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
+        // we need an empty Creator map for this test
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
 
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilderForClassAndAttribute(null, "test", builder);
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(null, Creator);
 
-        Map<String, Builder> builderMap = beanfiller.getClassAndAttributeSpecificBuilderMap();
+        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Builder map should be empty!", 0, builderMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
     }
 
 
     /**
-     * Test the adding of Builders to the specific builders map is not done without an attributeName given.
+     * Test the adding of Creators to the map is not done without a Creator given.
      */
     @Test
-    public void testAddSpecificBuilderWithoutAttributeName() {
+    public void testAddCreatorWithoutCreator() {
 
-        // we need an empty builder map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
+        // we need an empty Creator map for this test
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
 
-        Builder builder = new org.synyx.beanfiller.builder.StringBuilder();
-        beanfiller.addBuilderForClassAndAttribute(this.getClass(), null, builder);
+        beanfiller.addCreator(this.getClass(), null);
 
-        Map<String, Builder> builderMap = beanfiller.getClassAndAttributeSpecificBuilderMap();
+        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Builder map should be empty!", 0, builderMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
     }
 
 
     /**
-     * Test the adding of Builders to the specific builders map is not done without a builder given.
+     * Test the adding of Creators to the specific Creators map.
      */
     @Test
-    public void testAddSpecificBuilderWithoutBuilder() {
+    public void testAddSpecificCreator() {
 
-        // we need an empty builder map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Builder>());
+        BeanFiller beanfiller = new BeanFiller();
 
-        beanfiller.addBuilderForClassAndAttribute(this.getClass(), "test", null);
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", Creator);
 
-        Map<String, Builder> builderMap = beanfiller.getClassAndAttributeSpecificBuilderMap();
+        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Builder map should be empty!", 0, builderMap.size());
+        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
+            CreatorMap.get(this.getClass().getName() + ".test"));
+    }
+
+
+    /**
+     * Test the adding of Creators to the specific Creators map is not done without a class given.
+     */
+    @Test
+    public void testAddSpecificCreatorWithoutClass() {
+
+        // we need an empty Creator map for this test
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(null, "test", Creator);
+
+        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+
+        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+    }
+
+
+    /**
+     * Test the adding of Creators to the specific Creators map is not done without an attributeName given.
+     */
+    @Test
+    public void testAddSpecificCreatorWithoutAttributeName() {
+
+        // we need an empty Creator map for this test
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+
+        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(this.getClass(), null, Creator);
+
+        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+
+        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+    }
+
+
+    /**
+     * Test the adding of Creators to the specific Creators map is not done without a Creator given.
+     */
+    @Test
+    public void testAddSpecificCreatorWithoutCreator() {
+
+        // we need an empty Creator map for this test
+        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+
+        beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", null);
+
+        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+
+        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
     }
 }

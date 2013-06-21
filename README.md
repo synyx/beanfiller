@@ -34,23 +34,23 @@ Bean members of your Bean are scanned recursivly for the above classes and are a
 
 Support filling custom Objects in your Beans
 ============================================
-To support custom Objects, you first have to provide a corresponding Builder for it. 
-To do so, implement the Builder interface. For Arrays the ArrayBuilder, 
-for Enums the EnumsBuilder (though the standard EnumBuilder should support all standard Enums) 
-and for Objects with generic types, extend the GenericsBuilder. 
+To support custom Objects, you first have to provide a corresponding Creator for it. 
+To do so, implement the Creators interface. For Arrays the ArrayCreator, 
+for Enums the EnumsCreator (though the default SimpleEnumCreator should support all standard Enums) 
+and for Objects with generic types, implement the GenericsCreator. 
 For further information please consult the javadoc of those classes.
 
-To add your Builder to the BeanFiller, call
-<pre>beanFiller.addBuilder(Class clazz, Builder builder)</pre>
+To add your Creator to the BeanFiller, call
+<pre>beanFiller.addCreator(Class clazz, Creator creator)</pre>
 
-You can even add a Builder for one specific field of a class by using
-<pre>beanFiller.addBuilderForClassAndAttribute(Class clazz, String attributeName, Builder builder)</pre>
+You can even add a Creator for one specific field of a class by using
+<pre>beanFiller.addCreatorForClassAndAttribute(Class clazz, String attributeName, Creator creator)</pre>
 
 For more information, see javadoc.
 
 
 next up
 =======
-* Improving & testing of the different Builders
+* Refactorings
 
 

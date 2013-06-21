@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import org.mockito.Mockito;
 
-import org.synyx.beanfiller.builder.ArrayBuilder;
-import org.synyx.beanfiller.builder.Builder;
-import org.synyx.beanfiller.builder.StringBuilder;
+import org.synyx.beanfiller.creator.ArrayCreator;
+import org.synyx.beanfiller.creator.SimpleArrayCreator;
+import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.testobjects.ArraysObject;
 
 import static org.mockito.Mockito.mock;
@@ -115,41 +115,41 @@ public class ArrayTest {
 
 
     @Test
-    public void testAddedArrayBuilderIsUsed() throws FillingException {
+    public void testAddedArrayCreatorIsUsed() throws FillingException {
 
-        ArrayBuilder arrayBuilder = mock(ArrayBuilder.class);
-        when(arrayBuilder.buildArray(Mockito.anyList(), Mockito.any(Class.class))).thenReturn(null);
+        ArrayCreator arrayCreator = mock(ArrayCreator.class);
+        when(arrayCreator.createArray(Mockito.anyList(), Mockito.any(Class.class))).thenReturn(null);
 
-        beanfiller.addBuilder(String[].class, arrayBuilder);
+        beanfiller.addCreator(String[].class, arrayCreator);
 
         beanfiller.fillBean(new ArraysObject());
 
-        // assert that our mock was called instead of the default ArrayBuilder
-        verify(arrayBuilder).buildArray(Mockito.anyList(), Mockito.any(Class.class));
+        // assert that our mock was called instead of the default ArrayCreator
+        verify(arrayCreator).createArray(Mockito.anyList(), Mockito.any(Class.class));
     }
 
 
     @Test
-    public void testAddedSpecificArrayBuilderIsUsed() throws FillingException {
+    public void testAddedSpecificArrayCreatorIsUsed() throws FillingException {
 
-        ArrayBuilder arrayBuilder = mock(ArrayBuilder.class);
-        when(arrayBuilder.buildArray(Mockito.anyList(), Mockito.any(Class.class))).thenReturn(null);
+        SimpleArrayCreator arrayCreator = mock(SimpleArrayCreator.class);
+        when(arrayCreator.createArray(Mockito.anyList(), Mockito.any(Class.class))).thenReturn(null);
 
-        beanfiller.addBuilderForClassAndAttribute(ArraysObject.class, "stringArray", arrayBuilder);
+        beanfiller.addCreatorForClassAndAttribute(ArraysObject.class, "stringArray", arrayCreator);
 
         beanfiller.fillBean(new ArraysObject());
 
-        // assert that our mock was called instead of the default ArrayBuilder
-        verify(arrayBuilder).buildArray(Mockito.anyList(), Mockito.any(Class.class));
+        // assert that our mock was called instead of the default ArrayCreator
+        verify(arrayCreator).createArray(Mockito.anyList(), Mockito.any(Class.class));
     }
 
 
-    @Test(expected = WrongBuilderException.class)
-    public void testWrongBuilderExceptionIsThrownIfNonArrayBuilderIsUsed() throws FillingException {
+    @Test(expected = WrongCreatorException.class)
+    public void testWrongCreatorExceptionIsThrownIfNonArrayCreatorIsUsed() throws FillingException {
 
-        Builder stringBuilder = new StringBuilder();
+        StringCreator stringCreator = new StringCreator();
 
-        beanfiller.addBuilderForClassAndAttribute(ArraysObject.class, "stringArray", stringBuilder);
+        beanfiller.addCreatorForClassAndAttribute(ArraysObject.class, "stringArray", stringCreator);
 
         beanfiller.fillBean(new ArraysObject());
     }

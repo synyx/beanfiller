@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.services.RandomGenerator;
 
@@ -7,10 +7,10 @@ import org.synyx.beanfiller.services.RandomGenerator;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BooleanBuilder implements Builder<Boolean> {
+public class BooleanCreator implements SimpleCreator<Boolean> {
 
     @Override
-    public Boolean build() {
+    public Boolean create() {
 
         return RandomGenerator.getRandomBoolean();
     }

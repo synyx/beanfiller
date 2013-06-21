@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.builder;
+package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.FloatCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
@@ -9,23 +9,23 @@ import java.math.BigDecimal;
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
-public class FloatBuilder implements Builder<Float> {
+public class FloatCreator implements SimpleCreator<Float> {
 
     private FloatCriteria criteria;
 
-    public FloatBuilder() {
+    public FloatCreator() {
 
         this(new FloatCriteria());
     }
 
 
-    public FloatBuilder(FloatCriteria criteria) {
+    public FloatCreator(FloatCriteria criteria) {
 
         this.criteria = criteria;
     }
 
     @Override
-    public Float build() {
+    public Float create() {
 
         float f = RandomGenerator.getRandomFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 
