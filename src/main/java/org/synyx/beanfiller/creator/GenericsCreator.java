@@ -1,5 +1,7 @@
 package org.synyx.beanfiller.creator;
 
+import org.synyx.beanfiller.FillingException;
+
 import java.util.List;
 
 
@@ -17,8 +19,10 @@ public interface GenericsCreator<T> extends Creator {
      * @param  genericObjects  Objects of the Generic Types of the Generics Object.
      *
      * @return  the created Object.
+     *
+     * @throws  FillingException  if an error occured.
      */
-    T createWithGenerics(List<Object> genericObjects);
+    T createWithGenerics(List<Object> genericObjects) throws FillingException;
 
 
     int getSize();

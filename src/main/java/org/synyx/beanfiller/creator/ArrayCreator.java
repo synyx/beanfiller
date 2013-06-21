@@ -1,5 +1,7 @@
 package org.synyx.beanfiller.creator;
 
+import org.synyx.beanfiller.FillingException;
+
 import java.util.List;
 
 
@@ -17,8 +19,10 @@ public interface ArrayCreator extends Creator {
      * @param  arrayType  class of the array Objects
      *
      * @return  the created array Object.
+     *
+     * @throws  FillingException  if an error occured.
      */
-    Object createArray(List<Object> objects, Class arrayType);
+    Object createArray(List<Object> objects, Class arrayType) throws FillingException;
 
 
     /**

@@ -1,8 +1,7 @@
 
 package org.synyx.beanfiller.creator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.synyx.beanfiller.NoEnumConstantsException;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,10 +13,8 @@ import java.util.List;
  */
 public class SimpleEnumCreator implements EnumCreator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EnumCreator.class);
-
     @Override
-    public Object createEnum(Class clazz) {
+    public Object createEnum(Class clazz) throws NoEnumConstantsException {
 
         Object[] enumArray = clazz.getEnumConstants();
 
@@ -29,8 +26,7 @@ public class SimpleEnumCreator implements EnumCreator {
             return enumList.get(0);
         }
 
-        LOG.warn("No EnumConstants defined in Enum class: " + clazz.getName());
-
-        return null;
+        throw new NoEnumConstantsException("There are no constants defined in Enum class " + clazz.getName()
+            + ". Please provide constants for this Enum!");
     }
 }

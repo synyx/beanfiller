@@ -1,5 +1,8 @@
 package org.synyx.beanfiller.creator;
 
+import org.synyx.beanfiller.FillingException;
+
+
 /**
  * Creator interface for Enums - implement this if you write your own Enum Creators.
  *
@@ -13,6 +16,8 @@ public interface EnumCreator extends Creator {
      * @param  clazz
      *
      * @return  the created Enum or null, if no EnumConstants are defined in the Enum class.
+     *
+     * @throws  FillingException  if an error occured.
      */
-    Object createEnum(Class clazz);
+    Object createEnum(Class clazz) throws FillingException;
 }
