@@ -287,14 +287,14 @@ public class BeanFiller {
      */
     private Creator getSpecificCreator(Class clazz, Field field) {
 
-        Creator b;
+        Creator c;
 
         // get the creator for the class and attribute
         LOG.debug(getSpaces() + "getting Creator by class name and field name: " + clazz.getName() + " - "
             + field.getName());
-        b = classAndAttributeSpecificCreatorMap.get(clazz.getName() + "." + field.getName());
+        c = classAndAttributeSpecificCreatorMap.get(clazz.getName() + "." + field.getName());
 
-        return b;
+        return c;
     }
 
 
@@ -308,13 +308,13 @@ public class BeanFiller {
      */
     private Creator getCreatorForClassAndField(Class clazz, Field field) {
 
-        Creator b = getSpecificCreator(field.getDeclaringClass(), field);
+        Creator c = getSpecificCreator(field.getDeclaringClass(), field);
 
-        if (b == null) {
-            b = getCreator(clazz);
+        if (c == null) {
+            c = getCreator(clazz);
         }
 
-        return b;
+        return c;
     }
 
 
@@ -327,14 +327,14 @@ public class BeanFiller {
      */
     private Creator getCreator(Class clazz) {
 
-        Creator b;
+        Creator c;
 
         // if no specific creator for this field was set, get the creator for the class of the parameter
         // (class name because of primitive types)
         LOG.debug(getSpaces() + "getting Creator by class name: " + clazz.getName());
-        b = creatorMap.get(clazz.getName());
+        c = creatorMap.get(clazz.getName());
 
-        return b;
+        return c;
     }
 
 
@@ -563,21 +563,21 @@ public class BeanFiller {
 
         List<Object> objectsForArray = new ArrayList<Object>();
 
-        Creator b = getCreatorForClassAndField(clazz, field);
+        Creator c = getCreatorForClassAndField(clazz, field);
 
-        if (b == null) {
+        if (c == null) {
             // get the generic array creator
-            b = getCreator(ArrayCreator.class);
+            c = getCreator(ArrayCreator.class);
         }
 
-        if (b != null) {
-            if (!ArrayCreator.class.isAssignableFrom(b.getClass())) {
+        if (c != null) {
+            if (!ArrayCreator.class.isAssignableFrom(c.getClass())) {
                 throw new WrongCreatorException("The Creator got for class " + clazz.getName() + " and field "
                     + field.getName()
                     + " does not extend " + ArrayCreator.class.getName());
             }
 
-            ArrayCreator ac = (ArrayCreator) b;
+            ArrayCreator ac = (ArrayCreator) c;
 
             LOG.debug(getSpaces() + "Using ArrayCreator: " + ac.getClass().getName());
 
