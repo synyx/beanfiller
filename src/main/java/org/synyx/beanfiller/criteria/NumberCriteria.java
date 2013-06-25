@@ -7,8 +7,8 @@ package org.synyx.beanfiller.criteria;
  */
 public abstract class NumberCriteria<T extends Number> {
 
-    protected T min;
-    protected T max;
+    private T min;
+    private T max;
 
     /**
      * @param  min  minimum value of the created number

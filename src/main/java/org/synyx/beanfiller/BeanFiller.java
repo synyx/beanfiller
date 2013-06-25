@@ -223,8 +223,8 @@ public class BeanFiller {
                 } catch (NoSuchMethodException ex) {
                     throw new FillingException("Could not find the setter '" + setter.toString() + "' on object "
                         + c.getName()
-                        + ". As we got the setters from the same object before, that's probably a bug in the BeanFiller code, please report.",
-                        ex);
+                        + ". As we got the setters from the same object before, "
+                        + "that's probably a bug in the BeanFiller code, please report.", ex);
                 } catch (SecurityException ex) {
                     throw new FillingException("Could not access the setter '" + setter.toString() + "' on object "
                         + c.getName(), ex);

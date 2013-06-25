@@ -14,6 +14,11 @@ public class RandomGenerator {
 
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
+    private RandomGenerator() {
+
+        // has only static methods, so we hide the default constructor
+    }
+
     /**
      * Wrapper for Random.nextInt().
      *

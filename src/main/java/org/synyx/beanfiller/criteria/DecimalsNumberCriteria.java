@@ -7,7 +7,7 @@ package org.synyx.beanfiller.criteria;
  */
 public abstract class DecimalsNumberCriteria<T extends Number> extends NumberCriteria<T> {
 
-    protected int numberOfDecimals;
+    private int numberOfDecimals;
 
     /**
      * @param  min  minimum value of the created number

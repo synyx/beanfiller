@@ -27,30 +27,30 @@ public class DateCriteria implements Criteria<Date> {
 
     public DateCriteria(Date minDate, Date maxDate) {
 
-        this.minDate = minDate;
-        this.maxDate = maxDate;
+        this.minDate = new Date(minDate.getTime());
+        this.maxDate = new Date(maxDate.getTime());
     }
 
     public Date getMinDate() {
 
-        return minDate;
+        return new Date(minDate.getTime());
     }
 
 
     public void setMinDate(Date minDate) {
 
-        this.minDate = minDate;
+        this.minDate = new Date(minDate.getTime());
     }
 
 
     public Date getMaxDate() {
 
-        return maxDate;
+        return new Date(maxDate.getTime());
     }
 
 
     public void setMaxDate(Date maxDate) {
 
-        this.maxDate = maxDate;
+        this.maxDate = new Date(maxDate.getTime());
     }
 }
