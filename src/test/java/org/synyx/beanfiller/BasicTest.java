@@ -4,8 +4,11 @@ package org.synyx.beanfiller;
 import org.junit.Assert;
 import org.junit.Test;
 
+import org.synyx.beanfiller.creator.EnumCreator;
+import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.ArraysObject;
 import org.synyx.beanfiller.testobjects.BaseObject;
 
@@ -185,5 +188,16 @@ public class BasicTest {
 
         // assert that our mock was called
         verify(stringCreator).create();
+    }
+
+
+    @Test(expected = WrongCreatorException.class)
+    public void testWrongCreatorExceptionIsThrownIfNonSimpleCreatorIsUsed() throws FillingException {
+
+        EnumCreator enumCreator = new SimpleEnumCreator();
+
+        beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "text", enumCreator);
+
+        beanfiller.fillBean(new BaseObject());
     }
 }
