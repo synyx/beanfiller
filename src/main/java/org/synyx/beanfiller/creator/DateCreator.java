@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class DateCreator implements SimpleCreator<Date> {
 
-    private DateCriteria criteria;
+    private final DateCriteria criteria;
 
     /**
      * Create a new DateCreator with the default DateCriteria.

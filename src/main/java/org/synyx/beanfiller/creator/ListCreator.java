@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ListCreator implements GenericsCreator<List<?>> {
 
-    private ListCriteria criteria;
+    private final ListCriteria criteria;
 
     public ListCreator(ListCriteria criteria) {
 

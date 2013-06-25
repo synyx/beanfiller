@@ -9,7 +9,7 @@ import org.synyx.beanfiller.services.RandomGenerator;
  */
 public class StringCreator implements SimpleCreator<String> {
 
-    private StringCriteria criteria;
+    private final StringCriteria criteria;
 
     public StringCreator() {
 

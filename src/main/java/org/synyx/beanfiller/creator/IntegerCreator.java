@@ -13,7 +13,7 @@ import org.synyx.beanfiller.services.RandomGenerator;
  */
 public class IntegerCreator implements SimpleCreator<Integer> {
 
-    private NumberCriteria<Integer> criteria;
+    private final NumberCriteria<Integer> criteria;
 
     /**
      * Create a new IntegerCreator with the default IntegerCriteria.

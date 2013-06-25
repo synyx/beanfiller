@@ -13,7 +13,7 @@ import org.synyx.beanfiller.services.RandomGenerator;
  */
 public class LongCreator implements SimpleCreator<Long> {
 
-    private NumberCriteria<Long> criteria;
+    private final NumberCriteria<Long> criteria;
 
     /**
      * Create a new LongCreator with the default LongCriteria.

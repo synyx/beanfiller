@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  */
 public class DoubleCreator implements SimpleCreator<Double> {
 
-    private DecimalsNumberCriteria<Double> criteria;
+    private final DecimalsNumberCriteria<Double> criteria;
 
     /**
      * Create a new DoubleCreator with the default DoubleCriteria.

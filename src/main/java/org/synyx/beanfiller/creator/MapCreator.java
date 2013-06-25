@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class MapCreator implements GenericsCreator<Map<?, ?>> {
 
-    private MapCriteria criteria;
+    private final MapCriteria criteria;
 
     /**
      * Create a new MapCreator with the default MapCriteria.

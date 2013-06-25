@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 public class FloatCreator implements SimpleCreator<Float> {
 
-    private DecimalsNumberCriteria<Float> criteria;
+    private final DecimalsNumberCriteria<Float> criteria;
 
     /**
      * Create a new FloatCreator with the default FloatCriteria.

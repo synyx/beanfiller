@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class SimpleArrayCreator implements ArrayCreator {
 
-    private ArrayCriteria arrayCriteria;
+    private final ArrayCriteria arrayCriteria;
 
     /**
      * Create a new SimpleArrayCreator with the default Criteria.
