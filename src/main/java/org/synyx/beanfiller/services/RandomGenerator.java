@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class RandomGenerator {
+public final class RandomGenerator {
 
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
