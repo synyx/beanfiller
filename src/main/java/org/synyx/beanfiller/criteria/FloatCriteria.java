@@ -2,59 +2,30 @@
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Floats.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class FloatCriteria implements Criteria<Float> {
+public class FloatCriteria extends DecimalsNumberCriteria<Float> {
 
-    private float max;
-    private float min;
-    private int decimals;
-
+    /**
+     * Create a new FloatCriteria with the default values.
+     */
     public FloatCriteria() {
 
-        this(0f, 1, 2);
+        this(0f, 1f, 2);
     }
 
 
-    public FloatCriteria(float min, float max, int decimals) {
+    /**
+     * Create a new FloatCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     * @param  numberOfDecimals  of the created number
+     */
+    public FloatCriteria(Float min, Float max, int numberOfDecimals) {
 
-        this.max = max;
-        this.min = min;
-        this.decimals = decimals;
-    }
-
-    public float getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(float max) {
-
-        this.max = max;
-    }
-
-
-    public float getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(float min) {
-
-        this.min = min;
-    }
-
-
-    public int getDecimals() {
-
-        return decimals;
-    }
-
-
-    public void setDecimals(int decimals) {
-
-        this.decimals = decimals;
+        super(min, max, numberOfDecimals);
     }
 }

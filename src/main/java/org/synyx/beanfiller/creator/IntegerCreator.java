@@ -2,23 +2,36 @@
 package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.IntegerCriteria;
+import org.synyx.beanfiller.criteria.NumberCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
+ * Creator for Integers.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class IntegerCreator implements SimpleCreator<Integer> {
 
-    private IntegerCriteria criteria;
+    private NumberCriteria<Integer> criteria;
 
+    /**
+     * Create a new IntegerCreator with the default IntegerCriteria.
+     *
+     * @param  criteria  the criteria to use.
+     */
     public IntegerCreator() {
 
         this(new IntegerCriteria());
     }
 
 
-    public IntegerCreator(IntegerCriteria criteria) {
+    /**
+     * Create a new IntegerCreator with the given criteria.
+     *
+     * @param  criteria  the criteria to use.
+     */
+    public IntegerCreator(NumberCriteria<Integer> criteria) {
 
         this.criteria = criteria;
     }

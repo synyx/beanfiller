@@ -5,6 +5,8 @@ import java.util.List;
 
 
 /**
+ * Criteria for Lists.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class ListCriteria implements Criteria<List<?>> {

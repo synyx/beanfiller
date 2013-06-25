@@ -4,6 +4,8 @@ import org.synyx.beanfiller.services.RandomGenerator;
 
 
 /**
+ * Creator for Bytes.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class ByteCreator implements SimpleCreator<Byte> {

@@ -8,12 +8,28 @@ import java.util.Map;
 
 
 /**
+ * Creator for Maps.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class MapCreator implements GenericsCreator<Map<?, ?>> {
 
     private MapCriteria criteria;
 
+    /**
+     * Create a new MapCreator with the default MapCriteria.
+     */
+    public MapCreator() {
+
+        this.criteria = new MapCriteria(3);
+    }
+
+
+    /**
+     * Create a new MapCreator with the given criteria.
+     *
+     * @param  criteria  the criteria to use.
+     */
     public MapCreator(MapCriteria criteria) {
 
         this.criteria = criteria;

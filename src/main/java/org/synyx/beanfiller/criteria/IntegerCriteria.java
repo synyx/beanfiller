@@ -1,46 +1,29 @@
-
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Integers.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class IntegerCriteria implements Criteria<Integer> {
+public class IntegerCriteria extends NumberCriteria<Integer> {
 
-    private int max;
-    private int min;
-
+    /**
+     * Create a new IntegerCriteria with the default values.
+     */
     public IntegerCriteria() {
 
         this(0, 1000);
     }
 
 
-    public IntegerCriteria(int min, int max) {
+    /**
+     * Create a new IntegerCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     */
+    public IntegerCriteria(Integer min, Integer max) {
 
-        this.max = max;
-        this.min = min;
-    }
-
-    public int getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(int max) {
-
-        this.max = max;
-    }
-
-
-    public int getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(int min) {
-
-        this.min = min;
+        super(min, max);
     }
 }

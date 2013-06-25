@@ -1,49 +1,33 @@
-
 package org.synyx.beanfiller.criteria;
 
 import java.math.BigDecimal;
 
 
 /**
+ * Criteria used for BigDecimals.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BigDecimalCriteria implements Criteria<BigDecimal> {
+public class BigDecimalCriteria extends DecimalsNumberCriteria<BigDecimal> {
 
-    private BigDecimal max;
-    private BigDecimal min;
-
+    /**
+     * Create a new BigDecimalCriteria with the default values.
+     */
     public BigDecimalCriteria() {
 
-        this(BigDecimal.ZERO, BigDecimal.valueOf(12.12));
+        this(BigDecimal.ZERO, BigDecimal.valueOf(12.12), 2);
     }
 
 
-    public BigDecimalCriteria(BigDecimal min, BigDecimal max) {
+    /**
+     * Create a new BigDecimalCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     * @param  numberOfDecimals  of the created number
+     */
+    public BigDecimalCriteria(BigDecimal min, BigDecimal max, int numberOfDecimals) {
 
-        this.max = max;
-        this.min = min;
-    }
-
-    public BigDecimal getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(BigDecimal max) {
-
-        this.max = max;
-    }
-
-
-    public BigDecimal getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(BigDecimal min) {
-
-        this.min = min;
+        super(min, max, numberOfDecimals);
     }
 }

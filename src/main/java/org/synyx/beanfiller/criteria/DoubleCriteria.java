@@ -1,60 +1,30 @@
-
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Doubles.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class DoubleCriteria implements Criteria<Float> {
+public class DoubleCriteria extends DecimalsNumberCriteria<Double> {
 
-    private double max;
-    private double min;
-    private int decimals;
-
+    /**
+     * Create a new DoubleCriteria with the default values.
+     */
     public DoubleCriteria() {
 
-        this(0, 1, 2);
+        this(0d, 1d, 2);
     }
 
 
-    public DoubleCriteria(double min, double max, int decimals) {
+    /**
+     * Create a new DoubleCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     * @param  numberOfDecimals  of the created number
+     */
+    public DoubleCriteria(Double min, Double max, int numberOfDecimals) {
 
-        this.max = max;
-        this.min = min;
-        this.decimals = decimals;
-    }
-
-    public double getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(double max) {
-
-        this.max = max;
-    }
-
-
-    public double getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(double min) {
-
-        this.min = min;
-    }
-
-
-    public int getDecimals() {
-
-        return decimals;
-    }
-
-
-    public void setDecimals(int decimals) {
-
-        this.decimals = decimals;
+        super(min, max, numberOfDecimals);
     }
 }

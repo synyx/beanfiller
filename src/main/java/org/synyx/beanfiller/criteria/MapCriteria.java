@@ -5,6 +5,8 @@ import java.util.Map;
 
 
 /**
+ * Criteria for Maps.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class MapCriteria implements Criteria<Map<?, ?>> {

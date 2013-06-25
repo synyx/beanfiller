@@ -5,45 +5,29 @@ import java.math.BigInteger;
 
 
 /**
+ * Criteria for BigIntegers.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BigIntegerCriteria implements Criteria<BigInteger> {
+public class BigIntegerCriteria extends NumberCriteria<BigInteger> {
 
-    private BigInteger max;
-    private BigInteger min;
-
+    /**
+     * Create a new BigIntegerCriteria with the default values.
+     */
     public BigIntegerCriteria() {
 
         this(BigInteger.ZERO, BigInteger.TEN);
     }
 
 
+    /**
+     * Create a new BigIntegerCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     */
     public BigIntegerCriteria(BigInteger min, BigInteger max) {
 
-        this.max = max;
-        this.min = min;
-    }
-
-    public BigInteger getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(BigInteger max) {
-
-        this.max = max;
-    }
-
-
-    public BigInteger getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(BigInteger min) {
-
-        this.min = min;
+        super(min, max);
     }
 }

@@ -8,18 +8,28 @@ import java.util.Date;
 
 
 /**
+ * Creator for Dates.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class DateCreator implements SimpleCreator<Date> {
 
     private DateCriteria criteria;
 
+    /**
+     * Create a new DateCreator with the default DateCriteria.
+     */
     public DateCreator() {
 
         this.criteria = new DateCriteria();
     }
 
 
+    /**
+     * Create a new DateCreator with the given criteria.
+     *
+     * @param  criteria  the criteria to use.
+     */
     public DateCreator(DateCriteria dateCriteria) {
 
         this.criteria = dateCriteria;

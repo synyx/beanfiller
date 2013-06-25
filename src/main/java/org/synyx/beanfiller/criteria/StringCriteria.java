@@ -2,6 +2,8 @@
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Strings.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class StringCriteria implements Criteria<String> {

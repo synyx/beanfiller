@@ -5,6 +5,8 @@ import java.util.Date;
 
 
 /**
+ * Criteria for Dates.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class DateCriteria implements Criteria<Date> {

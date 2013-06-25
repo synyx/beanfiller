@@ -7,6 +7,8 @@ import java.util.List;
 
 
 /**
+ * Creator for Lists.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class ListCreator implements GenericsCreator<List<?>> {

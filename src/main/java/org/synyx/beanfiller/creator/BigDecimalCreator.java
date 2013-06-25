@@ -1,26 +1,36 @@
-
 package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.BigDecimalCriteria;
+import org.synyx.beanfiller.criteria.DecimalsNumberCriteria;
 import org.synyx.beanfiller.services.RandomGenerator;
 
 import java.math.BigDecimal;
 
 
 /**
+ * Creator for BigDecimals.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
 
-    private BigDecimalCriteria criteria;
+    private final DecimalsNumberCriteria<BigDecimal> criteria;
 
+    /**
+     * Create a new BigDecimalCreator with the default BigDecimalCriteria.
+     */
     public BigDecimalCreator() {
 
         this(new BigDecimalCriteria());
     }
 
 
-    public BigDecimalCreator(BigDecimalCriteria criteria) {
+    /**
+     * Create a new BigDecimalCreator with the given criteria.
+     *
+     * @param  criteria  the criteria to use.
+     */
+    public BigDecimalCreator(DecimalsNumberCriteria<BigDecimal> criteria) {
 
         this.criteria = criteria;
     }

@@ -1,6 +1,8 @@
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Arrays.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class ArrayCriteria implements Criteria<Object> {

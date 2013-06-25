@@ -2,45 +2,29 @@
 package org.synyx.beanfiller.criteria;
 
 /**
+ * Criteria for Longs.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class LongCriteria implements Criteria<Integer> {
+public class LongCriteria extends NumberCriteria<Long> {
 
-    private long max;
-    private long min;
-
+    /**
+     * Create a new LongCriteria with the default values.
+     */
     public LongCriteria() {
 
-        this(0, 1000);
+        this(0L, 1000L);
     }
 
 
-    public LongCriteria(long min, long max) {
+    /**
+     * Create a new LongCriteria with the given values.
+     *
+     * @param  min  of the created number
+     * @param  max  of the created number
+     */
+    public LongCriteria(Long min, Long max) {
 
-        this.max = max;
-        this.min = min;
-    }
-
-    public long getMax() {
-
-        return max;
-    }
-
-
-    public void setMax(long max) {
-
-        this.max = max;
-    }
-
-
-    public long getMin() {
-
-        return min;
-    }
-
-
-    public void setMin(long min) {
-
-        this.min = min;
+        super(min, max);
     }
 }
