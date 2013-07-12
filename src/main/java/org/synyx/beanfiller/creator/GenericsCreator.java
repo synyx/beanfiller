@@ -13,8 +13,8 @@ import java.util.List;
 public interface GenericsCreator<T> extends Creator {
 
     /**
-     * Create an Object of Generic Type T and fills it with the given Objects (Of the Generic Type) - If there are
-     * multiple Generic Types, they are in the following order: 1-2-1-2.
+     * Create an Object of Generic Type T and fills it with the given Objects - If there are multiple Generic Types,
+     * they are in the given List the following order: 1-2-1-2 (mostly interesting for Collections and such).
      *
      * @param  genericObjects  Objects of the Generic Types of the Generics Object.
      *
@@ -25,5 +25,10 @@ public interface GenericsCreator<T> extends Creator {
     T createWithGenerics(List<Object> genericObjects) throws FillingException;
 
 
+    /**
+     * Get the size defined for the Generics Object - mostly needed for collections such as List or Map. If
+     *
+     * @return
+     */
     int getSize();
 }

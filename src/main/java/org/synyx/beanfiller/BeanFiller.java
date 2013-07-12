@@ -286,6 +286,28 @@ public class BeanFiller {
 
 
     /**
+     * Get the currently used creator map.
+     *
+     * @return
+     */
+    public Map<String, Creator> getCreatorMap() {
+
+        return creatorRegistry.getCreatorMap();
+    }
+
+
+    /**
+     * Get the currently used class and attribute specific creator map.
+     *
+     * @return
+     */
+    public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
+
+        return creatorRegistry.getClassAndAttributeSpecificCreatorMap();
+    }
+
+
+    /**
      * Creates an Object that has generic Types.
      *
      * @param  clazz  Class of the Object
@@ -532,17 +554,5 @@ public class BeanFiller {
         String spaces = new String(charArray);
 
         return spaces;
-    }
-
-
-    public Map<String, Creator> getCreatorMap() {
-
-        return creatorRegistry.getCreatorMap();
-    }
-
-
-    public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
-
-        return creatorRegistry.getClassAndAttributeSpecificCreatorMap();
     }
 }
