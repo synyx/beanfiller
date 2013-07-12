@@ -4,28 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.synyx.beanfiller.creator.ArrayCreator;
-import org.synyx.beanfiller.creator.BigDecimalCreator;
-import org.synyx.beanfiller.creator.BigIntegerCreator;
-import org.synyx.beanfiller.creator.BooleanCreator;
-import org.synyx.beanfiller.creator.ByteCreator;
 import org.synyx.beanfiller.creator.Creator;
-import org.synyx.beanfiller.creator.DateCreator;
-import org.synyx.beanfiller.creator.DoubleCreator;
 import org.synyx.beanfiller.creator.EnumCreator;
-import org.synyx.beanfiller.creator.FloatCreator;
 import org.synyx.beanfiller.creator.GenericsCreator;
-import org.synyx.beanfiller.creator.IntegerCreator;
-import org.synyx.beanfiller.creator.ListCreator;
-import org.synyx.beanfiller.creator.LongCreator;
-import org.synyx.beanfiller.creator.MapCreator;
-import org.synyx.beanfiller.creator.SimpleArrayCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
-import org.synyx.beanfiller.creator.SimpleEnumCreator;
-import org.synyx.beanfiller.creator.StringCreator;
-import org.synyx.beanfiller.criteria.ListCriteria;
-import org.synyx.beanfiller.criteria.MapCriteria;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
+import org.synyx.beanfiller.services.CreatorRegistry;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
@@ -34,9 +19,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +37,7 @@ import java.util.Map;
 public class BeanFiller {
 
     private static final Logger LOG = LoggerFactory.getLogger(BeanFiller.class);
-    private Map<String, Creator> creatorMap;
-    private Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
+    private CreatorRegistry creatorRegistry;
     private int depth = 0;
 
     /**
@@ -78,11 +59,7 @@ public class BeanFiller {
      */
     public BeanFiller(Map<String, Creator> creatorMap) {
 
-        if (creatorMap != null) {
-            this.creatorMap = creatorMap;
-        } else {
-            this.creatorMap = getDefaultCreatorMap();
-        }
+        creatorRegistry = new CreatorRegistry(creatorMap);
     }
 
     /**
@@ -130,7 +107,7 @@ public class BeanFiller {
 
         LOG.debug(getSpaces() + "Adding  Creator for class : " + clazz.getName()
             + ". Added Creator: " + creator.getClass().getName());
-        creatorMap.put(clazz.getName(), creator);
+        creatorRegistry.addCreator(clazz, creator);
     }
 
 
@@ -154,25 +131,7 @@ public class BeanFiller {
         LOG.debug(getSpaces() + "adding attribute specific creator for class and attribute: " + clazz.getName() + " - "
             + attributeName
             + ". Added creator: " + creator.getClass().getName());
-        classAndAttributeSpecificCreatorMap.put(clazz.getName() + "." + attributeName, creator);
-    }
-
-
-    /**
-     * @return  copy of the map with the Creators mapped with classnames
-     */
-    public Map<String, Creator> getCreatorMap() {
-
-        return new HashMap<String, Creator>(creatorMap);
-    }
-
-
-    /**
-     * @return  copy of the map with the Creators mapped with class and fieldname
-     */
-    public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
-
-        return new HashMap<String, Creator>(classAndAttributeSpecificCreatorMap);
+        creatorRegistry.addCreatorForClassAndAttribute(clazz, attributeName, creator);
     }
 
 
@@ -277,68 +236,6 @@ public class BeanFiller {
 
 
     /**
-     * Get the creator for the given fieldname (variable name) in the given class. (exmple: 'name' of the class Customer
-     * searches for a creator with the key 'Customer.name').
-     *
-     * @param  clazz  class to get the Creator for
-     * @param  field  field to get the Creator for
-     *
-     * @return  the Creator or null, if none was found for this combination
-     */
-    private Creator getSpecificCreator(Class clazz, Field field) {
-
-        Creator c;
-
-        // get the creator for the class and attribute
-        LOG.debug(getSpaces() + "getting Creator by class name and field name: " + clazz.getName() + " - "
-            + field.getName());
-        c = classAndAttributeSpecificCreatorMap.get(clazz.getName() + "." + field.getName());
-
-        return c;
-    }
-
-
-    /**
-     * Tries to find a Creator in the two creator maps for the given class and field.
-     *
-     * @param  clazz  class to get the creator for
-     * @param  field  field to get the creator for
-     *
-     * @return  a Creator or null if none was found.
-     */
-    private Creator getCreatorForClassAndField(Class clazz, Field field) {
-
-        Creator c = getSpecificCreator(field.getDeclaringClass(), field);
-
-        if (c == null) {
-            c = getCreator(clazz);
-        }
-
-        return c;
-    }
-
-
-    /**
-     * Gets the creator for the specified class.
-     *
-     * @param  clazz  class
-     *
-     * @return  the Creator if found, or null.
-     */
-    private Creator getCreator(Class clazz) {
-
-        Creator c;
-
-        // if no specific creator for this field was set, get the creator for the class of the parameter
-        // (class name because of primitive types)
-        LOG.debug(getSpaces() + "getting Creator by class name: " + clazz.getName());
-        c = creatorMap.get(clazz.getName());
-
-        return c;
-    }
-
-
-    /**
      * Creates the Object for the given class and field - If no Creator is found for this combination, this method tries
      * to instanciate the given class and calls the fillObject method again to try to fill in the fields of that Object.
      *
@@ -353,7 +250,7 @@ public class BeanFiller {
 
         Object parameter;
 
-        Creator c = getCreatorForClassAndField(clazz, field);
+        Creator c = creatorRegistry.getCreator(clazz, field);
 
         if (c != null) {
             if (!SimpleCreator.class.isAssignableFrom(c.getClass())) {
@@ -402,7 +299,7 @@ public class BeanFiller {
     private Object createObjectWithGenericTypes(Class clazz, ParameterizedType pt, Field field)
         throws FillingException {
 
-        Creator c = getCreatorForClassAndField(clazz, field);
+        Creator c = creatorRegistry.getCreator(clazz, field);
 
         if (c != null) {
             if (!GenericsCreator.class.isAssignableFrom(c.getClass())) {
@@ -463,11 +360,11 @@ public class BeanFiller {
      */
     private Object createEnum(Class clazz, Field field) throws FillingException {
 
-        Creator c = getCreatorForClassAndField(clazz, field);
+        Creator c = creatorRegistry.getCreator(clazz, field);
 
         if (c == null) {
             // get the generic enum Creator
-            c = getCreator(java.lang.Enum.class);
+            c = creatorRegistry.getCreatorForClass(java.lang.Enum.class);
         }
 
         if (c != null) {
@@ -559,15 +456,11 @@ public class BeanFiller {
      */
     private Object createArray(Class clazz, Field field) throws FillingException {
 
-        Class arrayType = clazz.getComponentType();
-
-        List<Object> objectsForArray = new ArrayList<Object>();
-
-        Creator c = getCreatorForClassAndField(clazz, field);
+        Creator c = creatorRegistry.getCreator(clazz, field);
 
         if (c == null) {
             // get the generic array creator
-            c = getCreator(ArrayCreator.class);
+            c = creatorRegistry.getCreatorForClass(ArrayCreator.class);
         }
 
         if (c != null) {
@@ -580,6 +473,9 @@ public class BeanFiller {
             ArrayCreator ac = (ArrayCreator) c;
 
             LOG.debug(getSpaces() + "Using ArrayCreator: " + ac.getClass().getName());
+
+            List<Object> objectsForArray = new ArrayList<Object>();
+            Class arrayType = clazz.getComponentType();
 
             for (int i = 0; i < ac.getSize(); i++) {
                 objectsForArray.add(createObjectForArray(arrayType, field));
@@ -619,66 +515,6 @@ public class BeanFiller {
 
 
     /**
-     * Gets the default creator Map that contains the basic set of creators.
-     *
-     * @return  Map of Creators
-     */
-    private Map<String, Creator> getDefaultCreatorMap() {
-
-        Map<String, Creator> map = new HashMap<String, Creator>();
-
-        map.put(String.class.getName(), new StringCreator());
-
-        IntegerCreator integerCreator = new IntegerCreator();
-        map.put("int", integerCreator);
-        map.put(Integer.class.getName(), integerCreator);
-
-        FloatCreator floatCreator = new FloatCreator();
-        map.put("float", floatCreator);
-        map.put(Float.class.getName(), floatCreator);
-
-        LongCreator longCreator = new LongCreator();
-        map.put("long", longCreator);
-        map.put(Long.class.getName(), longCreator);
-
-        DoubleCreator doubleCreator = new DoubleCreator();
-        map.put("double", doubleCreator);
-        map.put(Double.class.getName(), doubleCreator);
-
-        BooleanCreator booleanCreator = new BooleanCreator();
-        map.put("boolean", booleanCreator);
-        map.put(Boolean.class.getName(), booleanCreator);
-
-        ByteCreator byteCreator = new ByteCreator();
-        map.put("byte", byteCreator);
-        map.put(Byte.class.getName(), byteCreator);
-
-        BigIntegerCreator bigIntegerCreator = new BigIntegerCreator();
-        map.put(BigInteger.class.getName(), bigIntegerCreator);
-
-        BigDecimalCreator bigDecimalCreator = new BigDecimalCreator();
-        map.put(BigDecimal.class.getName(), bigDecimalCreator);
-
-        MapCreator mapCreator = new MapCreator(new MapCriteria());
-        map.put("java.util.Map", mapCreator);
-
-        ListCreator listCreator = new ListCreator(new ListCriteria());
-        map.put("java.util.List", listCreator);
-
-        EnumCreator enumCreator = new SimpleEnumCreator();
-        map.put("java.lang.Enum", enumCreator);
-
-        ArrayCreator arrayCreator = new SimpleArrayCreator();
-        map.put("org.synyx.beanfiller.creator.ArrayCreator", arrayCreator);
-
-        DateCreator dateCreator = new DateCreator();
-        map.put("java.util.Date", dateCreator);
-
-        return map;
-    }
-
-
-    /**
      * Convenience method to get a number spaces for the log statements according to the depth of the call.
      *
      * @return  String with a number of spaces.
@@ -696,5 +532,17 @@ public class BeanFiller {
         String spaces = new String(charArray);
 
         return spaces;
+    }
+
+
+    public Map<String, Creator> getCreatorMap() {
+
+        return creatorRegistry.getCreatorMap();
+    }
+
+
+    public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
+
+        return creatorRegistry.getClassAndAttributeSpecificCreatorMap();
     }
 }
