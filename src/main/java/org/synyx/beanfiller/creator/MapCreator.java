@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class MapCreator implements GenericsCreator<Map<?, ?>> {
+public class MapCreator implements Creator {
 
     private final MapCriteria criteria;
 
@@ -35,26 +35,32 @@ public class MapCreator implements GenericsCreator<Map<?, ?>> {
         this.criteria = criteria;
     }
 
-    @Override
-    public Map<?, ?> createWithGenerics(List<Object> genericObjects) {
+    public Map<?, ?> create(List<Object> keys, List<Object> values) {
 
-        if (genericObjects.size() >= 2) {
-            Map<Object, Object> map = new HashMap<Object, Object>();
+        Map<Object, Object> map = new HashMap<Object, Object>();
 
-            for (int i = 0; i < genericObjects.size(); i = i + 2) {
-                map.put(genericObjects.get(i), genericObjects.get(i + 1));
-            }
-
-            return map;
-        } else {
-            return null;
+        for (int i = 0; i < keys.size(); i++) {
+            map.put(keys.get(i), values.get(i));
         }
+
+        return map;
     }
 
 
-    @Override
     public int getSize() {
 
         return criteria.getSize();
+    }
+
+
+    public boolean hasKeys() {
+
+        return criteria.getKeys() != null;
+    }
+
+
+    public List<Object> getKeys() {
+
+        return criteria.getKeys();
     }
 }
