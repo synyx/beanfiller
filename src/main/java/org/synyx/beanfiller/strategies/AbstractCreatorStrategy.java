@@ -41,11 +41,11 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      * Use this if the Strategy is for some explicit Type of Object and should always be used for it.
      */
     public static final int PRIORITY_HIGHEST = 999;
-    private int priority;
+    private Integer priority;
     private CreatorRegistry creatorRegistry;
     private StrategyManager strategyManager;
 
-    public AbstractCreatorStrategy(int priority) {
+    public AbstractCreatorStrategy(Integer priority) {
 
         this.priority = priority;
     }
@@ -105,7 +105,8 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     @Override
     public int compareTo(AbstractCreatorStrategy o) {
 
-        int i = Integer.compare(this.priority, o.priority) * -1;
+        // Highest priority first
+        int i = this.priority.compareTo(o.priority) * -1;
 
         if (i == 0) {
             return this.getClass().getName().compareTo(o.getClass().getName());
