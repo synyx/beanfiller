@@ -31,7 +31,7 @@ public class ArrayTest {
     @Test
     public void testObjectIsCreated() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("ArraysObject is null!", arraysObject);
     }
 
@@ -39,7 +39,7 @@ public class ArrayTest {
     @Test
     public void testStringArrayIsFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("StringArray is null!", arraysObject.getStringArray());
     }
 
@@ -47,7 +47,7 @@ public class ArrayTest {
     @Test
     public void testStringArrayElementsAreFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("StringArray Element is null!", arraysObject.getStringArray()[0]);
     }
 
@@ -55,7 +55,7 @@ public class ArrayTest {
     @Test
     public void testIntArrayIsFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("IntArray is null!", arraysObject.getIntArray());
     }
 
@@ -63,7 +63,7 @@ public class ArrayTest {
     @Test
     public void testIntArrayElementsAreFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("IntArray Element is null!", arraysObject.getIntArray()[0]);
     }
 
@@ -71,7 +71,7 @@ public class ArrayTest {
     @Test
     public void testObjectArrayIsFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("ObjectArray is null!", arraysObject.getObjectArray());
     }
 
@@ -79,7 +79,7 @@ public class ArrayTest {
     @Test
     public void testObjectArrayElementsAreFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("ObjectArray Element is null!", arraysObject.getObjectArray()[0]);
     }
 
@@ -87,7 +87,7 @@ public class ArrayTest {
     @Test
     public void testEnumArrayIsFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("EnumArray is null!", arraysObject.getEnumArray());
     }
 
@@ -95,7 +95,7 @@ public class ArrayTest {
     @Test
     public void testEnumArrayElementsAreFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("EnumArray Element is null!", arraysObject.getEnumArray()[0]);
     }
 
@@ -103,7 +103,7 @@ public class ArrayTest {
     @Test
     public void testListArrayIsFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("ListArray is null!", arraysObject.getListArray());
     }
 
@@ -111,7 +111,7 @@ public class ArrayTest {
     @Test
     public void testListArrayElementsAreFilled() throws FillingException {
 
-        arraysObject = beanfiller.fillBean(new ArraysObject());
+        arraysObject = beanfiller.fillBean(ArraysObject.class);
         Assert.assertNotNull("ListArray Element is null!", arraysObject.getListArray()[0]);
     }
 
@@ -124,7 +124,7 @@ public class ArrayTest {
 
         beanfiller.addCreator(String[].class, arrayCreator);
 
-        beanfiller.fillBean(new ArraysObject());
+        beanfiller.fillBean(ArraysObject.class);
 
         // assert that our mock was called instead of the default ArrayCreator
         verify(arrayCreator).createArray(Mockito.anyList(), Mockito.any(Class.class));
@@ -139,7 +139,7 @@ public class ArrayTest {
 
         beanfiller.addCreatorForClassAndAttribute(ArraysObject.class, "stringArray", arrayCreator);
 
-        beanfiller.fillBean(new ArraysObject());
+        beanfiller.fillBean(ArraysObject.class);
 
         // assert that our mock was called instead of the default ArrayCreator
         verify(arrayCreator).createArray(Mockito.anyList(), Mockito.any(Class.class));
@@ -153,6 +153,6 @@ public class ArrayTest {
 
         beanfiller.addCreatorForClassAndAttribute(ArraysObject.class, "stringArray", stringCreator);
 
-        beanfiller.fillBean(new ArraysObject());
+        beanfiller.fillBean(ArraysObject.class);
     }
 }

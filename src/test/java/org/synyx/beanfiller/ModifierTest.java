@@ -22,7 +22,7 @@ public class ModifierTest {
     @Before
     public void setup() throws FillingException {
 
-        modifierObject = beanfiller.fillBean(new ModifierObject());
+        modifierObject = beanfiller.fillBean(ModifierObject.class);
     }
 
 

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import org.mockito.Mockito;
 
-import org.synyx.beanfiller.creator.GenericsCreator;
 import org.synyx.beanfiller.creator.ListCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
@@ -34,7 +33,7 @@ public class GenericsTest {
     @Test
     public void testGenericsObjectIsCreated() throws FillingException {
 
-        genericsObject = beanfiller.fillBean(new GenericsObject());
+        genericsObject = beanfiller.fillBean(GenericsObject.class);
         Assert.assertNotNull("GenericsObject is null!", genericsObject);
     }
 
@@ -42,7 +41,7 @@ public class GenericsTest {
     @Test
     public void testListIsFilled() throws FillingException {
 
-        genericsObject = beanfiller.fillBean(new GenericsObject());
+        genericsObject = beanfiller.fillBean(GenericsObject.class);
         Assert.assertNotNull("StringList is null!", genericsObject.getStringList());
         Assert.assertFalse("StringList is empty!", genericsObject.getStringList().isEmpty());
     }
@@ -51,7 +50,7 @@ public class GenericsTest {
     @Test
     public void testMapIsFilled() throws FillingException {
 
-        genericsObject = beanfiller.fillBean(new GenericsObject());
+        genericsObject = beanfiller.fillBean(GenericsObject.class);
         Assert.assertNotNull("StringMap is null!", genericsObject.getStringMap());
         Assert.assertFalse("StringMap is empty!", genericsObject.getStringMap().isEmpty());
     }
@@ -60,7 +59,7 @@ public class GenericsTest {
     @Test
     public void testListMapIsFilled() throws FillingException {
 
-        genericsObject = beanfiller.fillBean(new GenericsObject());
+        genericsObject = beanfiller.fillBean(GenericsObject.class);
         Assert.assertNotNull("StringListMap is null!", genericsObject.getStringListMap());
         Assert.assertFalse("StringListMap is empty!", genericsObject.getStringListMap().isEmpty());
     }
@@ -69,28 +68,30 @@ public class GenericsTest {
     @Test
     public void testAddedGenericsCreatorIsUsed() throws FillingException {
 
-        GenericsCreator genericsCreator = mock(ListCreator.class);
-        when(genericsCreator.createWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
-        beanfiller.addCreator(List.class, genericsCreator);
+        ListCreator listCreator = mock(ListCreator.class);
 
-        beanfiller.fillBean(new SimpleGenericsObject());
+        when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
+
+        beanfiller.addCreator(List.class, listCreator);
+
+        beanfiller.fillBean(SimpleGenericsObject.class);
 
         // assert that our mock was called
-        verify(genericsCreator).createWithGenerics(Mockito.anyList());
+        verify(listCreator).createCollection(Mockito.anyList());
     }
 
 
     @Test
     public void testAddedSpecificGenericsCreatorIsUsed() throws FillingException {
 
-        GenericsCreator genericsCreator = mock(ListCreator.class);
-        when(genericsCreator.createWithGenerics(Mockito.anyList())).thenReturn(new ArrayList<String>());
-        beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", genericsCreator);
+        ListCreator listCreator = mock(ListCreator.class);
+        when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
+        beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", listCreator);
 
-        beanfiller.fillBean(new SimpleGenericsObject());
+        beanfiller.fillBean(SimpleGenericsObject.class);
 
         // assert that our mock was called
-        verify(genericsCreator).createWithGenerics(Mockito.anyList());
+        verify(listCreator).createCollection(Mockito.anyList());
     }
 
 
@@ -101,6 +102,6 @@ public class GenericsTest {
 
         beanfiller.addCreatorForClassAndAttribute(GenericsObject.class, "stringList", stringCreator);
 
-        beanfiller.fillBean(new GenericsObject());
+        beanfiller.fillBean(GenericsObject.class);
     }
 }

@@ -31,7 +31,7 @@ public class EnumTest {
     @Test
     public void testEnumIsFilled() throws FillingException {
 
-        EnumsObject o = beanfiller.fillBean(new EnumsObject());
+        EnumsObject o = beanfiller.fillBean(EnumsObject.class);
 
         Assert.assertNotNull("TestEnum was not filled!", o.getTestEnum());
     }
@@ -40,7 +40,7 @@ public class EnumTest {
     @Test(expected = NoEnumConstantsException.class)
     public void testNoEnumConstantsExceptionIsThrownOnEmptyEnum() throws FillingException {
 
-        ErrorEnumObject o = beanfiller.fillBean(new ErrorEnumObject());
+        ErrorEnumObject o = beanfiller.fillBean(ErrorEnumObject.class);
     }
 
 
@@ -51,7 +51,7 @@ public class EnumTest {
         when(enumCreator.createEnum(TestEnum.class)).thenReturn(TestEnum.TEST1);
         beanfiller.addCreator(TestEnum.class, enumCreator);
 
-        beanfiller.fillBean(new EnumsObject());
+        beanfiller.fillBean(EnumsObject.class);
 
         // assert that our mock was called instead of the default EnumCreator
         verify(enumCreator).createEnum(TestEnum.class);
@@ -66,7 +66,7 @@ public class EnumTest {
 
         beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", enumCreator);
 
-        beanfiller.fillBean(new EnumsObject());
+        beanfiller.fillBean(EnumsObject.class);
 
         // assert that our mock was called instead of the default EnumCreator
         verify(enumCreator).createEnum(TestEnum.class);
@@ -80,6 +80,6 @@ public class EnumTest {
 
         beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", stringCreator);
 
-        beanfiller.fillBean(new EnumsObject());
+        beanfiller.fillBean(EnumsObject.class);
     }
 }
