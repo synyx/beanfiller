@@ -17,7 +17,7 @@ import org.synyx.beanfiller.creator.MapCreator;
 import org.synyx.beanfiller.creator.SimpleArrayCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
-import org.synyx.beanfiller.criteria.ListCriteria;
+import org.synyx.beanfiller.criteria.CollectionCriteria;
 import org.synyx.beanfiller.criteria.MapCriteria;
 
 import java.lang.reflect.Field;
@@ -38,6 +38,12 @@ public class CreatorRegistry {
 
     private Map<String, Creator> creatorMap;
     private Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
+
+    public CreatorRegistry() {
+
+        this(null);
+    }
+
 
     public CreatorRegistry(Map<String, Creator> creatorMap) {
 
@@ -70,7 +76,11 @@ public class CreatorRegistry {
      */
     public Creator getCreator(Class clazz, Field field) {
 
-        Creator c = getSpecificCreator(field.getDeclaringClass(), field);
+        Creator c = null;
+
+        if (field != null) {
+            c = getSpecificCreator(field.getDeclaringClass(), field);
+        }
 
         if (c == null) {
             c = getCreatorForClass(clazz);
@@ -167,7 +177,7 @@ public class CreatorRegistry {
         MapCreator mapCreator = new MapCreator(new MapCriteria());
         map.put("java.util.Map", mapCreator);
 
-        ListCreator listCreator = new ListCreator(new ListCriteria());
+        ListCreator listCreator = new ListCreator(new CollectionCriteria());
         map.put("java.util.List", listCreator);
 
         EnumCreator enumCreator = new SimpleEnumCreator();
