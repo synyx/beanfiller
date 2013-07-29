@@ -16,7 +16,7 @@ public final class RandomGenerator {
 
     private RandomGenerator() {
 
-        // has only static methods, so we hide the default constructor
+        // only has static methods, so we hide the default constructor
     }
 
     /**
