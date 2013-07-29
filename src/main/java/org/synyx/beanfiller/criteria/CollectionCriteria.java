@@ -9,17 +9,17 @@ import java.util.List;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class ListCriteria implements Criteria<List<?>> {
+public class CollectionCriteria implements Criteria<List<?>> {
 
     private int size;
 
-    public ListCriteria() {
+    public CollectionCriteria() {
 
         this(3);
     }
 
 
-    public ListCriteria(int size) {
+    public CollectionCriteria(int size) {
 
         this.size = size;
     }
