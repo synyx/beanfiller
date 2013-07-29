@@ -62,10 +62,6 @@ public class BeanAnalyzer {
                 AbstractCreatorStrategy strategy = strategyManager.getStrategyFor(parameterObjectInformation);
                 parameterObjectInformation.setStrategy(strategy);
                 objectInformation.add(parameterObjectInformation);
-
-//                if (JustAnotherBeanStrategy.class.equals(strategy.getClass())) {
-//                    analyzeInternal(parameterClazz, strategyManager, objectInformation, fieldPath);
-//                }
             }
         }
     }
