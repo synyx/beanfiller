@@ -1,6 +1,10 @@
 beanfiller
 ==========
 
+OUTDATED - NEW DOCUMENTATION IN THE MAKING
+==========================================
+
+
 Small library for filling beans with random data.
 
 Usage
