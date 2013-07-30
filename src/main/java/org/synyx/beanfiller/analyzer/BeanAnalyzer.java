@@ -1,7 +1,6 @@
 package org.synyx.beanfiller.analyzer;
 
 import org.synyx.beanfiller.ObjectInformation;
-import org.synyx.beanfiller.strategies.StrategyManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -29,20 +28,11 @@ public class BeanAnalyzer {
      *
      * @return
      */
-    public static List<ObjectInformation> analyzeBean(Class clazz, StrategyManager strategyManager) {
+    public static List<ObjectInformation> analyzeBean(Class clazz) {
 
         List<ObjectInformation> objectInformation = new ArrayList<ObjectInformation>();
 
         String path = clazz.getSimpleName();
-
-        analyzeInternal(clazz, strategyManager, objectInformation, path);
-
-        return objectInformation;
-    }
-
-
-    private static void analyzeInternal(Class clazz, StrategyManager strategyManager,
-        List<ObjectInformation> objectInformation, String path) throws SecurityException {
 
         Field[] fields = clazz.getDeclaredFields();
         Map<String, Method> setters = getSetters(clazz);
@@ -62,6 +52,8 @@ public class BeanAnalyzer {
                 objectInformation.add(parameterObjectInformation);
             }
         }
+
+        return objectInformation;
     }
 
 

@@ -40,7 +40,7 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
         try {
             Object instance = parentClazz.newInstance();
 
-            List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz, getStrategyManager());
+            List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz);
             Map<String, Object> createdObjectMap = new HashMap<String, Object>(objectInformationList.size());
 
             for (ObjectInformation information : objectInformationList) {

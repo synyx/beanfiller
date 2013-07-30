@@ -23,8 +23,7 @@ public class AnalyzerTest {
 
         CreatorRegistry registry = new CreatorRegistry();
         StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
+        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         Assert.assertEquals("Expected list to have 2 entries, one for each field!", 2, objectInformationList.size());
     }
@@ -35,8 +34,7 @@ public class AnalyzerTest {
 
         CreatorRegistry registry = new CreatorRegistry();
         StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
+        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
@@ -51,8 +49,7 @@ public class AnalyzerTest {
 
         CreatorRegistry registry = new CreatorRegistry();
         StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
+        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
@@ -69,8 +66,7 @@ public class AnalyzerTest {
 
         CreatorRegistry registry = new CreatorRegistry();
         StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
+        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
@@ -87,8 +83,7 @@ public class AnalyzerTest {
 
         CreatorRegistry registry = new CreatorRegistry();
         StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
+        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
