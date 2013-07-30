@@ -41,7 +41,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      * Use this if the Strategy is for some explicit Type of Object and should always be used for it.
      */
     public static final int PRIORITY_HIGHEST = 999;
-    private Integer priority;
+    private final Integer priority;
     private CreatorRegistry creatorRegistry;
     private StrategyManager strategyManager;
 
