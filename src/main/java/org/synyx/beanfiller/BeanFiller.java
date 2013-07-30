@@ -9,7 +9,6 @@ import org.synyx.beanfiller.services.CreatorRegistry;
 import org.synyx.beanfiller.strategies.AbstractCreatorStrategy;
 import org.synyx.beanfiller.strategies.StrategyManager;
 
-import java.util.Arrays;
 import java.util.Map;
 
 
@@ -24,7 +23,6 @@ public class BeanFiller {
 
     private static final Logger LOG = LoggerFactory.getLogger(BeanFiller.class);
     private CreatorRegistry creatorRegistry;
-    private int depth = 0;
     private StrategyManager strategyManager;
 
     /**
@@ -73,12 +71,12 @@ public class BeanFiller {
     public void addCreator(Class clazz, Creator creator) {
 
         if (clazz == null || creator == null) {
-            LOG.warn(getSpaces() + "Class or Creator is null, abort adding the Creator!");
+            LOG.warn("Class or Creator is null, abort adding the Creator!");
 
             return;
         }
 
-        LOG.debug(getSpaces() + "Adding  Creator for class : " + clazz.getName()
+        LOG.debug("Adding  Creator for class : " + clazz.getName()
             + ". Added Creator: " + creator.getClass().getName());
         creatorRegistry.addCreator(clazz, creator);
     }
@@ -101,7 +99,7 @@ public class BeanFiller {
             return;
         }
 
-        LOG.debug(getSpaces() + "adding attribute specific creator for class and attribute: " + clazz.getName() + " - "
+        LOG.debug("adding attribute specific creator for class and attribute: " + clazz.getName() + " - "
             + attributeName
             + ". Added creator: " + creator.getClass().getName());
         creatorRegistry.addCreatorForClassAndAttribute(clazz, attributeName, creator);
@@ -127,26 +125,5 @@ public class BeanFiller {
     public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
 
         return creatorRegistry.getClassAndAttributeSpecificCreatorMap();
-    }
-
-
-    /**
-     * Convenience method to get a number spaces for the log statements according to the depth of the call.
-     *
-     * @return  String with a number of spaces.
-     */
-    private String getSpaces() {
-
-        // only indent if debug is enabled
-        if (!LOG.isDebugEnabled()) {
-            return "";
-        }
-
-        char[] charArray = new char[depth * 2];
-        Arrays.fill(charArray, ' ');
-
-        String spaces = new String(charArray);
-
-        return spaces;
     }
 }
