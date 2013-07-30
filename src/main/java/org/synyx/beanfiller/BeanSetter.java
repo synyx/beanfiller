@@ -10,10 +10,21 @@ import java.util.Map;
 
 
 /**
+ * Class for setting the created Objects on the Bean.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class BeanSetter {
 
+    /**
+     * @param  bean  Bean to set the given Objects on
+     * @param  objectInformationList  List of ObjectInformation of the Fields of the bean
+     * @param  createdObjectMap  Created Objects that should be set on the bean
+     *
+     * @return  the Bean with set fields.
+     *
+     * @throws  FillingException  if something went wrong on calling a setter on the bean.
+     */
     public static <T> T setBean(T bean, List<ObjectInformation> objectInformationList,
         Map<String, Object> createdObjectMap) throws FillingException {
 
