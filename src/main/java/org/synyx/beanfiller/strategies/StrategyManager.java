@@ -1,6 +1,6 @@
 package org.synyx.beanfiller.strategies;
 
-import org.synyx.beanfiller.ObjectInformation;
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.services.CreatorRegistry;
 
 import java.util.Set;

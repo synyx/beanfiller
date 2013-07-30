@@ -1,4 +1,4 @@
-package org.synyx.beanfiller.services;
+package org.synyx.beanfiller.util;
 
 import java.math.BigInteger;
 

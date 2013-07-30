@@ -3,7 +3,7 @@ package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.DecimalsNumberCriteria;
 import org.synyx.beanfiller.criteria.DoubleCriteria;
-import org.synyx.beanfiller.services.RandomGenerator;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
 

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.synyx.beanfiller.creator.Creator;
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.services.CreatorRegistry;
 import org.synyx.beanfiller.strategies.AbstractCreatorStrategy;

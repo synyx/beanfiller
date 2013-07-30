@@ -2,7 +2,7 @@ package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.BigIntegerCriteria;
 import org.synyx.beanfiller.criteria.NumberCriteria;
-import org.synyx.beanfiller.services.RandomGenerator;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigInteger;
 

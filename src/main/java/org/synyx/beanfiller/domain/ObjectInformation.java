@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller;
+package org.synyx.beanfiller.domain;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -12,7 +12,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import org.synyx.beanfiller.criteria.StringCriteria;
-import org.synyx.beanfiller.services.RandomGenerator;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import static org.mockito.Mockito.when;
 

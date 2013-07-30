@@ -1,9 +1,9 @@
 package org.synyx.beanfiller.strategies;
 
-import org.synyx.beanfiller.BeanSetter;
-import org.synyx.beanfiller.ObjectInformation;
-import org.synyx.beanfiller.analyzer.BeanAnalyzer;
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.services.BeanAnalyzer;
+import org.synyx.beanfiller.services.BeanSetter;
 
 import java.util.HashMap;
 import java.util.List;

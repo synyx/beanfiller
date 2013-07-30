@@ -1,5 +1,6 @@
-package org.synyx.beanfiller;
+package org.synyx.beanfiller.services;
 
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 
 import java.lang.reflect.InvocationTargetException;

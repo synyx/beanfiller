@@ -1,10 +1,9 @@
-package org.synyx.beanfiller.analyzer;
+package org.synyx.beanfiller.services;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import org.synyx.beanfiller.ObjectInformation;
-import org.synyx.beanfiller.services.CreatorRegistry;
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.strategies.StrategyManager;
 import org.synyx.beanfiller.testobjects.BaseObject;
 import org.synyx.beanfiller.testobjects.ObjectWithBeans;

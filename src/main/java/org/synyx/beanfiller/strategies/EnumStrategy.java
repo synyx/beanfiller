@@ -1,8 +1,8 @@
 package org.synyx.beanfiller.strategies;
 
-import org.synyx.beanfiller.ObjectInformation;
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.creator.EnumCreator;
+import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
 

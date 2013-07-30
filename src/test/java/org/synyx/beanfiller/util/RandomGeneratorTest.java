@@ -1,5 +1,5 @@
 
-package org.synyx.beanfiller.services;
+package org.synyx.beanfiller.util;
 
 import org.junit.Assert;
 import org.junit.Test;

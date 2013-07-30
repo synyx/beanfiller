@@ -1,6 +1,6 @@
-package org.synyx.beanfiller.analyzer;
+package org.synyx.beanfiller.services;
 
-import org.synyx.beanfiller.ObjectInformation;
+import org.synyx.beanfiller.domain.ObjectInformation;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
