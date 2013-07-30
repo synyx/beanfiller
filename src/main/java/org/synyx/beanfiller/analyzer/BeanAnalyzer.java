@@ -1,7 +1,6 @@
 package org.synyx.beanfiller.analyzer;
 
 import org.synyx.beanfiller.ObjectInformation;
-import org.synyx.beanfiller.strategies.AbstractCreatorStrategy;
 import org.synyx.beanfiller.strategies.StrategyManager;
 
 import java.lang.reflect.Field;
@@ -59,8 +58,7 @@ public class BeanAnalyzer {
 
                 ObjectInformation parameterObjectInformation = new ObjectInformation(parameterClazz, field,
                         field.getType(), setter, fieldPath);
-                AbstractCreatorStrategy strategy = strategyManager.getStrategyFor(parameterObjectInformation);
-                parameterObjectInformation.setStrategy(strategy);
+
                 objectInformation.add(parameterObjectInformation);
             }
         }

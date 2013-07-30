@@ -32,30 +32,30 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
 
     @Override
-    public Object createObject(ObjectInformation objectInformation) throws FillingException {
+    public Object createObject(ObjectInformation parentInformation) throws FillingException {
 
-        Class clazz = objectInformation.getClazz();
+        Class parentClazz = parentInformation.getClazz();
 
         // TODO handle non default constructors!
         try {
-            Object instance = clazz.newInstance();
+            Object instance = parentClazz.newInstance();
 
-            List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(clazz, getStrategyManager());
+            List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz, getStrategyManager());
             Map<String, Object> createdObjectMap = new HashMap<String, Object>(objectInformationList.size());
 
             for (ObjectInformation information : objectInformationList) {
-                AbstractCreatorStrategy strategy = information.getStrategy();
+                AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(information);
                 Object o = strategy.createObject(information);
                 createdObjectMap.put(information.getPath(), o);
             }
 
             return BeanSetter.setBean(instance, objectInformationList, createdObjectMap);
         } catch (InstantiationException ex) {
-            throw new FillingException("There was no Creator set for the class " + clazz.getName() + " (field '"
-                + objectInformation.getField().getName() + "' of class " + clazz.getDeclaringClass() + "). "
+            throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
+                + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
                 + " So we tried to instatiate it with the default constructor, but it failed! ", ex);
         } catch (IllegalAccessException ex) {
-            throw new FillingException("There was no Creator set for the class " + clazz.getName()
+            throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
                 + " So we tried to instatiate it with the default constructor, but couldn't access it!", ex);
         }
     }

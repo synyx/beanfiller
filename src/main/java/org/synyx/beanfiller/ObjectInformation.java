@@ -1,8 +1,6 @@
 
 package org.synyx.beanfiller;
 
-import org.synyx.beanfiller.strategies.AbstractCreatorStrategy;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -19,7 +17,6 @@ public class ObjectInformation {
     private Field field;
     private Method accessor;
     private Type type;
-    private AbstractCreatorStrategy strategy;
     private String path;
 
     /**
@@ -86,18 +83,6 @@ public class ObjectInformation {
     }
 
 
-    public AbstractCreatorStrategy getStrategy() {
-
-        return strategy;
-    }
-
-
-    public void setStrategy(AbstractCreatorStrategy strategy) {
-
-        this.strategy = strategy;
-    }
-
-
     public String getPath() {
 
         return path;
@@ -114,6 +99,6 @@ public class ObjectInformation {
     public String toString() {
 
         return "ObjectInformation{" + "clazz=" + clazz + ", field=" + field + ", accessor=" + accessor + ", type="
-            + type + ", strategy=" + strategy + ", path=" + path + '}';
+            + type + ", path=" + path + '}';
     }
 }

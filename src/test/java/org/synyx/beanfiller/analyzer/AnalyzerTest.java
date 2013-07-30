@@ -98,20 +98,4 @@ public class AnalyzerTest {
         Assert.assertEquals("Expected second entry path to be ObjectWithBeans.testEnum", "ObjectWithBeans.testEnum",
             information2.getPath());
     }
-
-
-    @Test
-    public void testAnalyzerSetsStrategy() {
-
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
-        List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class,
-                strategyManager);
-
-        ObjectInformation information1 = objectInformationList.get(0);
-        ObjectInformation information2 = objectInformationList.get(1);
-
-        Assert.assertNotNull("Strategy of information1 should not be null!", information1.getStrategy());
-        Assert.assertNotNull("Strategy of information2 should not be null!", information2.getStrategy());
-    }
 }
