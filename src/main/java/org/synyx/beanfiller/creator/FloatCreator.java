@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.criteria.DecimalsNumberCriteria;
-import org.synyx.beanfiller.criteria.FloatCriteria;
+import org.synyx.beanfiller.criteria.AbstractDecimalsAbstractNumberCriteria;
+import org.synyx.beanfiller.criteria.FloatCriteriaAbstractAbstract;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
@@ -14,16 +14,16 @@ import java.math.BigDecimal;
  */
 public class FloatCreator implements SimpleCreator<Float> {
 
-    private final DecimalsNumberCriteria<Float> criteria;
+    private final AbstractDecimalsAbstractNumberCriteria<Float> criteria;
 
     /**
-     * Create a new FloatCreator with the default FloatCriteria.
+     * Create a new FloatCreator with the default FloatCriteriaAbstractAbstract.
      *
      * @param  criteria  the criteria to use.
      */
     public FloatCreator() {
 
-        this(new FloatCriteria());
+        this(new FloatCriteriaAbstractAbstract());
     }
 
 
@@ -32,7 +32,7 @@ public class FloatCreator implements SimpleCreator<Float> {
      *
      * @param  criteria  the criteria to use.
      */
-    public FloatCreator(DecimalsNumberCriteria<Float> criteria) {
+    public FloatCreator(AbstractDecimalsAbstractNumberCriteria<Float> criteria) {
 
         this.criteria = criteria;
     }

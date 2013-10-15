@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.criteria.BigDecimalCriteria;
-import org.synyx.beanfiller.criteria.DecimalsNumberCriteria;
+import org.synyx.beanfiller.criteria.AbstractDecimalsAbstractNumberCriteria;
+import org.synyx.beanfiller.criteria.BigDecimalCriteriaAbstractAbstract;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
@@ -14,14 +14,14 @@ import java.math.BigDecimal;
  */
 public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
 
-    private final DecimalsNumberCriteria<BigDecimal> criteria;
+    private final AbstractDecimalsAbstractNumberCriteria<BigDecimal> criteria;
 
     /**
-     * Create a new BigDecimalCreator with the default BigDecimalCriteria.
+     * Create a new BigDecimalCreator with the default BigDecimalCriteriaAbstractAbstract.
      */
     public BigDecimalCreator() {
 
-        this(new BigDecimalCriteria());
+        this(new BigDecimalCriteriaAbstractAbstract());
     }
 
 
@@ -30,7 +30,7 @@ public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
      *
      * @param  criteria  the criteria to use.
      */
-    public BigDecimalCreator(DecimalsNumberCriteria<BigDecimal> criteria) {
+    public BigDecimalCreator(AbstractDecimalsAbstractNumberCriteria<BigDecimal> criteria) {
 
         this.criteria = criteria;
     }
@@ -42,8 +42,7 @@ public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
         BigDecimal max = criteria.getMax();
 
         BigDecimal range = max.subtract(min);
-        BigDecimal result = min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
 
-        return result;
+        return min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
     }
 }

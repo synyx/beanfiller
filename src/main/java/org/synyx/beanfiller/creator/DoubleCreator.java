@@ -1,8 +1,8 @@
 
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.criteria.DecimalsNumberCriteria;
-import org.synyx.beanfiller.criteria.DoubleCriteria;
+import org.synyx.beanfiller.criteria.AbstractDecimalsAbstractNumberCriteria;
+import org.synyx.beanfiller.criteria.DoubleCriteriaAbstractAbstract;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
@@ -15,14 +15,14 @@ import java.math.BigDecimal;
  */
 public class DoubleCreator implements SimpleCreator<Double> {
 
-    private final DecimalsNumberCriteria<Double> criteria;
+    private final AbstractDecimalsAbstractNumberCriteria<Double> criteria;
 
     /**
-     * Create a new DoubleCreator with the default DoubleCriteria.
+     * Create a new DoubleCreator with the default DoubleCriteriaAbstractAbstract.
      */
     public DoubleCreator() {
 
-        this(new DoubleCriteria());
+        this(new DoubleCriteriaAbstractAbstract());
     }
 
 
@@ -31,7 +31,7 @@ public class DoubleCreator implements SimpleCreator<Double> {
      *
      * @param  criteria  the criteria to use.
      */
-    public DoubleCreator(DecimalsNumberCriteria<Double> criteria) {
+    public DoubleCreator(AbstractDecimalsAbstractNumberCriteria<Double> criteria) {
 
         this.criteria = criteria;
     }

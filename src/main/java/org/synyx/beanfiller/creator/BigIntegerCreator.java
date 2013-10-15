@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.criteria.BigIntegerCriteria;
-import org.synyx.beanfiller.criteria.NumberCriteria;
+import org.synyx.beanfiller.criteria.AbstractNumberCriteria;
+import org.synyx.beanfiller.criteria.BigIntegerCriteriaAbstract;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigInteger;
@@ -14,14 +14,14 @@ import java.math.BigInteger;
  */
 public class BigIntegerCreator implements SimpleCreator<BigInteger> {
 
-    private final NumberCriteria<BigInteger> criteria;
+    private final AbstractNumberCriteria<BigInteger> criteria;
 
     /**
-     * Create a new BigIntegerCreator with the default BigIntegerCriteria.
+     * Create a new BigIntegerCreator with the default BigIntegerCriteriaAbstract.
      */
     public BigIntegerCreator() {
 
-        this(new BigIntegerCriteria());
+        this(new BigIntegerCriteriaAbstract());
     }
 
 
@@ -30,7 +30,7 @@ public class BigIntegerCreator implements SimpleCreator<BigInteger> {
      *
      * @param  criteria  the criteria to use.
      */
-    public BigIntegerCreator(NumberCriteria<BigInteger> criteria) {
+    public BigIntegerCreator(AbstractNumberCriteria<BigInteger> criteria) {
 
         this.criteria = criteria;
     }

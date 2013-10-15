@@ -12,19 +12,21 @@ import java.util.Map;
  */
 public class MapCriteria implements Criteria<Map<?, ?>> {
 
+    private static final int SIZE = 3;
+
     private int size;
     private List<Object> keys;
 
     public MapCriteria() {
 
-        this(3);
+        this(SIZE);
     }
 
 
     /**
      * Init with the number of entries, the map should have.
      *
-     * @param  size
+     * @param  size  of the map
      */
     public MapCriteria(int size) {
 
@@ -35,7 +37,7 @@ public class MapCriteria implements Criteria<Map<?, ?>> {
     /**
      * Init with a List of keys that should be used.
      *
-     * @param  keys
+     * @param  keys  of the map for initial
      */
     public MapCriteria(List<Object> keys) {
 

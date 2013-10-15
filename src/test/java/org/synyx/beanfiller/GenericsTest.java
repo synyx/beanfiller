@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import org.mockito.Mockito;
 
-import org.synyx.beanfiller.creator.ListCreator;
+import org.synyx.beanfiller.creator.ListCreatorAbstract;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
@@ -68,7 +68,7 @@ public class GenericsTest {
     @Test
     public void testAddedGenericsCreatorIsUsed() throws FillingException {
 
-        ListCreator listCreator = mock(ListCreator.class);
+        ListCreatorAbstract listCreator = mock(ListCreatorAbstract.class);
 
         when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
 
@@ -84,7 +84,7 @@ public class GenericsTest {
     @Test
     public void testAddedSpecificGenericsCreatorIsUsed() throws FillingException {
 
-        ListCreator listCreator = mock(ListCreator.class);
+        ListCreatorAbstract listCreator = mock(ListCreatorAbstract.class);
         when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
         beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", listCreator);
 

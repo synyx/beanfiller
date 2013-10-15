@@ -38,7 +38,7 @@ public class BeanFiller {
 
 
     /**
-     * Instanciates the BeanFiller with the given creatorMap instead of the default one. The creator Map consists of a
+     * Instantiates the BeanFiller with the given creatorMap instead of the default one. The creator Map consists of a
      * mapping of the full qualified class names of classes to the Creator to use for them.
      *
      * @param  creatorMap  specific creatorMap .
@@ -112,6 +112,7 @@ public class BeanFiller {
      *
      * @return
      */
+
     public Map<String, Creator> getCreatorMap() {
 
         return creatorRegistry.getCreatorMap();

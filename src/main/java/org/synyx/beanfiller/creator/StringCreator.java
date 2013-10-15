@@ -27,7 +27,7 @@ public class StringCreator implements SimpleCreator<String> {
 
         StringBuilder builder = new StringBuilder();
 
-        int length = RandomGenerator.getRandomIntBetween(criteria.getMinlength(), criteria.getMaxlength());
+        int length = RandomGenerator.getRandomIntBetween(criteria.getMinLength(), criteria.getMaxLength());
 
         for (int i = 0; i < length; i++) {
             builder.append(criteria.getCharset().charAt(RandomGenerator.getRandomInt(criteria.getCharset().length())));

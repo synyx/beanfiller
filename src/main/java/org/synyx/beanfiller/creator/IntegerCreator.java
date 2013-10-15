@@ -1,8 +1,8 @@
 
 package org.synyx.beanfiller.creator;
 
-import org.synyx.beanfiller.criteria.IntegerCriteria;
-import org.synyx.beanfiller.criteria.NumberCriteria;
+import org.synyx.beanfiller.criteria.AbstractNumberCriteria;
+import org.synyx.beanfiller.criteria.IntegerCriteriaAbstract;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 
@@ -13,16 +13,14 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class IntegerCreator implements SimpleCreator<Integer> {
 
-    private final NumberCriteria<Integer> criteria;
+    private final AbstractNumberCriteria<Integer> criteria;
 
     /**
-     * Create a new IntegerCreator with the default IntegerCriteria.
-     *
-     * @param  criteria  the criteria to use.
+     * Create a new IntegerCreator with the default IntegerCriteriaAbstract.
      */
     public IntegerCreator() {
 
-        this(new IntegerCriteria());
+        this(new IntegerCriteriaAbstract());
     }
 
 
@@ -31,7 +29,7 @@ public class IntegerCreator implements SimpleCreator<Integer> {
      *
      * @param  criteria  the criteria to use.
      */
-    public IntegerCreator(NumberCriteria<Integer> criteria) {
+    public IntegerCreator(AbstractNumberCriteria<Integer> criteria) {
 
         this.criteria = criteria;
     }

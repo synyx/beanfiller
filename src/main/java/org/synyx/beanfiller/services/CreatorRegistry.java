@@ -11,7 +11,7 @@ import org.synyx.beanfiller.creator.DoubleCreator;
 import org.synyx.beanfiller.creator.EnumCreator;
 import org.synyx.beanfiller.creator.FloatCreator;
 import org.synyx.beanfiller.creator.IntegerCreator;
-import org.synyx.beanfiller.creator.ListCreator;
+import org.synyx.beanfiller.creator.ListCreatorAbstract;
 import org.synyx.beanfiller.creator.LongCreator;
 import org.synyx.beanfiller.creator.MapCreator;
 import org.synyx.beanfiller.creator.SimpleArrayCreator;
@@ -37,7 +37,7 @@ import java.util.Map;
 public class CreatorRegistry {
 
     private Map<String, Creator> creatorMap;
-    private Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
+    private final Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
 
     public CreatorRegistry() {
 
@@ -47,10 +47,10 @@ public class CreatorRegistry {
 
     public CreatorRegistry(Map<String, Creator> creatorMap) {
 
-        if (creatorMap != null) {
-            this.creatorMap = creatorMap;
-        } else {
+        if (creatorMap == null) {
             this.creatorMap = getDefaultCreatorMap();
+        } else {
+            this.creatorMap = creatorMap;
         }
     }
 
@@ -177,7 +177,7 @@ public class CreatorRegistry {
         MapCreator mapCreator = new MapCreator(new MapCriteria());
         map.put("java.util.Map", mapCreator);
 
-        ListCreator listCreator = new ListCreator(new CollectionCriteria());
+        ListCreatorAbstract listCreator = new ListCreatorAbstract(new CollectionCriteria());
         map.put("java.util.List", listCreator);
 
         EnumCreator enumCreator = new SimpleEnumCreator();

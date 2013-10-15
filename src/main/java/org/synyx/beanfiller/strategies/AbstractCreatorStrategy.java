@@ -67,7 +67,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @return
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     public abstract Object createObject(ObjectInformation objectInformation) throws FillingException;
 
@@ -145,19 +145,15 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Check if the given type has Generics.
      *
-     * @param  clazz
+     * @param  type
      *
      * @return
      */
     protected boolean hasGenerics(Type type) {
 
         // check if the type is a ParameterizedType or a GenericArrayType. In both cases, the field has Generics.
-        if (ParameterizedType.class.isAssignableFrom(type.getClass())
-                || GenericArrayType.class.isAssignableFrom(type.getClass())) {
-            return true;
-        }
-
-        return false;
+        return ParameterizedType.class.isAssignableFrom(type.getClass())
+            || GenericArrayType.class.isAssignableFrom(type.getClass());
     }
 
 
@@ -193,8 +189,6 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      * @param  objectInformation
      *
      * @return
-     *
-     * @throws  CreationException
      */
     protected List<ObjectInformation> getTypeArgumentObjectInformation(ObjectInformation objectInformation)
         throws FillingException {
@@ -223,9 +217,8 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
                         classString = classString.split("<")[0];
                     }
 
-                    ObjectInformation typeArgumentObjectInformation = new ObjectInformation(Class.forName(classString),
-                            objectInformation.getField(), type, null, null);
-                    typeArgumentObjectInformationList.add(typeArgumentObjectInformation);
+                    typeArgumentObjectInformationList.add(new ObjectInformation(Class.forName(classString), // NOSONAR
+                            objectInformation.getField(), type, null, null));
                 } catch (ClassNotFoundException ex) {
                     throw new FillingException("Could not find the class " + classString
                         + " on Filling the Generic Parameters of the class " + objectInformation.getClazz().getName()

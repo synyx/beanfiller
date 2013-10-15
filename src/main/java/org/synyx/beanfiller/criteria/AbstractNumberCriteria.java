@@ -5,7 +5,7 @@ package org.synyx.beanfiller.criteria;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public abstract class NumberCriteria<T extends Number> {
+public abstract class AbstractNumberCriteria<T extends Number> {
 
     private T min;
     private T max;
@@ -14,7 +14,7 @@ public abstract class NumberCriteria<T extends Number> {
      * @param  min  minimum value of the created number
      * @param  max  maximum value of the created number
      */
-    protected NumberCriteria(T min, T max) {
+    protected AbstractNumberCriteria(T min, T max) {
 
         this.min = min;
         this.max = max;
@@ -45,7 +45,7 @@ public abstract class NumberCriteria<T extends Number> {
     /**
      * Set the maximum value the created number should have.
      *
-     * @param  max
+     * @param  max  maximum value
      */
     public void setMax(T max) {
 
@@ -56,7 +56,7 @@ public abstract class NumberCriteria<T extends Number> {
     /**
      * Set the minimum value the created number should have.
      *
-     * @param  min
+     * @param  min  minimum value
      */
     public void setMin(T min) {
 

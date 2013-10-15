@@ -14,8 +14,8 @@ import java.util.TreeSet;
  */
 public class StrategyManager {
 
-    private Set<AbstractCreatorStrategy> strategies = new TreeSet<AbstractCreatorStrategy>();
-    private CreatorRegistry creatorRegistry;
+    private final Set<AbstractCreatorStrategy> strategies = new TreeSet<AbstractCreatorStrategy>();
+    private final CreatorRegistry creatorRegistry;
 
     public StrategyManager(CreatorRegistry creatorRegistry) {
 
