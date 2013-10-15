@@ -8,8 +8,11 @@ package org.synyx.beanfiller.criteria;
  */
 public class StringCriteria implements Criteria<String> {
 
-    private int minlength;
-    private int maxlength;
+    private static final int MAX_LENGTH = 8;
+    private static final int MIN_LENGTH = 6;
+
+    private int minLength;
+    private int maxLength;
     private String charset;
 
     /**
@@ -17,43 +20,43 @@ public class StringCriteria implements Criteria<String> {
      */
     public StringCriteria() {
 
-        this(6, 8, "abcABCD0123äß!?");
+        this(MIN_LENGTH, MAX_LENGTH, "abcABCD0123äß!?");
     }
 
 
     /**
-     * @param  minlength  minimum length of the string
-     * @param  maxlength  maximum length of the string
+     * @param  minLength  minimum length of the string
+     * @param  maxLength  maximum length of the string
      * @param  charset  charset from where the characters for the String are randomly picked.
      */
-    public StringCriteria(int minlength, int maxlength, String charset) {
+    public StringCriteria(int minLength, int maxLength, String charset) {
 
-        this.minlength = minlength;
-        this.maxlength = maxlength;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
         this.charset = charset;
     }
 
-    public int getMinlength() {
+    public int getMinLength() {
 
-        return minlength;
+        return minLength;
     }
 
 
-    public void setMinlength(int minlength) {
+    public void setMinLength(int minLength) {
 
-        this.minlength = minlength;
+        this.minLength = minLength;
     }
 
 
-    public int getMaxlength() {
+    public int getMaxLength() {
 
-        return maxlength;
+        return maxLength;
     }
 
 
-    public void setMaxlength(int maxlength) {
+    public void setMaxLength(int maxLength) {
 
-        this.maxlength = maxlength;
+        this.maxLength = maxLength;
     }
 
 
@@ -64,9 +67,9 @@ public class StringCriteria implements Criteria<String> {
 
 
     /**
-     * set the charset from where the characters for the String are randomly picked.
+     * Set the charset from where the characters for the String are randomly picked.
      *
-     * @param  charset
+     * @param  charset  of String
      */
     public void setCharset(String charset) {
 

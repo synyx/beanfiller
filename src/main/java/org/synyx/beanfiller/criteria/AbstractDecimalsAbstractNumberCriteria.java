@@ -5,7 +5,7 @@ package org.synyx.beanfiller.criteria;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public abstract class DecimalsNumberCriteria<T extends Number> extends NumberCriteria<T> {
+public abstract class AbstractDecimalsAbstractNumberCriteria<T extends Number> extends AbstractNumberCriteria<T> {
 
     private int numberOfDecimals;
 
@@ -14,7 +14,7 @@ public abstract class DecimalsNumberCriteria<T extends Number> extends NumberCri
      * @param  max  maximum value of the created number
      * @param  numberOfDecimals  number of decimals of the created number
      */
-    protected DecimalsNumberCriteria(T min, T max, int numberOfDecimals) {
+    protected AbstractDecimalsAbstractNumberCriteria(T min, T max, int numberOfDecimals) {
 
         super(max, min);
         this.numberOfDecimals = numberOfDecimals;
@@ -34,7 +34,7 @@ public abstract class DecimalsNumberCriteria<T extends Number> extends NumberCri
     /**
      * Set the number of decimals the created number should have.
      *
-     * @param  numberOfDecimals
+     * @param  numberOfDecimals  count of decimals
      */
     public void setNumberOfDecimals(int numberOfDecimals) {
 

@@ -21,7 +21,7 @@ public interface SimpleCreator<T> extends Creator {
      *
      * @return  the created Object
      *
-     * @throws  FillingException  if an error occured.
+     * @throws  FillingException  if an error occurred.
      */
     T create() throws FillingException;
 }

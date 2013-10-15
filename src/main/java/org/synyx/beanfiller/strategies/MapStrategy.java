@@ -63,7 +63,7 @@ public class MapStrategy extends AbstractCreatorStrategy {
      *
      * @return
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<Object> getKeys(ObjectInformation keyObjectInformation, MapCreator mapCreator)
         throws FillingException {
@@ -88,7 +88,7 @@ public class MapStrategy extends AbstractCreatorStrategy {
      *
      * @return
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<Object> getValues(ObjectInformation valueInformation, MapCreator mapCreator)
         throws FillingException {

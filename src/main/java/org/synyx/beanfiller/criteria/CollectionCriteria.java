@@ -11,11 +11,13 @@ import java.util.List;
  */
 public class CollectionCriteria implements Criteria<List<?>> {
 
+    private static final int SIZE = 3;
+
     private int size;
 
     public CollectionCriteria() {
 
-        this(3);
+        this(SIZE);
     }
 
 

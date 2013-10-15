@@ -28,7 +28,7 @@ public class DateCreator implements SimpleCreator<Date> {
     /**
      * Create a new DateCreator with the given criteria.
      *
-     * @param  criteria  the criteria to use.
+     * @param  dateCriteria  the criteria to use.
      */
     public DateCreator(DateCriteria dateCriteria) {
 

@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class MapCreator implements Creator {
 
+    private static final int SIZE = 3;
+
     private final MapCriteria criteria;
 
     /**
@@ -21,7 +23,7 @@ public class MapCreator implements Creator {
      */
     public MapCreator() {
 
-        this.criteria = new MapCriteria(3);
+        this.criteria = new MapCriteria(SIZE);
     }
 
 

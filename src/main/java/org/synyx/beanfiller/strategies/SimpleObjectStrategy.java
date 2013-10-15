@@ -20,7 +20,7 @@ public class SimpleObjectStrategy extends AbstractCreatorStrategy {
     public boolean canHandle(ObjectInformation objectInformation) {
 
         // if we find a creator for the object, we can handle it.
-        return (getCreator(objectInformation) != null);
+        return getCreator(objectInformation) != null;
     }
 
 

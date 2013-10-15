@@ -12,9 +12,9 @@ import java.util.List;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class ListCreator extends CollectionCreator<List<?>> {
+public class ListCreatorAbstract extends AbstractCollectionCreator<List<?>> {
 
-    public ListCreator(CollectionCriteria criteria) {
+    public ListCreatorAbstract(CollectionCriteria criteria) {
 
         super(criteria);
     }

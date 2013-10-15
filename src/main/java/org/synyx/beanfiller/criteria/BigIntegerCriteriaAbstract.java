@@ -9,24 +9,24 @@ import java.math.BigInteger;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BigIntegerCriteria extends NumberCriteria<BigInteger> {
+public class BigIntegerCriteriaAbstract extends AbstractNumberCriteria<BigInteger> {
 
     /**
-     * Create a new BigIntegerCriteria with the default values.
+     * Create a new BigIntegerCriteriaAbstract with the default values.
      */
-    public BigIntegerCriteria() {
+    public BigIntegerCriteriaAbstract() {
 
         this(BigInteger.ZERO, BigInteger.TEN);
     }
 
 
     /**
-     * Create a new BigIntegerCriteria with the given values.
+     * Create a new BigIntegerCriteriaAbstract with the given values.
      *
      * @param  min  of the created number
      * @param  max  of the created number
      */
-    public BigIntegerCriteria(BigInteger min, BigInteger max) {
+    public BigIntegerCriteriaAbstract(BigInteger min, BigInteger max) {
 
         super(min, max);
     }

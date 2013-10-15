@@ -1,7 +1,7 @@
 
 package org.synyx.beanfiller.strategies;
 
-import org.synyx.beanfiller.creator.CollectionCreator;
+import org.synyx.beanfiller.creator.AbstractCollectionCreator;
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
@@ -35,18 +35,19 @@ public class CollectionStrategy extends AbstractCreatorStrategy {
         Creator creator = getCreator(objectInformation);
 
         if (creator != null) {
-            checkCreatorHasRightClass(creator, CollectionCreator.class, objectInformation);
+            checkCreatorHasRightClass(creator, AbstractCollectionCreator.class, objectInformation);
 
-            CollectionCreator collectionCreator = (CollectionCreator) creator;
+            AbstractCollectionCreator abstractCollectionCreator = (AbstractCollectionCreator) creator;
 
             // get the ObjectInformations from the TypeArguments of the map.
 
             List<ObjectInformation> typeArguments = getTypeArgumentObjectInformation(objectInformation);
 
-            // get the values - because this is a map, the list should only contain the ObjectInformation for the values.
-            List<Object> values = getValues(typeArguments.get(0), collectionCreator);
+            // get the values - because this is a map, the list should only contain
+            // the ObjectInformation for the values.
+            List<Object> values = getValues(typeArguments.get(0), abstractCollectionCreator);
 
-            return collectionCreator.createCollection(values);
+            return abstractCollectionCreator.createCollection(values);
         }
 
         return null;
@@ -54,21 +55,21 @@ public class CollectionStrategy extends AbstractCreatorStrategy {
 
 
     /**
-     * Create the values from the given ObjectInformation and CollectionCreator.
+     * Create the values from the given ObjectInformation and AbstractCollectionCreator.
      *
      * @param  valueInformation
-     * @param  collectionCreator
+     * @param  abstractCollectionCreator
      *
      * @return
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
-    protected List<Object> getValues(ObjectInformation valueInformation, CollectionCreator collectionCreator)
-        throws FillingException {
+    protected List<Object> getValues(ObjectInformation valueInformation,
+        AbstractCollectionCreator abstractCollectionCreator) throws FillingException {
 
         List<Object> values = new ArrayList<Object>();
 
-        for (int i = 0; i < collectionCreator.getSize(); i++) {
+        for (int i = 0; i < abstractCollectionCreator.getSize(); i++) {
             Object typeObject = createObjectFromObjectInformation(valueInformation);
             values.add(typeObject);
         }

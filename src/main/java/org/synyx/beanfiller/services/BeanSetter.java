@@ -15,7 +15,12 @@ import java.util.Map;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BeanSetter {
+public final class BeanSetter {
+
+    private BeanSetter() {
+
+        // Utility class should hide constructor
+    }
 
     /**
      * @param  bean  Bean to set the given Objects on
@@ -29,8 +34,7 @@ public class BeanSetter {
     public static <T> T setBean(T bean, List<ObjectInformation> objectInformationList,
         Map<String, Object> createdObjectMap) throws FillingException {
 
-        for (int i = 0; i < objectInformationList.size(); i++) {
-            ObjectInformation information = objectInformationList.get(i);
+        for (ObjectInformation information : objectInformationList) {
             Object object = createdObjectMap.get(information.getPath());
 
             Method accessor = information.getAccessor();

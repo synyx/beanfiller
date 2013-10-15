@@ -13,24 +13,28 @@ import java.util.Map;
 
 
 /**
- * Class that analyzes Beans and provides the neccessary information to process the Beans.
+ * Class that analyzes Beans and provides the necessary information to process the Beans.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class BeanAnalyzer {
+public final class BeanAnalyzer {
+
+    private BeanAnalyzer() {
+
+        // Utility class should hide constructor
+    }
 
     /**
      * Analyzes the given clazz and returns a List of ObjectInformation that have to be processed in order to fill the
      * Bean.
      *
      * @param  clazz
-     * @param  strategyManager
      *
      * @return
      */
     public static List<ObjectInformation> analyzeBean(Class clazz) {
 
-        List<ObjectInformation> objectInformation = new ArrayList<ObjectInformation>();
+        List<ObjectInformation> oInfo = new ArrayList<ObjectInformation>();
 
         String path = clazz.getSimpleName();
 
@@ -46,14 +50,11 @@ public class BeanAnalyzer {
                 // get the parameter type of the setter
                 Class parameterClazz = setter.getParameterTypes()[0];
 
-                ObjectInformation parameterObjectInformation = new ObjectInformation(parameterClazz, field,
-                        field.getType(), setter, fieldPath);
-
-                objectInformation.add(parameterObjectInformation);
+                oInfo.add(new ObjectInformation(parameterClazz, field, field.getType(), setter, fieldPath)); // NOSONAR
             }
         }
 
-        return objectInformation;
+        return oInfo;
     }
 
 
@@ -72,9 +73,17 @@ public class BeanAnalyzer {
         Map<String, Method> setters = new HashMap<String, Method>();
 
         for (Method method : methods) {
-            // method name start with set, it is public and it has exactly one parameter.
-            if (method.getName().startsWith("set") && Modifier.isPublic(method.getModifiers())
-                    && method.getParameterTypes() != null && method.getParameterTypes().length == 1) {
+            // method name start with set,
+            boolean condition = method.getName().startsWith("set");
+
+            // it is public
+            condition &= Modifier.isPublic(method.getModifiers());
+
+            // it has exactly one parameter
+            condition &= condition && (method.getParameterTypes() != null && method.getParameterTypes().length == 1);
+
+            // it is public and it has exactly one parameter.
+            if (condition) {
                 setters.put(method.getName().toLowerCase(), method);
             }
         }

@@ -7,11 +7,13 @@ package org.synyx.beanfiller.criteria;
  */
 public class ArrayCriteria implements Criteria<Object> {
 
+    private static final int SIZE = 3;
+
     private int size;
 
     public ArrayCriteria() {
 
-        this.size = 3;
+        this.size = SIZE;
     }
 
 

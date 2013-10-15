@@ -11,11 +11,11 @@ import java.util.List;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public abstract class CollectionCreator<T extends Collection> implements Creator {
+public abstract class AbstractCollectionCreator<T extends Collection> implements Creator {
 
     private final CollectionCriteria criteria;
 
-    protected CollectionCreator(CollectionCriteria criteria) {
+    protected AbstractCollectionCreator(CollectionCriteria criteria) {
 
         this.criteria = criteria;
     }
@@ -26,15 +26,13 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
      * @param  values  values for the Collection.
      *
      * @return  the created Object.
-     *
-     * @throws  FillingException  if an error occured.
      */
     public <T> Collection<T> createCollection(List<T> values) {
 
         Collection collection = getImplementationOfCollectionsClass();
 
-        for (int i = 0; i < values.size(); i++) {
-            collection.add(values.get(i));
+        for (T value : values) {
+            collection.add(value);
         }
 
         return collection;
@@ -44,7 +42,7 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
     /**
      * Returns the size, the collection should have.
      *
-     * @return
+     * @return  expected size of collection
      */
     public int getSize() {
 
