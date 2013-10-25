@@ -1,5 +1,8 @@
 package org.synyx.beanfiller.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.synyx.beanfiller.util.GenericsUtils;
 
 import java.lang.reflect.Field;
@@ -16,6 +19,7 @@ import java.util.List;
  */
 public class History {
 
+    private static final Logger LOG = LoggerFactory.getLogger(History.class);
     private List<Class> filledClasses;
     private boolean isRepeating = false;
 
@@ -116,8 +120,8 @@ public class History {
 
                 classesToCheck.add(clazz);
             } catch (ClassNotFoundException ex) {
-//                LOG.warn("Did not find class of type: " + type.toString()
-//                    + "! But as we are only analyzing here, we don't handle it!", ex);
+                LOG.warn("Did not find class of type: " + type.toString()
+                    + "! But as we are only checking for cycles here, we don't handle it!", ex);
             }
         }
 
