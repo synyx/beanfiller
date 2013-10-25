@@ -1,7 +1,7 @@
 beanfiller
 ==========
 
-Small library for filling java beans with random data.
+Small library for recursively filling java beans with random data.
 
 Usage
 =====
@@ -41,7 +41,6 @@ For more information, see javadoc.
 next up
 =======
 * Documentation in the readme.md
-* Fixing Problems with cycling dependencies
 * Add support for some basic Types
 * JSR303 Bean Validation Extension
 
