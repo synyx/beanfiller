@@ -1,5 +1,8 @@
 package org.synyx.beanfiller.strategies;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
@@ -40,6 +43,8 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      * Use this if the Strategy is for some explicit Type of Object and should always be used for it.
      */
     public static final int PRIORITY_HIGHEST = 999;
+
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractCreatorStrategy.class);
     private final Integer priority;
     private CreatorRegistry creatorRegistry;
     private StrategyManager strategyManager;
@@ -75,6 +80,11 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
         if (!objectInformation.getHistory().isRepeating()) {
             return createObjectInternal(objectInformation);
         } else {
+            LOG.warn(String.format(
+                    "Detected cycle introduced by class %s (field %s on class %s). Aborting creation of this branch! ",
+                    objectInformation.getClazz().getName(), objectInformation.getField().getName(),
+                    objectInformation.getField().getDeclaringClass()));
+
             return null;
         }
     }
