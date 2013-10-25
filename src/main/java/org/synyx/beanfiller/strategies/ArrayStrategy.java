@@ -13,6 +13,8 @@ import java.util.List;
 
 
 /**
+ * Handles all types of Arrays.
+ *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class ArrayStrategy extends AbstractCreatorStrategy {
@@ -30,7 +32,7 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
 
 
     @Override
-    public Object createObject(ObjectInformation objectInformation) throws FillingException {
+    public Object createObjectInternal(ObjectInformation objectInformation) throws FillingException {
 
         Creator creator = getArrayCreator(objectInformation);
 
@@ -42,7 +44,7 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
             Class arrayType = objectInformation.getClazz().getComponentType();
 
             List<Object> objectsForArray = createObjectsForArray(arrayType, objectInformation.getField(),
-                    arrayCreator.getSize());
+                    arrayCreator.getSize(), objectInformation);
 
             return arrayCreator.createArray(objectsForArray, arrayType);
         }
@@ -51,7 +53,8 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
     }
 
 
-    private <T> List<T> createObjectsForArray(Class<T> arrayType, Field field, int size) throws FillingException {
+    private <T> List<T> createObjectsForArray(Class<T> arrayType, Field field, int size,
+        ObjectInformation parentObjectInformation) throws FillingException {
 
         Type type = field.getGenericType();
 
@@ -60,7 +63,8 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
             type = ((GenericArrayType) type).getGenericComponentType();
         }
 
-        ObjectInformation information = new ObjectInformation(arrayType, field, type, null, null);
+        ObjectInformation information = new ObjectInformation(arrayType, field, type, null, null,
+                parentObjectInformation);
 
         return (List<T>) createObjectNumberOfTimes(information, size);
     }

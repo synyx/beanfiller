@@ -5,9 +5,8 @@ import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.services.CreatorRegistry;
+import org.synyx.beanfiller.util.GenericsUtils;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
@@ -61,15 +60,36 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
 
 
     /**
-     * Creates an Object of the given class.
+     * Creates an Object for the given ObjectInformation - In here it is checked if this step would create a creation
+     * cycle and if it would, null is returned.
      *
      * @param  objectInformation
      *
-     * @return
+     * @return  the created Object or null if an error occurred or if the Object would create a cycle.
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
-    public abstract Object createObject(ObjectInformation objectInformation) throws FillingException;
+    public Object createObject(ObjectInformation objectInformation) throws FillingException {
+
+        // if the next step would introduce a cycle, don't create that object!
+        if (!objectInformation.getHistory().isRepeating()) {
+            return createObjectInternal(objectInformation);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Creates an Object for the given ObjectInformation.
+     *
+     * @param  objectInformation
+     *
+     * @return  the created Object
+     *
+     * @throws  FillingException
+     */
+    protected abstract Object createObjectInternal(ObjectInformation objectInformation) throws FillingException;
 
 
     public int getPriority() {
@@ -143,25 +163,6 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
 
 
     /**
-     * Check if the given type has Generics.
-     *
-     * @param  clazz
-     *
-     * @return
-     */
-    protected boolean hasGenerics(Type type) {
-
-        // check if the type is a ParameterizedType or a GenericArrayType. In both cases, the field has Generics.
-        if (ParameterizedType.class.isAssignableFrom(type.getClass())
-                || GenericArrayType.class.isAssignableFrom(type.getClass())) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    /**
      * Check if the given class is a java.util.Collection.
      *
      * @param  clazz
@@ -192,7 +193,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @param  objectInformation
      *
-     * @return
+     * @return  List of ObjectInformation
      *
      * @throws  CreationException
      */
@@ -201,37 +202,10 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
 
         List<ObjectInformation> typeArgumentObjectInformationList = new ArrayList<ObjectInformation>();
 
-        Type genericType = objectInformation.getField().getGenericType();
+        List<Type> actualTypeArguments = GenericsUtils.getActualTypeArguments(objectInformation.getField());
 
-        if (hasGenerics(genericType)) {
-            if (GenericArrayType.class.isAssignableFrom(genericType.getClass())) {
-                // if we have an Array of a Type with Generics, this is needed!
-                genericType = ((GenericArrayType) genericType).getGenericComponentType();
-            }
-
-            ParameterizedType objectType = (ParameterizedType) genericType;
-
-            for (Type type : objectType.getActualTypeArguments()) {
-                String classString = null;
-
-                try {
-                    // get the class of the generic type and create it
-                    classString = type.toString().contains("class ") ? type.toString().split(" ")[1] : type.toString();
-
-                    // The generic Type has got another generic Type e.g. List<List<String>>
-                    if (classString.contains("<")) {
-                        classString = classString.split("<")[0];
-                    }
-
-                    ObjectInformation typeArgumentObjectInformation = new ObjectInformation(Class.forName(classString),
-                            objectInformation.getField(), type, null, null);
-                    typeArgumentObjectInformationList.add(typeArgumentObjectInformation);
-                } catch (ClassNotFoundException ex) {
-                    throw new FillingException("Could not find the class " + classString
-                        + " on Filling the Generic Parameters of the class " + objectInformation.getClazz().getName()
-                        + " (Tried to get it from the String '" + type.toString() + "'", ex);
-                }
-            }
+        for (Type type : actualTypeArguments) {
+            typeArgumentObjectInformationList.add(createObjectInformationForType(type, objectInformation));
         }
 
         return typeArgumentObjectInformationList;
@@ -277,6 +251,22 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
                 + " and field " + objectInformation.getField().getName()
                 + "  is not or does not derive from " + desiredCreatorClass.getName() + ", but is: "
                 + creator.getClass().getName());
+        }
+    }
+
+
+    private ObjectInformation createObjectInformationForType(Type type, ObjectInformation parentObjectInformation)
+        throws FillingException {
+
+        try {
+            Class clazz = GenericsUtils.getClassForType(type);
+
+            return new ObjectInformation(clazz, parentObjectInformation.getField(), type, null, null,
+                    parentObjectInformation);
+        } catch (ClassNotFoundException ex) {
+            throw new FillingException("Could not find the class of the type " + type.toString()
+                + " on Filling the Generic Parameters of the class " + parentObjectInformation.getClazz().getName()
+                + " (Tried to get it from the String '" + type.toString() + "'", ex);
         }
     }
 }

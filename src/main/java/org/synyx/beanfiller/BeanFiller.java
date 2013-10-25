@@ -49,9 +49,19 @@ public class BeanFiller {
         strategyManager = new StrategyManager(creatorRegistry);
     }
 
+    /**
+     * Creates an instance of the given class and fills in recursively.
+     *
+     * @param  <T>
+     * @param  clazz  class to fill
+     *
+     * @return  Instance of the filled class
+     *
+     * @throws  FillingException
+     */
     public <T> T fillBean(Class<T> clazz) throws FillingException {
 
-        ObjectInformation information = new ObjectInformation(clazz, null, null, null, null);
+        ObjectInformation information = new ObjectInformation(clazz, null, null, null, null, null);
         AbstractCreatorStrategy strategy = strategyManager.getStrategyFor(information);
 
         return (T) strategy.createObject(information);

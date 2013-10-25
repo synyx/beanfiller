@@ -25,7 +25,7 @@ public class EnumStrategy extends AbstractCreatorStrategy {
 
 
     @Override
-    public Object createObject(ObjectInformation objectInformation) throws FillingException {
+    public Object createObjectInternal(ObjectInformation objectInformation) throws FillingException {
 
         Creator creator = getEnumCreator(objectInformation);
 

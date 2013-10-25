@@ -1,11 +1,15 @@
 package org.synyx.beanfiller.strategies;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.services.BeanAnalyzer;
 import org.synyx.beanfiller.services.BeanSetter;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +20,8 @@ import java.util.Map;
  * @author  Tobias Knell - knell@synyx.de
  */
 public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JustAnotherBeanStrategy.class);
 
     public JustAnotherBeanStrategy() {
 
@@ -32,7 +38,7 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
 
     @Override
-    public Object createObject(ObjectInformation parentInformation) throws FillingException {
+    public Object createObjectInternal(ObjectInformation parentInformation) throws FillingException {
 
         Class parentClazz = parentInformation.getClazz();
 
@@ -43,10 +49,18 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
             List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz);
             Map<String, Object> createdObjectMap = new HashMap<String, Object>(objectInformationList.size());
 
-            for (ObjectInformation information : objectInformationList) {
+            Iterator<ObjectInformation> objectInformationIterator = objectInformationList.iterator();
+
+            while (objectInformationIterator.hasNext()) {
+                ObjectInformation information = objectInformationIterator.next();
+                information.setParent(parentInformation);
+
                 AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(information);
                 Object o = strategy.createObject(information);
-                createdObjectMap.put(information.getPath(), o);
+
+                if (o != null) {
+                    createdObjectMap.put(information.getPath(), o);
+                }
             }
 
             return BeanSetter.setBean(instance, objectInformationList, createdObjectMap);

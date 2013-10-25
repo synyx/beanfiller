@@ -1,4 +1,3 @@
-
 package org.synyx.beanfiller.domain;
 
 import java.lang.reflect.Field;
@@ -18,6 +17,8 @@ public class ObjectInformation {
     private Method accessor;
     private Type type;
     private String path;
+    private ObjectInformation parent;
+    private History history;
 
     /**
      * @param  clazz  class of the object
@@ -25,14 +26,17 @@ public class ObjectInformation {
      * @param  type  type of the object to create.
      * @param  accessor  accessor to set the field.
      * @param  path  the object path of the object
+     * @param  parent  the parent ObjectInformation of this one
      */
-    public ObjectInformation(Class clazz, Field field, Type type, Method accessor, String path) {
+    public ObjectInformation(Class clazz, Field field, Type type, Method accessor, String path,
+        ObjectInformation parent) {
 
         this.clazz = clazz;
         this.field = field;
         this.type = type;
         this.accessor = accessor;
         this.path = path;
+        createHistory(parent);
     }
 
     public Class getClazz() {
@@ -95,10 +99,55 @@ public class ObjectInformation {
     }
 
 
+    /**
+     * Returns a copy of the History of this ObjectInformation.
+     *
+     * @return
+     */
+    public History getHistory() {
+
+        return new History(history);
+    }
+
+
+    public ObjectInformation getParent() {
+
+        return parent;
+    }
+
+
+    /**
+     * Sets the parent ObjectInformation and (re-)creates the History for this ObjectInformation.
+     *
+     * @param  parent
+     */
+    public void setParent(ObjectInformation parent) {
+
+        this.parent = parent;
+        createHistory(parent);
+    }
+
+
     @Override
     public String toString() {
 
         return "ObjectInformation{" + "clazz=" + clazz + ", field=" + field + ", accessor=" + accessor + ", type="
             + type + ", path=" + path + '}';
+    }
+
+
+    /**
+     * Create the History for this ObjectInformation (based on the parents History if it is set).
+     *
+     * @param  parent
+     */
+    private void createHistory(ObjectInformation parent) {
+
+        if (parent != null && parent.getHistory() != null) {
+            this.history = new History(parent.getHistory());
+            this.history.add(this);
+        } else {
+            this.history = new History(this);
+        }
     }
 }

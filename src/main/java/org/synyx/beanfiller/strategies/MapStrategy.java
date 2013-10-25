@@ -29,7 +29,7 @@ public class MapStrategy extends AbstractCreatorStrategy {
 
 
     @Override
-    public Object createObject(ObjectInformation objectInformation) throws FillingException {
+    public Object createObjectInternal(ObjectInformation objectInformation) throws FillingException {
 
         Creator creator = getCreator(objectInformation);
 

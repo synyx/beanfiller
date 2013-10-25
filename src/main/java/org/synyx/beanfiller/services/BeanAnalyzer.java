@@ -1,5 +1,8 @@
 package org.synyx.beanfiller.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.synyx.beanfiller.domain.ObjectInformation;
 
 import java.lang.reflect.Field;
@@ -18,6 +21,8 @@ import java.util.Map;
  * @author  Tobias Knell - knell@synyx.de
  */
 public class BeanAnalyzer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(BeanAnalyzer.class);
 
     /**
      * Analyzes the given clazz and returns a List of ObjectInformation that have to be processed in order to fill the
@@ -47,7 +52,7 @@ public class BeanAnalyzer {
                 Class parameterClazz = setter.getParameterTypes()[0];
 
                 ObjectInformation parameterObjectInformation = new ObjectInformation(parameterClazz, field,
-                        field.getType(), setter, fieldPath);
+                        field.getType(), setter, fieldPath, null);
 
                 objectInformation.add(parameterObjectInformation);
             }
