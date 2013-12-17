@@ -11,14 +11,25 @@ public class WrongCreatorException extends FillingException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates new WrongCreatorException with the given message.
+     *
+     * @param  message  the message.
+     */
     public WrongCreatorException(String message) {
 
         super(message);
     }
 
 
-    public WrongCreatorException(String message, Exception ex) {
+    /**
+     * Creates new WrongCreatorException with the given message and cause.
+     *
+     * @param  message  the message.
+     * @param  cause  the throwable cause.
+     */
+    public WrongCreatorException(String message, Throwable cause) {
 
-        super(message, ex);
+        super(message, cause);
     }
 }

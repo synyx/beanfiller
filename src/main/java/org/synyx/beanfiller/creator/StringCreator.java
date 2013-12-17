@@ -11,12 +11,20 @@ public class StringCreator implements SimpleCreator<String> {
 
     private final StringCriteria criteria;
 
+    /**
+     * Creates new StringCreator with the default StringCriteria.
+     */
     public StringCreator() {
 
         this(new StringCriteria());
     }
 
 
+    /**
+     * Creates new StringCreator with the given Criteria.
+     *
+     * @param  criteria  StringCriteria to use.
+     */
     public StringCreator(StringCriteria criteria) {
 
         this.criteria = criteria;

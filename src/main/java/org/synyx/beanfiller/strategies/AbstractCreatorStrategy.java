@@ -49,6 +49,11 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     private CreatorRegistry creatorRegistry;
     private StrategyManager strategyManager;
 
+    /**
+     * Creates a new Strategy with the given priority.
+     *
+     * @param  priority  the priority of this Strategy
+     */
     public AbstractCreatorStrategy(Integer priority) {
 
         this.priority = priority;
@@ -102,30 +107,49 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     protected abstract Object createObjectInternal(ObjectInformation objectInformation) throws FillingException;
 
 
+    /**
+     * @return  the priority of this Strategy.
+     */
     public int getPriority() {
 
         return priority;
     }
 
 
+    /**
+     * Sets the CreatorRegistry instance to use.
+     *
+     * @param  creatorRegistry  the CreatorRegistry to use.
+     */
     public void setCreatorRegistry(CreatorRegistry creatorRegistry) {
 
         this.creatorRegistry = creatorRegistry;
     }
 
 
+    /**
+     * @return  the currently set CreatorRegistry.
+     */
     public CreatorRegistry getCreatorRegistry() {
 
         return creatorRegistry;
     }
 
 
+    /**
+     * @return  the currently set StrategyManager.
+     */
     public StrategyManager getStrategyManager() {
 
         return strategyManager;
     }
 
 
+    /**
+     * Sets the StrategyManager instance to use.
+     *
+     * @param  strategyManager  the StrategyManager to use.
+     */
     public void setStrategyManager(StrategyManager strategyManager) {
 
         this.strategyManager = strategyManager;
@@ -222,6 +246,15 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     }
 
 
+    /**
+     * Creates the Object from the given ObjectInformation by calling the appropriate Strategy.
+     *
+     * @param  objectInformation  ObjectInformation containing the Object details.
+     *
+     * @return  the created Object.
+     *
+     * @throws  FillingException
+     */
     protected Object createObjectFromObjectInformation(ObjectInformation objectInformation) throws FillingException {
 
         AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(objectInformation);
@@ -230,6 +263,16 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     }
 
 
+    /**
+     * Creates the Object from the given ObjectInformation the specified number of times.
+     *
+     * @param  objectInformation  ObjectInformation containing the Object details.
+     * @param  number  number of times the Object should be created.
+     *
+     * @return  List of the created Objects.
+     *
+     * @throws  FillingException
+     */
     protected List<Object> createObjectNumberOfTimes(ObjectInformation objectInformation, int number)
         throws FillingException {
 

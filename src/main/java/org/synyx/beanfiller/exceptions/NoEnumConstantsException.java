@@ -10,14 +10,25 @@ public class NoEnumConstantsException extends FillingException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates new NoEnumConstantsException with the given message.
+     *
+     * @param  message  the message.
+     */
     public NoEnumConstantsException(String message) {
 
         super(message);
     }
 
 
-    public NoEnumConstantsException(String message, Exception ex) {
+    /**
+     * Creates new NoEnumConstantsException with the given message and cause.
+     *
+     * @param  message  the message.
+     * @param  cause  the throwable cause.
+     */
+    public NoEnumConstantsException(String message, Throwable cause) {
 
-        super(message, ex);
+        super(message, cause);
     }
 }

@@ -12,12 +12,20 @@ public class ShortCreator implements SimpleCreator<Short> {
 
     private final ShortCriteria criteria;
 
+    /**
+     * Creates new ShortCreator using the default ShortCriteria.
+     */
     public ShortCreator() {
 
         this.criteria = new ShortCriteria();
     }
 
 
+    /**
+     * Creates new ShortCreator using the given ShortCriteria.
+     *
+     * @param  criteria  the ShortCriteria to use.
+     */
     public ShortCreator(ShortCriteria criteria) {
 
         this.criteria = criteria;

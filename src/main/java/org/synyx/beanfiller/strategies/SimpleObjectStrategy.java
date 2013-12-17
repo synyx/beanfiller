@@ -11,6 +11,9 @@ import org.synyx.beanfiller.exceptions.FillingException;
  */
 public class SimpleObjectStrategy extends AbstractCreatorStrategy {
 
+    /**
+     * Creates new SimpleObjectStrategy.
+     */
     public SimpleObjectStrategy() {
 
         super(PRIORITY_LOW);

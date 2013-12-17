@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class ArrayStrategy extends AbstractCreatorStrategy {
 
+    /**
+     * Creates new ArrayStrategy.
+     */
     public ArrayStrategy() {
 
         super(PRIORITY_HIGH);
@@ -53,6 +56,19 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
     }
 
 
+    /**
+     * Creates the values for the Array that should be created.
+     *
+     * @param  arrayType  Type of the Array.
+     * @param  field  Field of the Array.
+     * @param  size  size the array should have.
+     * @param  parentObjectInformation  the ParentObjectInformation of the Array.
+     * @param  <T>  the Class of the Type.
+     *
+     * @return  List of Type <T> with the created Objects for the Array.
+     *
+     * @throws  FillingException
+     */
     private <T> List<T> createObjectsForArray(Class<T> arrayType, Field field, int size,
         ObjectInformation parentObjectInformation) throws FillingException {
 
@@ -70,6 +86,13 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
     }
 
 
+    /**
+     * Get the Creator for the given ObjectInformation.
+     *
+     * @param  objectInformation  ObjectInformation to get the Creator for.
+     *
+     * @return  the found Creator or null if none was found for the ObjectInformation.
+     */
     private Creator getArrayCreator(ObjectInformation objectInformation) {
 
         Creator creator = getCreator(objectInformation);

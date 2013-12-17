@@ -14,6 +14,20 @@ import java.util.List;
  */
 public class ListCreator extends CollectionCreator<List<?>> {
 
+    /**
+     * Create new ListCreator using the default Criteria.
+     */
+    public ListCreator() {
+
+        super(new CollectionCriteria());
+    }
+
+
+    /**
+     * Create new ListCreator using the given Criteria.
+     *
+     * @param  criteria  CollectionCriteria to use.
+     */
     public ListCreator(CollectionCriteria criteria) {
 
         super(criteria);

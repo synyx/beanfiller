@@ -15,6 +15,9 @@ public class MapCriteria implements Criteria<Map<?, ?>> {
     private int size;
     private List<Object> keys;
 
+    /**
+     * Creates new MapCriteria with the default values.
+     */
     public MapCriteria() {
 
         this(3);
@@ -43,24 +46,36 @@ public class MapCriteria implements Criteria<Map<?, ?>> {
         this.size = keys.size();
     }
 
+    /**
+     * @return  the size maps should be created with.
+     */
     public int getSize() {
 
         return size;
     }
 
 
+    /**
+     * @param  size  the size maps should be created with.
+     */
     public void setSize(int size) {
 
         this.size = size;
     }
 
 
+    /**
+     * @return  Keys the created Maps should have.
+     */
     public List<Object> getKeys() {
 
         return keys;
     }
 
 
+    /**
+     * @param  keys  Keys the created Maps should have.
+     */
     public void setKeys(List<Object> keys) {
 
         this.keys = keys;

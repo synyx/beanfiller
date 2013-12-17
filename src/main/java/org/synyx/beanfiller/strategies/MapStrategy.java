@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class MapStrategy extends AbstractCreatorStrategy {
 
+    /**
+     * Creates new MapStrategy.
+     */
     public MapStrategy() {
 
         super(PRIORITY_HIGHEST);

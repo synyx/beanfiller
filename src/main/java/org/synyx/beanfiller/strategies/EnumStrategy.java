@@ -12,6 +12,9 @@ import org.synyx.beanfiller.exceptions.WrongCreatorException;
  */
 public class EnumStrategy extends AbstractCreatorStrategy {
 
+    /**
+     * Creates new EnumStrategy.
+     */
     public EnumStrategy() {
 
         super(PRIORITY_HIGH);

@@ -22,6 +22,9 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(JustAnotherBeanStrategy.class);
 
+    /**
+     * Creates new JustAnotherBeanStrategy.
+     */
     public JustAnotherBeanStrategy() {
 
         // if no other Strategy fits, we assume this is another Bean that we need to create.

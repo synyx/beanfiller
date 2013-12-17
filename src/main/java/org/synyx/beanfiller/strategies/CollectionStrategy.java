@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class CollectionStrategy extends AbstractCreatorStrategy {
 
+    /**
+     * Creates new CollectionStrategy.
+     */
     public CollectionStrategy() {
 
         super(PRIORITY_HIGH);

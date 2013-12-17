@@ -17,6 +17,13 @@ import java.util.List;
  */
 public class GenericsUtils {
 
+    /**
+     * Gets the actual type arguments for the given field.
+     *
+     * @param  field  field to get the actual type arguments for.
+     *
+     * @return  List of the actual type arguments of the field. Can be empty if the field has none.
+     */
     public static List<Type> getActualTypeArguments(Field field) {
 
         List<Type> actualTypeList = new ArrayList<Type>();
@@ -55,6 +62,15 @@ public class GenericsUtils {
     }
 
 
+    /**
+     * Get the class of the given Type.
+     *
+     * @param  type  type to get the class for.
+     *
+     * @return  the Class of the type.
+     *
+     * @throws  ClassNotFoundException  if the class was not found.
+     */
     public static Class getClassForType(Type type) throws ClassNotFoundException {
 
         // get the class of the generic type and create it

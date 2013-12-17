@@ -17,6 +17,11 @@ public class StrategyManager {
     private final Set<AbstractCreatorStrategy> strategies = new TreeSet<AbstractCreatorStrategy>();
     private final CreatorRegistry creatorRegistry;
 
+    /**
+     * Creates new StrategyMananger with the given CreatorRegistry and the default Strategies.
+     *
+     * @param  creatorRegistry  CreatorRegistry to use.
+     */
     public StrategyManager(CreatorRegistry creatorRegistry) {
 
         this.creatorRegistry = creatorRegistry;
@@ -24,6 +29,12 @@ public class StrategyManager {
     }
 
 
+    /**
+     * Creates new StrategyMananger with the given CreatorRegistry and the given Strategies.
+     *
+     * @param  strategies  Strategies to use.
+     * @param  creatorRegistry  CreatorRegistry to use.
+     */
     public StrategyManager(Set<AbstractCreatorStrategy> strategies, CreatorRegistry creatorRegistry) {
 
         this.creatorRegistry = creatorRegistry;
@@ -33,6 +44,11 @@ public class StrategyManager {
         }
     }
 
+    /**
+     * Adds the given Strategies to the Strategies that are used.
+     *
+     * @param  strategy  the strategy to add.
+     */
     public void addStrategy(AbstractCreatorStrategy strategy) {
 
         addStrategyInternal(strategy);
@@ -66,6 +82,9 @@ public class StrategyManager {
     }
 
 
+    /**
+     * @return  a copy of the currently set Strategies.
+     */
     public Set<AbstractCreatorStrategy> getStrategies() {
 
         return new TreeSet<AbstractCreatorStrategy>(strategies);

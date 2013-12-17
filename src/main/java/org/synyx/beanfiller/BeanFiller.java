@@ -14,9 +14,11 @@ import java.util.Map;
 
 
 /**
- * Class for recursively filling Beans with random data. As of now, this class only uses public setters for filling the
- * beans, so ensure that your beans you want to fill provide a setter for every variable that should be filled and that
- * it meets the naming convention for setters ('setVariableName').
+ * Class for recursively filling Beans with random data. As of now, this class only uses public setters that have the
+ * same name as the member they set for filling the beans, so ensure that your beans you want to fill provide a setter
+ * for every variable that should be filled and that it meets the naming convention for setters ('setVariableName').
+ * Also note that only the first parameter of the setters is used. With these conventions the BeanFiller does not invoke
+ * literally everything that is named 'set*' and so is less error prone.
  *
  * @author  Tobias Knell - knell@synyx.de
  */

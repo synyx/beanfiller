@@ -35,6 +35,14 @@ public class MapCreator implements Creator {
         this.criteria = criteria;
     }
 
+    /**
+     * Creates a HashMap and fills it with the given keys and values.
+     *
+     * @param  keys  keys to use.
+     * @param  values  values to use.
+     *
+     * @return  the created Map.
+     */
     public Map<?, ?> create(List<Object> keys, List<Object> values) {
 
         Map<Object, Object> map = new HashMap<Object, Object>();
@@ -47,18 +55,27 @@ public class MapCreator implements Creator {
     }
 
 
+    /**
+     * @return  the size of the Maps created by this Creator
+     */
     public int getSize() {
 
         return criteria.getSize();
     }
 
 
+    /**
+     * @return  true if there are keys set that can be used, false otherwise.
+     */
     public boolean hasKeys() {
 
         return criteria.getKeys() != null;
     }
 
 
+    /**
+     * @return  the keys to be used for created maps.
+     */
     public List<Object> getKeys() {
 
         return criteria.getKeys();

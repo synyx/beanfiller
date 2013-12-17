@@ -19,8 +19,6 @@ import org.synyx.beanfiller.creator.ShortCreator;
 import org.synyx.beanfiller.creator.SimpleArrayCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
-import org.synyx.beanfiller.criteria.CollectionCriteria;
-import org.synyx.beanfiller.criteria.MapCriteria;
 
 import java.lang.reflect.Field;
 
@@ -43,12 +41,20 @@ public class CreatorRegistry {
     private final Map<String, Creator> creatorMap;
     private final Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
 
+    /**
+     * Create new CreatorRegistry using the default creator map.
+     */
     public CreatorRegistry() {
 
         this(null);
     }
 
 
+    /**
+     * Create a new CreatorRegistry using the given creatorMap. If the map is null, the default map is used.
+     *
+     * @param  creatorMap  Map of Creators to use.
+     */
     public CreatorRegistry(Map<String, Creator> creatorMap) {
 
         if (creatorMap != null) {
@@ -58,12 +64,25 @@ public class CreatorRegistry {
         }
     }
 
+    /**
+     * Adds the given Creator to be used on the given attribute of the given class.
+     *
+     * @param  clazz  clazz of the attribute the creator should be used on
+     * @param  attributeName  attribute name the creator should be used on
+     * @param  creator  creator to add.
+     */
     public void addCreatorForClassAndAttribute(Class clazz, String attributeName, Creator creator) {
 
         classAndAttributeSpecificCreatorMap.put(clazz.getName() + "." + attributeName, creator);
     }
 
 
+    /**
+     * Adds the given creator to be used for the given class.
+     *
+     * @param  clazz  class to use the creator on.
+     * @param  creator  creator to add.
+     */
     public void addCreator(Class clazz, Creator creator) {
 
         creatorMap.put(clazz.getName(), creator);
@@ -125,12 +144,18 @@ public class CreatorRegistry {
     }
 
 
+    /**
+     * @return  the creatorMap.
+     */
     public Map<String, Creator> getCreatorMap() {
 
         return creatorMap;
     }
 
 
+    /**
+     * @return  the map of the class and attribute specific Creators.
+     */
     public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
 
         return classAndAttributeSpecificCreatorMap;
@@ -178,10 +203,10 @@ public class CreatorRegistry {
         BigDecimalCreator bigDecimalCreator = new BigDecimalCreator();
         map.put(BigDecimal.class.getName(), bigDecimalCreator);
 
-        MapCreator mapCreator = new MapCreator(new MapCriteria());
+        MapCreator mapCreator = new MapCreator();
         map.put(Map.class.getName(), mapCreator);
 
-        ListCreator listCreator = new ListCreator(new CollectionCriteria());
+        ListCreator listCreator = new ListCreator();
         map.put(List.class.getName(), listCreator);
 
         EnumCreator enumCreator = new SimpleEnumCreator();
