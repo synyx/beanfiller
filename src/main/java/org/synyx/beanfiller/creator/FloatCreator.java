@@ -18,8 +18,6 @@ public class FloatCreator implements SimpleCreator<Float> {
 
     /**
      * Create a new FloatCreator with the default FloatCriteria.
-     *
-     * @param  criteria  the criteria to use.
      */
     public FloatCreator() {
 

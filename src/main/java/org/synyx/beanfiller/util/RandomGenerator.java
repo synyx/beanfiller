@@ -22,7 +22,7 @@ public final class RandomGenerator {
     /**
      * Wrapper for Random.nextInt().
      *
-     * @return
+     * @return  random int.
      */
     public static int getRandomInt() {
 
@@ -33,7 +33,7 @@ public final class RandomGenerator {
     /**
      * Wrapper for Random.nextBoolean().
      *
-     * @return
+     * @return  random Boolean.
      */
     public static Boolean getRandomBoolean() {
 
@@ -41,6 +41,11 @@ public final class RandomGenerator {
     }
 
 
+    /**
+     * @param  bytes  byte array to get random bytes for.
+     *
+     * @return  the byte array with filled in random bytes.
+     */
     public static byte[] getRandomBytes(byte[] bytes) {
 
         RANDOM.nextBytes(bytes);
@@ -52,7 +57,7 @@ public final class RandomGenerator {
     /**
      * Wrapper for Random.nextDouble() - returns a double between 0.0(inclusive) and 1.0 (exclusive).
      *
-     * @return
+     * @return  random double.
      */
     public static double getRandomDouble() {
 
@@ -63,7 +68,7 @@ public final class RandomGenerator {
     /**
      * Wrapper for Random.nextFloat() - returns a float between 0.0(inclusive) and 1.0 (exclusive).
      *
-     * @return
+     * @return  random float.
      */
     public static float getRandomFloat() {
 
@@ -74,20 +79,20 @@ public final class RandomGenerator {
     /**
      * Creates a random BigInteger with the given number of bits.
      *
-     * @param  bitlenght  number of bits, the random BigInteger should have
+     * @param  bitlength  number of bits, the random BigInteger should have
      *
-     * @return
+     * @return  random BigInteger with the given number of bits.
      */
-    public static BigInteger getRandomBigInteger(int bitlenght) {
+    public static BigInteger getRandomBigInteger(int bitlength) {
 
-        return new BigInteger(bitlenght, RANDOM);
+        return new BigInteger(bitlength, RANDOM);
     }
 
 
     /**
      * Wrapper for Random.nextInt(int n) - Gets a random int with the given maximum (exclusive).
      *
-     * @return
+     * @return  random int < max.
      */
     public static int getRandomInt(int max) {
 
@@ -98,10 +103,10 @@ public final class RandomGenerator {
     /**
      * Gets an int value between (inclusive) the given min and max values.
      *
-     * @param  min
-     * @param  max
+     * @param  min  minimum value.
+     * @param  max  maximum value.
      *
-     * @return
+     * @return  random int between the two values.
      */
     public static int getRandomIntBetween(int min, int max) {
 

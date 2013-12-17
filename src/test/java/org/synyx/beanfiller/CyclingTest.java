@@ -21,7 +21,7 @@ import org.synyx.beanfiller.testobjects.cycling.MapCycleObject;
  */
 public class CyclingTest {
 
-    private BeanFiller beanfiller = new BeanFiller();
+    private final BeanFiller beanfiller = new BeanFiller();
 
     @Test
     public void testBeanCycle() throws FillingException {
@@ -83,7 +83,7 @@ public class CyclingTest {
             for (ArrayCycleObject3 arrayCycleObject3 : arrayCycleObject2.getArrayCycleObject3Array()) {
                 Assert.assertNotNull("No cycle yet, arrayCycleObject3 should be filled!", arrayCycleObject3);
                 Assert.assertNull("The Array on arrayCycleObject3 should not be filled as it is introducing a cycle!",
-                    arrayCycleObject3.getArrayCycleObject3Arrray());
+                    arrayCycleObject3.getArrayCycleObject3Array());
             }
         }
     }

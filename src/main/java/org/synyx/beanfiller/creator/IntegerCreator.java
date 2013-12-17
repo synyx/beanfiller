@@ -17,8 +17,6 @@ public class IntegerCreator implements SimpleCreator<Integer> {
 
     /**
      * Create a new IntegerCreator with the default IntegerCriteria.
-     *
-     * @param  criteria  the criteria to use.
      */
     public IntegerCreator() {
 

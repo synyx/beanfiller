@@ -78,7 +78,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            Assert.assertEquals("StringCreator did not only use the first letter of the charset.", "A",
+            Assert.assertEquals("StringCreator did not only use the first letter of the charset.", 'A',
                 string.charAt(i));
         }
     }
@@ -100,7 +100,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            Assert.assertEquals("StringCreator did not only use the last letter of the charset.", "G",
+            Assert.assertEquals("StringCreator did not only use the last letter of the charset.", 'G',
                 string.charAt(i));
         }
     }

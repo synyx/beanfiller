@@ -42,8 +42,7 @@ public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
         BigDecimal max = criteria.getMax();
 
         BigDecimal range = max.subtract(min);
-        BigDecimal result = min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
 
-        return result;
+        return min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
     }
 }

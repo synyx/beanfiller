@@ -26,15 +26,13 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
      * @param  values  values for the Collection.
      *
      * @return  the created Object.
-     *
-     * @throws  FillingException  if an error occured.
      */
     public <T> Collection<T> createCollection(List<T> values) {
 
         Collection collection = getImplementationOfCollectionsClass();
 
-        for (int i = 0; i < values.size(); i++) {
-            collection.add(values.get(i));
+        for (T value : values) {
+            collection.add(value);
         }
 
         return collection;
@@ -44,7 +42,7 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
     /**
      * Returns the size, the collection should have.
      *
-     * @return
+     * @return  the size the collection should have.
      */
     public int getSize() {
 

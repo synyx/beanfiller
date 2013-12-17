@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
  */
 public class EnumTest {
 
-    private BeanFiller beanfiller = new BeanFiller();
+    private final BeanFiller beanfiller = new BeanFiller();
 
     @Test
     public void testEnumIsFilled() throws FillingException {
@@ -40,7 +40,7 @@ public class EnumTest {
     @Test(expected = NoEnumConstantsException.class)
     public void testNoEnumConstantsExceptionIsThrownOnEmptyEnum() throws FillingException {
 
-        ErrorEnumObject o = beanfiller.fillBean(ErrorEnumObject.class);
+        beanfiller.fillBean(ErrorEnumObject.class);
     }
 
 

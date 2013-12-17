@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
  */
 public class ArrayTest {
 
-    private BeanFiller beanfiller = new BeanFiller();
+    private final BeanFiller beanfiller = new BeanFiller();
     private ArraysObject arraysObject;
 
     @Test

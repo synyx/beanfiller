@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.criteria;
 
 /**
- * Created by knell on 17.12.13.
+ * @author  Tobias Knell - knell@synyx.de.
  */
 public class CharCriteria implements Criteria<Character> {
 

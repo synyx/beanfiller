@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * Class that analyzes Beans and provides the neccessary information to process the Beans.
+ * Class that analyzes Beans and provides the necessary information to process the Beans.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
@@ -28,10 +28,9 @@ public class BeanAnalyzer {
      * Analyzes the given clazz and returns a List of ObjectInformation that have to be processed in order to fill the
      * Bean.
      *
-     * @param  clazz
-     * @param  strategyManager
+     * @param  clazz  class to analyse.
      *
-     * @return
+     * @return  List of ObjectInformation from the given class.
      */
     public static List<ObjectInformation> analyzeBean(Class clazz) {
 

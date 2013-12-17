@@ -6,11 +6,11 @@ import org.synyx.beanfiller.util.RandomGenerator;
 
 
 /**
- * Created by knell on 17.12.13.
+ * @author  Tobias Knell - knell@synyx.de.
  */
 public class CharCreator implements SimpleCreator<Character> {
 
-    private CharCriteria criteria;
+    private final CharCriteria criteria;
 
     /**
      * Create a new CharCreator using the default CharCriteria.
@@ -24,7 +24,7 @@ public class CharCreator implements SimpleCreator<Character> {
     /**
      * Create a new CharCreator using the given criteria.
      *
-     * @param  criteria
+     * @param  criteria  the criteria to use.
      */
     public CharCreator(CharCriteria criteria) {
 

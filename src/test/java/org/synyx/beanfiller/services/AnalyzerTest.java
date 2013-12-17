@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import org.synyx.beanfiller.domain.ObjectInformation;
-import org.synyx.beanfiller.strategies.StrategyManager;
 import org.synyx.beanfiller.testobjects.BaseObject;
 import org.synyx.beanfiller.testobjects.ObjectWithBeans;
 import org.synyx.beanfiller.testobjects.TestEnum;
@@ -20,8 +19,6 @@ public class AnalyzerTest {
     @Test
     public void testAnalyzerReturnsListWithRightSize() {
 
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         Assert.assertEquals("Expected list to have 2 entries, one for each field!", 2, objectInformationList.size());
@@ -31,8 +28,6 @@ public class AnalyzerTest {
     @Test
     public void testAnalyzerSetsClassesCorrectly() {
 
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
@@ -46,8 +41,6 @@ public class AnalyzerTest {
     @Test
     public void testAnalyzerSetsFieldsCorrectly() {
 
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
@@ -63,8 +56,6 @@ public class AnalyzerTest {
     @Test
     public void testAnalyzerSetsTypeCorrectly() {
 
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);
@@ -80,8 +71,6 @@ public class AnalyzerTest {
     @Test
     public void testAnalyzerSetsPathCorrectly() {
 
-        CreatorRegistry registry = new CreatorRegistry();
-        StrategyManager strategyManager = new StrategyManager(registry);
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
 
         ObjectInformation information1 = objectInformationList.get(0);

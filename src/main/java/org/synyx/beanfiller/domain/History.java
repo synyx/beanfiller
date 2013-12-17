@@ -26,7 +26,7 @@ public class History {
     /**
      * Create new History with the given ObjectInformation as root.
      *
-     * @param  objectInformation
+     * @param  objectInformation  root of the new History.
      */
     public History(ObjectInformation objectInformation) {
 
@@ -38,7 +38,7 @@ public class History {
     /**
      * Create new History by copying the parent History.
      *
-     * @param  parent
+     * @param  parent  parent of the new History.
      */
     public History(History parent) {
 
@@ -49,7 +49,7 @@ public class History {
     /**
      * Get a copy of the current List of filledClasses.
      *
-     * @return
+     * @return  List of previously filled classes.
      */
     public List<Class> getFilledClasses() {
 
@@ -66,7 +66,7 @@ public class History {
     /**
      * Add a ObjectInformation to the History.
      *
-     * @param  objectInformation
+     * @param  objectInformation  ObjectInformation to add to the history.
      */
     public void add(ObjectInformation objectInformation) {
 
@@ -75,7 +75,7 @@ public class History {
 
 
     /**
-     * Returns wether the History contains a cycle.
+     * Returns whether the History contains a cycle.
      *
      * @return  true if history is repeating itself - false otherwise.
      */
@@ -88,7 +88,7 @@ public class History {
     /**
      * Updates the History with the given ObjectInformation.
      *
-     * @param  objectInformation
+     * @param  objectInformation  ObjectInformation to update the History with.
      */
     private void update(ObjectInformation objectInformation) {
 
@@ -103,8 +103,8 @@ public class History {
     /**
      * Checks if the given class would introduce a cycle and sets the isRepeating flag appropriately.
      *
-     * @param  currentClass
-     * @param  currentField
+     * @param  currentClass  the current class to check.
+     * @param  currentField  the current field to check.
      */
     private void checkForCycle(Class currentClass, Field currentField) {
 

@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.criteria;
 
 /**
- * Abstract superclass for all Number Criterias.
+ * Abstract superclass for all Number Criteria.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
@@ -45,7 +45,7 @@ public abstract class NumberCriteria<T extends Number> {
     /**
      * Set the maximum value the created number should have.
      *
-     * @param  max
+     * @param  max  maximum value of the created number.
      */
     public void setMax(T max) {
 
@@ -56,7 +56,7 @@ public abstract class NumberCriteria<T extends Number> {
     /**
      * Set the minimum value the created number should have.
      *
-     * @param  min
+     * @param  min  minimum value of the created number
      */
     public void setMin(T min) {
 

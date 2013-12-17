@@ -1,7 +1,7 @@
 package org.synyx.beanfiller.criteria;
 
 /**
- * Abstract superclass for all Criterias for Numbers that have decimals.
+ * Abstract superclass for all Criteria for Numbers that have decimals.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
@@ -34,7 +34,7 @@ public abstract class DecimalsNumberCriteria<T extends Number> extends NumberCri
     /**
      * Set the number of decimals the created number should have.
      *
-     * @param  numberOfDecimals
+     * @param  numberOfDecimals  number of decimals the created number should have.
      */
     public void setNumberOfDecimals(int numberOfDecimals) {
 

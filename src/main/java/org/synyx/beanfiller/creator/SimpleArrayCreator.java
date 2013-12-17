@@ -27,7 +27,7 @@ public class SimpleArrayCreator implements ArrayCreator {
     /**
      * Create a new SimpleArrayCreator with the given Criteria.
      *
-     * @param  arrayCriteria
+     * @param  arrayCriteria  ArrayCriteria to use.
      */
     public SimpleArrayCreator(ArrayCriteria arrayCriteria) {
 

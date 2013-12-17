@@ -8,14 +8,14 @@ import java.util.TreeSet;
 
 
 /**
- * Manages the differnt Strategies.
+ * Manages the different Strategies.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
 public class StrategyManager {
 
-    private Set<AbstractCreatorStrategy> strategies = new TreeSet<AbstractCreatorStrategy>();
-    private CreatorRegistry creatorRegistry;
+    private final Set<AbstractCreatorStrategy> strategies = new TreeSet<AbstractCreatorStrategy>();
+    private final CreatorRegistry creatorRegistry;
 
     public StrategyManager(CreatorRegistry creatorRegistry) {
 
@@ -50,7 +50,7 @@ public class StrategyManager {
     /**
      * Tries to find a Strategy for the given object.
      *
-     * @param  objectInformation
+     * @param  objectInformation  ObjectInformation to get the Strategy for.
      *
      * @return  a Strategy fit to create the Object, or null if none was found.
      */

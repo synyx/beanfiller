@@ -23,8 +23,8 @@ import java.util.Map;
 public class BeanFiller {
 
     private static final Logger LOG = LoggerFactory.getLogger(BeanFiller.class);
-    private CreatorRegistry creatorRegistry;
-    private StrategyManager strategyManager;
+    private final CreatorRegistry creatorRegistry;
+    private final StrategyManager strategyManager;
 
     /**
      * Create a new instance of the BeanFiller and use the default set of Creators that come with it (Creators for
@@ -38,7 +38,7 @@ public class BeanFiller {
 
 
     /**
-     * Instanciates the BeanFiller with the given creatorMap instead of the default one. The creator Map consists of a
+     * Instantiates the BeanFiller with the given creatorMap instead of the default one. The creator Map consists of a
      * mapping of the full qualified class names of classes to the Creator to use for them.
      *
      * @param  creatorMap  specific creatorMap .
@@ -52,7 +52,7 @@ public class BeanFiller {
     /**
      * Creates an instance of the given class and fills in recursively.
      *
-     * @param  <T>
+     * @param  <T>  Type of the class to fill.
      * @param  clazz  class to fill
      *
      * @return  Instance of the filled class
@@ -120,7 +120,7 @@ public class BeanFiller {
     /**
      * Get the currently used creator map.
      *
-     * @return
+     * @return  the Map with the currently registered Creators.
      */
     public Map<String, Creator> getCreatorMap() {
 
@@ -131,7 +131,7 @@ public class BeanFiller {
     /**
      * Get the currently used class and attribute specific creator map.
      *
-     * @return
+     * @return  the Map with the currently registered class and attribute specific Creators.
      */
     public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
 

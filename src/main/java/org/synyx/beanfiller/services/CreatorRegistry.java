@@ -40,8 +40,8 @@ import java.util.Map;
  */
 public class CreatorRegistry {
 
-    private Map<String, Creator> creatorMap;
-    private Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
+    private final Map<String, Creator> creatorMap;
+    private final Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
 
     public CreatorRegistry() {
 
@@ -95,8 +95,8 @@ public class CreatorRegistry {
 
 
     /**
-     * Get the creator for the given fieldname (variable name) in the given class. (exmple: 'name' of the class Customer
-     * searches for a creator with the key 'Customer.name').
+     * Get the creator for the given fieldname (variable name) in the given class. (example: 'name' of the class
+     * Customer searches for a creator with the key 'Customer.name').
      *
      * @param  clazz  class to get the Creator for
      * @param  field  field to get the Creator for

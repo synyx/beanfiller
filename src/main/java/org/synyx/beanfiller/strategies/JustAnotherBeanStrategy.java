@@ -9,7 +9,6 @@ import org.synyx.beanfiller.services.BeanAnalyzer;
 import org.synyx.beanfiller.services.BeanSetter;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +48,7 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
             List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz);
             Map<String, Object> createdObjectMap = new HashMap<String, Object>(objectInformationList.size());
 
-            Iterator<ObjectInformation> objectInformationIterator = objectInformationList.iterator();
-
-            while (objectInformationIterator.hasNext()) {
-                ObjectInformation information = objectInformationIterator.next();
+            for (ObjectInformation information : objectInformationList) {
                 information.setParent(parentInformation);
 
                 AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(information);
@@ -67,10 +63,10 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
         } catch (InstantiationException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
                 + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
-                + " So we tried to instatiate it with the default constructor, but it failed! ", ex);
+                + " So we tried to instantiate it with the default constructor, but it failed! ", ex);
         } catch (IllegalAccessException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
-                + " So we tried to instatiate it with the default constructor, but couldn't access it!", ex);
+                + " So we tried to instantiate it with the default constructor, but couldn't access it!", ex);
         }
     }
 }

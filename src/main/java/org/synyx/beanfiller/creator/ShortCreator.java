@@ -10,7 +10,7 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class ShortCreator implements SimpleCreator<Short> {
 
-    private ShortCriteria criteria;
+    private final ShortCriteria criteria;
 
     public ShortCreator() {
 

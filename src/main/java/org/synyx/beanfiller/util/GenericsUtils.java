@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -31,9 +32,7 @@ public class GenericsUtils {
 
                 ParameterizedType objectType = (ParameterizedType) genericType;
 
-                for (Type type : objectType.getActualTypeArguments()) {
-                    actualTypeList.add(type);
-                }
+                Collections.addAll(actualTypeList, objectType.getActualTypeArguments());
             }
         }
 
@@ -44,19 +43,15 @@ public class GenericsUtils {
     /**
      * Check if the given type has Generics.
      *
-     * @param  clazz
+     * @param  type  type to check.
      *
-     * @return
+     * @return  true if the type has Generics, false otherwise.
      */
     public static boolean hasGenerics(Type type) {
 
-        // check if the type is a ParameterizedType or a GenericArrayType. In both cases, the field has Generics.
-        if (ParameterizedType.class.isAssignableFrom(type.getClass())
-                || GenericArrayType.class.isAssignableFrom(type.getClass())) {
-            return true;
-        }
-
-        return false;
+        // check if the type is a ParametrizedType or a GenericArrayType. In both cases, the field has Generics.
+        return ParameterizedType.class.isAssignableFrom(type.getClass())
+            || GenericArrayType.class.isAssignableFrom(type.getClass());
     }
 
 

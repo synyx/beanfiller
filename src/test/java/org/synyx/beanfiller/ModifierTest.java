@@ -16,7 +16,7 @@ import org.synyx.beanfiller.testobjects.ModifierObject;
  */
 public class ModifierTest {
 
-    private BeanFiller beanfiller = new BeanFiller();
+    private final BeanFiller beanfiller = new BeanFiller();
     private ModifierObject modifierObject;
 
     @Before

@@ -24,7 +24,7 @@ public class MapCriteria implements Criteria<Map<?, ?>> {
     /**
      * Init with the number of entries, the map should have.
      *
-     * @param  size
+     * @param  size  number of entries.
      */
     public MapCriteria(int size) {
 
@@ -35,7 +35,7 @@ public class MapCriteria implements Criteria<Map<?, ?>> {
     /**
      * Init with a List of keys that should be used.
      *
-     * @param  keys
+     * @param  keys  Keys of the map.
      */
     public MapCriteria(List<Object> keys) {
 

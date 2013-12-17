@@ -38,7 +38,7 @@ public class MapStrategy extends AbstractCreatorStrategy {
 
             MapCreator mapCreator = (MapCreator) creator;
 
-            // get the ObjectInformations from the TypeArguments of the map.
+            // get the ObjectInformation from the TypeArguments of the map.
 
             List<ObjectInformation> typeArguments = getTypeArgumentObjectInformation(objectInformation);
 
@@ -58,12 +58,12 @@ public class MapStrategy extends AbstractCreatorStrategy {
     /**
      * Create the keys from the given ObjectInformation and MapCreator.
      *
-     * @param  mapCreator
-     * @param  keyObjectInformation
+     * @param  mapCreator  MapCreator to use.
+     * @param  keyObjectInformation  ObjectInformation of the Maps Key Type.
      *
-     * @return
+     * @return  List of the created Keys.
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<Object> getKeys(ObjectInformation keyObjectInformation, MapCreator mapCreator)
         throws FillingException {
@@ -83,12 +83,12 @@ public class MapStrategy extends AbstractCreatorStrategy {
     /**
      * Create the values from the given ObjectInformation and MapCreator.
      *
-     * @param  valueInformation
-     * @param  mapCreator
+     * @param  valueInformation  ObjectInformation of the Maps value Type.
+     * @param  mapCreator  MapCreator to use.
      *
-     * @return
+     * @return  List of the created values.
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<Object> getValues(ObjectInformation valueInformation, MapCreator mapCreator)
         throws FillingException {

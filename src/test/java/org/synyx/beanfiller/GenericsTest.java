@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
  */
 public class GenericsTest {
 
-    private BeanFiller beanfiller = new BeanFiller();
+    private final BeanFiller beanfiller = new BeanFiller();
     private GenericsObject genericsObject;
 
     @Test

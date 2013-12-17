@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 
 
 /**
- * Contains Meta-Information about an Object that is needed in the creation proccess.
+ * Contains Meta-Information about an Object that is needed in the creation process.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
@@ -102,7 +102,7 @@ public class ObjectInformation {
     /**
      * Returns a copy of the History of this ObjectInformation.
      *
-     * @return
+     * @return  copy of the current History of this ObjectInformation.
      */
     public History getHistory() {
 
@@ -119,7 +119,7 @@ public class ObjectInformation {
     /**
      * Sets the parent ObjectInformation and (re-)creates the History for this ObjectInformation.
      *
-     * @param  parent
+     * @param  parent  the parent ObjectInformation to use.
      */
     public void setParent(ObjectInformation parent) {
 
@@ -139,7 +139,7 @@ public class ObjectInformation {
     /**
      * Create the History for this ObjectInformation (based on the parents History if it is set).
      *
-     * @param  parent
+     * @param  parent  the parent ObjectInformation to use to create the History.
      */
     private void createHistory(ObjectInformation parent) {
 

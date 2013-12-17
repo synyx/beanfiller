@@ -30,12 +30,12 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     public static final int PRIORITY_LOW = 10;
 
     /**
-     * Use this if the Strategy has some prequesites for the object.
+     * Use this if the Strategy has some prerequisites for the object.
      */
     public static final int PRIORITY_MID = 50;
 
     /**
-     * Use this if the Strategy has some more specific prequesites for the object.
+     * Use this if the Strategy has some more specific prerequisites for the object.
      */
     public static final int PRIORITY_HIGH = 100;
 
@@ -57,7 +57,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Returns if this Strategy can handle the specified object.
      *
-     * @param  objectInformation
+     * @param  objectInformation  objectInformation describing the Object to handle.
      *
      * @return  true if the given class can be handled by this Strategy, false otherwise.
      */
@@ -68,7 +68,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      * Creates an Object for the given ObjectInformation - In here it is checked if this step would create a creation
      * cycle and if it would, null is returned.
      *
-     * @param  objectInformation
+     * @param  objectInformation  objectInformation describing the Object to create.
      *
      * @return  the created Object or null if an error occurred or if the Object would create a cycle.
      *
@@ -93,7 +93,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Creates an Object for the given ObjectInformation.
      *
-     * @param  objectInformation
+     * @param  objectInformation  objectInformation describing the Object to create.
      *
      * @return  the created Object
      *
@@ -149,9 +149,9 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Check if the given class is an Enum.
      *
-     * @param  clazz
+     * @param  clazz  class to check.
      *
-     * @return
+     * @return  true if the given class is an enum, false otherwise.
      */
     protected boolean isEnum(Class clazz) {
 
@@ -162,9 +162,9 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Check if the given class is an Array.
      *
-     * @param  clazz
+     * @param  clazz  class to check.
      *
-     * @return
+     * @return  true if the given class is an array, false otherwise.
      */
     protected boolean isArray(Class clazz) {
 
@@ -175,9 +175,9 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Check if the given class is a java.util.Collection.
      *
-     * @param  clazz
+     * @param  clazz  class to check.
      *
-     * @return
+     * @return  true if the given class is a collection, false otherwise.
      */
     protected boolean isCollection(Class clazz) {
 
@@ -188,7 +188,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Gets a creator for the given objectInformation.
      *
-     * @param  objectInformation
+     * @param  objectInformation  ObjectInformation to get the Creator for.
      *
      * @return  a creator, or null if none was found
      */
@@ -201,11 +201,11 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Gets a List of ObjectInformation of the generic types of the given Object.
      *
-     * @param  objectInformation
+     * @param  objectInformation  ObjectInformation to get the TypeArgumentObjectInformation for.
      *
      * @return  List of ObjectInformation
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<ObjectInformation> getTypeArgumentObjectInformation(ObjectInformation objectInformation)
         throws FillingException {
@@ -247,9 +247,9 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     /**
      * Checks if the given creator is or derives from the given desiredCreatorClass.
      *
-     * @param  creator
-     * @param  desiredCreatorClass
-     * @param  objectInformation
+     * @param  creator  creator to check.
+     * @param  desiredCreatorClass  class the creator should have (or should derive from).
+     * @param  objectInformation  objectInformation of the Object to create.
      *
      * @throws  WrongCreatorException  if the creator is not or does not derive from the desiredCreatorClass
      */

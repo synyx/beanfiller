@@ -20,7 +20,7 @@ public interface ArrayCreator extends Creator {
      *
      * @return  the created array Object.
      *
-     * @throws  FillingException  if an error occured.
+     * @throws  FillingException  if an error occurred.
      */
     Object createArray(List<Object> objects, Class arrayType) throws FillingException;
 

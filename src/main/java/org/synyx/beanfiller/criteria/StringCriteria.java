@@ -64,9 +64,9 @@ public class StringCriteria implements Criteria<String> {
 
 
     /**
-     * set the charset from where the characters for the String are randomly picked.
+     * Set the charset from where the characters for the String are randomly picked.
      *
-     * @param  charset
+     * @param  charset  String from where characters get picked.
      */
     public void setCharset(String charset) {
 

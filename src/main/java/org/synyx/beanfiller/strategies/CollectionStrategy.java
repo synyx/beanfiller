@@ -39,7 +39,7 @@ public class CollectionStrategy extends AbstractCreatorStrategy {
 
             CollectionCreator collectionCreator = (CollectionCreator) creator;
 
-            // get the ObjectInformations from the TypeArguments of the map.
+            // get the ObjectInformation from the TypeArguments of the map.
 
             List<ObjectInformation> typeArguments = getTypeArgumentObjectInformation(objectInformation);
 
@@ -56,12 +56,12 @@ public class CollectionStrategy extends AbstractCreatorStrategy {
     /**
      * Create the values from the given ObjectInformation and CollectionCreator.
      *
-     * @param  valueInformation
-     * @param  collectionCreator
+     * @param  valueInformation  ObjectInformation from the Type of the values.
+     * @param  collectionCreator  CollectionCreator to use.
      *
-     * @return
+     * @return  List of the created values.
      *
-     * @throws  CreationException
+     * @throws  FillingException
      */
     protected List<Object> getValues(ObjectInformation valueInformation, CollectionCreator collectionCreator)
         throws FillingException {

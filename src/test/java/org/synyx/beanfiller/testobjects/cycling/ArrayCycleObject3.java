@@ -7,16 +7,16 @@ package org.synyx.beanfiller.testobjects.cycling;
  */
 public class ArrayCycleObject3 {
 
-    private ArrayCycleObject3[] arrayCycleObject3Arrray;
+    private ArrayCycleObject3[] arrayCycleObject3Array;
 
-    public ArrayCycleObject3[] getArrayCycleObject3Arrray() {
+    public ArrayCycleObject3[] getArrayCycleObject3Array() {
 
-        return arrayCycleObject3Arrray;
+        return arrayCycleObject3Array;
     }
 
 
-    public void setArrayCycleObject3Arrray(ArrayCycleObject3[] arrayCycleObject3Arrray) {
+    public void setArrayCycleObject3Array(ArrayCycleObject3[] arrayCycleObject3Array) {
 
-        this.arrayCycleObject3Arrray = arrayCycleObject3Arrray;
+        this.arrayCycleObject3Array = arrayCycleObject3Array;
     }
 }
