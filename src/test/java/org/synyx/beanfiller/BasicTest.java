@@ -9,7 +9,6 @@ import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
-import org.synyx.beanfiller.testobjects.ArraysObject;
 import org.synyx.beanfiller.testobjects.BaseObject;
 
 import static org.mockito.Mockito.mock;
@@ -175,6 +174,39 @@ public class BasicTest {
     }
 
 
+    @Test
+    public void testObjectShortIsFilled() throws FillingException {
+
+        baseObject = beanfiller.fillBean(BaseObject.class);
+        Assert.assertNotNull("ObjectShort is not beeing filled!", baseObject.getObjectShort());
+    }
+
+
+    @Test
+    public void testPrimitiveShortIsFilled() throws FillingException {
+
+        baseObject = beanfiller.fillBean(BaseObject.class);
+        Assert.assertNotNull("PrimitiveShort is not beeing filled!", baseObject.getPrimitiveShort());
+    }
+
+
+    @Test
+    public void testCharacterIsFilled() throws FillingException {
+
+        baseObject = beanfiller.fillBean(BaseObject.class);
+        Assert.assertNotNull("Character is not beeing filled!", baseObject.getCharacter());
+    }
+
+
+    @Test
+    public void testPrimitiveCharacterIsFilled() throws FillingException {
+
+        baseObject = beanfiller.fillBean(BaseObject.class);
+        Assert.assertNotNull("char is not beeing filled!", baseObject.getPrimitiveCharacter());
+    }
+
+
+    @Test
     public void testAddedCreatorIsUsed() throws FillingException {
 
         StringCreator stringCreator = mock(StringCreator.class);
@@ -182,21 +214,22 @@ public class BasicTest {
 
         beanfiller.addCreator(String.class, stringCreator);
 
-        beanfiller.fillBean(ArraysObject.class);
+        beanfiller.fillBean(BaseObject.class);
 
         // assert that our mock was called
         verify(stringCreator).create();
     }
 
 
+    @Test
     public void testAddedSpecificCreatorIsUsed() throws FillingException {
 
         StringCreator stringCreator = mock(StringCreator.class);
         when(stringCreator.create()).thenReturn("test");
 
-        beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "string", stringCreator);
+        beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "text", stringCreator);
 
-        beanfiller.fillBean(ArraysObject.class);
+        beanfiller.fillBean(BaseObject.class);
 
         // assert that our mock was called
         verify(stringCreator).create();
@@ -211,5 +244,13 @@ public class BasicTest {
         beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "text", enumCreator);
 
         beanfiller.fillBean(BaseObject.class);
+    }
+
+
+    @Test
+    public void testSetterObjectDiffersFromFieldObject() throws FillingException {
+
+        BaseObject object = beanfiller.fillBean(BaseObject.class);
+        Assert.assertNotNull(object.getDateTime());
     }
 }

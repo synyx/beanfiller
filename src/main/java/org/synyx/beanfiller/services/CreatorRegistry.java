@@ -5,6 +5,7 @@ import org.synyx.beanfiller.creator.BigDecimalCreator;
 import org.synyx.beanfiller.creator.BigIntegerCreator;
 import org.synyx.beanfiller.creator.BooleanCreator;
 import org.synyx.beanfiller.creator.ByteCreator;
+import org.synyx.beanfiller.creator.CharCreator;
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.creator.DateCreator;
 import org.synyx.beanfiller.creator.DoubleCreator;
@@ -14,6 +15,7 @@ import org.synyx.beanfiller.creator.IntegerCreator;
 import org.synyx.beanfiller.creator.ListCreator;
 import org.synyx.beanfiller.creator.LongCreator;
 import org.synyx.beanfiller.creator.MapCreator;
+import org.synyx.beanfiller.creator.ShortCreator;
 import org.synyx.beanfiller.creator.SimpleArrayCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
@@ -25,7 +27,9 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -175,19 +179,27 @@ public class CreatorRegistry {
         map.put(BigDecimal.class.getName(), bigDecimalCreator);
 
         MapCreator mapCreator = new MapCreator(new MapCriteria());
-        map.put("java.util.Map", mapCreator);
+        map.put(Map.class.getName(), mapCreator);
 
         ListCreator listCreator = new ListCreator(new CollectionCriteria());
-        map.put("java.util.List", listCreator);
+        map.put(List.class.getName(), listCreator);
 
         EnumCreator enumCreator = new SimpleEnumCreator();
-        map.put("java.lang.Enum", enumCreator);
+        map.put(Enum.class.getName(), enumCreator);
 
         ArrayCreator arrayCreator = new SimpleArrayCreator();
         map.put("org.synyx.beanfiller.creator.ArrayCreator", arrayCreator);
 
         DateCreator dateCreator = new DateCreator();
-        map.put("java.util.Date", dateCreator);
+        map.put(Date.class.getName(), dateCreator);
+
+        CharCreator charCreator = new CharCreator();
+        map.put(Character.class.getName(), charCreator);
+        map.put("char", charCreator);
+
+        ShortCreator shortCreator = new ShortCreator();
+        map.put(Short.class.getName(), shortCreator);
+        map.put("short", shortCreator);
 
         return map;
     }

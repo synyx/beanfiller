@@ -1,5 +1,7 @@
 package org.synyx.beanfiller.testobjects;
 
+import org.joda.time.DateTime;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -26,11 +28,16 @@ public class BaseObject {
     private boolean primitiveBoolean;
     private Byte byteObject;
     private byte primitiveByte;
+    private Character character;
+    private char primitiveCharacter;
+    private Short ObjectShort;
+    private short primitiveShort;
 
     private BigInteger bigIntegerNumber;
     private BigDecimal bigDecimalNumber;
 
     private Date date;
+    private Date dateTime;
 
     public String getText() {
 
@@ -221,5 +228,65 @@ public class BaseObject {
     public void setDate(Date date) {
 
         this.date = date;
+    }
+
+
+    public DateTime getDateTime() {
+
+        return new DateTime(dateTime.getTime());
+    }
+
+
+    public void setDateTime(DateTime dateTime) {
+
+        this.dateTime = new Date(dateTime.getMillis());
+    }
+
+
+    public Character getCharacter() {
+
+        return character;
+    }
+
+
+    public void setCharacter(Character character) {
+
+        this.character = character;
+    }
+
+
+    public char getPrimitiveCharacter() {
+
+        return primitiveCharacter;
+    }
+
+
+    public void setPrimitiveCharacter(char primitiveCharacter) {
+
+        this.primitiveCharacter = primitiveCharacter;
+    }
+
+
+    public Short getObjectShort() {
+
+        return ObjectShort;
+    }
+
+
+    public void setObjectShort(Short objectShort) {
+
+        ObjectShort = objectShort;
+    }
+
+
+    public short getPrimitiveShort() {
+
+        return primitiveShort;
+    }
+
+
+    public void setPrimitiveShort(short primitiveShort) {
+
+        this.primitiveShort = primitiveShort;
     }
 }
