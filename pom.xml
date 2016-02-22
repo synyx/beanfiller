@@ -4,17 +4,17 @@
 
     <groupId>org.synyx</groupId>
     <artifactId>beanfiller</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
+
     <name>BeanFiller</name>
-    
+
     <description>
         Small library for filling Beans with random Data.
     </description>
-    
+
     <url>http://synyx.github.com/beanfiller</url>
-    
+
     <organization>
         <name>synyx GmbH &amp; Co. KG</name>
         <url>http://www.synyx.de</url>
@@ -23,7 +23,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -32,7 +32,7 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
-    
+
     <developers>
         <developer>
             <id>tknell</id>
@@ -44,19 +44,19 @@
             </roles>
         </developer>
     </developers>
-    
+
     <scm>
         <url>scm:git:https://github.com/synyx/beanfiller.git</url>
         <connection>scm:git:https://github.com/synyx/beanfiller.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/synyx/beanfiller.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-    
+
     <issueManagement>
         <system>Github Issues</system>
         <url>http://github.com/synyx/beanfiller/issues</url>
     </issueManagement>
-    
+
     <distributionManagement>
         <repository>
             <id>releases.public.nexus.synyx.de</id>
@@ -69,39 +69,39 @@
     </distributionManagement>
 
     <dependencies>
-       
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
+            <version>1.7.16</version>
         </dependency>
-        
-        
+
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
-            <version>1.5.1</version>
+            <version>1.6.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
-            <version>1.5.1</version>
-                <scope>test</scope>
+            <version>1.6.4</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -113,22 +113,21 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
+            <version>1.7.16</version>
             <scope>test</scope>
         </dependency>
-          
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
             <scope>test</scope>
         </dependency>
-        
-                
-         <dependency>
+
+        <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.3</version>
+            <version>2.9.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
