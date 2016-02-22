@@ -3,7 +3,7 @@
 
     <groupId>org.synyx</groupId>
     <artifactId>beanfiller</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>BeanFiller</name>
@@ -48,7 +48,7 @@
         <url>scm:git:https://github.com/synyx/beanfiller.git</url>
         <connection>scm:git:https://github.com/synyx/beanfiller.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/synyx/beanfiller.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
