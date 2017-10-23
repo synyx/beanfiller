@@ -47,13 +47,13 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreator(this.getClass(), Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(this.getClass(), creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
-            CreatorMap.get(this.getClass().getName()));
+        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+            creatorMap.get(this.getClass().getName()));
     }
 
 
@@ -65,13 +65,13 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreator(String[].class, Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(String[].class, creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
-            CreatorMap.get("[Ljava.lang.String;"));
+        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+            creatorMap.get("[Ljava.lang.String;"));
     }
 
 
@@ -84,12 +84,12 @@ public class SettersAndConstructorsTest {
         // we need an empty Creator map for this test
         BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreator(null, Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreator(null, creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -104,9 +104,9 @@ public class SettersAndConstructorsTest {
 
         beanfiller.addCreator(this.getClass(), null);
 
-        Map<String, Creator> CreatorMap = beanfiller.getCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -118,13 +118,13 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", Creator,
-            CreatorMap.get(this.getClass().getName() + ".test"));
+        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+            creatorMap.get(this.getClass().getName() + ".test"));
     }
 
 
@@ -137,12 +137,12 @@ public class SettersAndConstructorsTest {
         // we need an empty Creator map for this test
         BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreatorForClassAndAttribute(null, "test", Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(null, "test", creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -155,12 +155,12 @@ public class SettersAndConstructorsTest {
         // we need an empty Creator map for this test
         BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
 
-        SimpleCreator Creator = new org.synyx.beanfiller.creator.StringCreator();
-        beanfiller.addCreatorForClassAndAttribute(this.getClass(), null, Creator);
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        beanfiller.addCreatorForClassAndAttribute(this.getClass(), null, creator);
 
-        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -175,8 +175,8 @@ public class SettersAndConstructorsTest {
 
         beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", null);
 
-        Map<String, Creator> CreatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
+        Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, CreatorMap.size());
+        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 }
