@@ -8,13 +8,17 @@ import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.services.BeanAnalyzer;
 import org.synyx.beanfiller.services.BeanSetter;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 /**
- * Strategy that handles the leftovers - it has the lowest priority to ensure every other Strategy gets it chance first.
+ * Strategy that handles the leftovers - it has the lowest priority to ensure every other Strategy gets it chance
+ * first.
  *
  * @author  Tobias Knell - knell@synyx.de
  */
@@ -46,10 +50,13 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
         // TODO handle non default constructors!
         try {
-            Object instance = parentClazz.newInstance();
+            Constructor declaredConstructor = parentClazz.getDeclaredConstructor();
+            declaredConstructor.setAccessible(true);
+
+            Object instance = declaredConstructor.newInstance();
 
             List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz);
-            Map<String, Object> createdObjectMap = new HashMap<String, Object>(objectInformationList.size());
+            Map<String, Object> createdObjectMap = new HashMap<>(objectInformationList.size());
 
             for (ObjectInformation information : objectInformationList) {
                 information.setParent(parentInformation);
@@ -63,13 +70,18 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
             }
 
             return BeanSetter.setBean(instance, objectInformationList, createdObjectMap);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException | InvocationTargetException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
                 + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
                 + " So we tried to instantiate it with the default constructor, but it failed! ", ex);
         } catch (IllegalAccessException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
                 + " So we tried to instantiate it with the default constructor, but couldn't access it!", ex);
+        } catch (NoSuchMethodException ex) {
+            throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
+                + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
+                + " So we tried to instantiate it with the default constructor, but there was no default constructor! ",
+                ex);
         }
     }
 }
