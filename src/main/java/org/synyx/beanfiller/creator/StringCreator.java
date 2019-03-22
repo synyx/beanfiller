@@ -9,14 +9,15 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class StringCreator implements SimpleCreator<String> {
 
+    private final RandomGenerator randomGenerator;
     private final StringCriteria criteria;
 
     /**
      * Creates new StringCreator with the default StringCriteria.
      */
-    public StringCreator() {
+    public StringCreator(RandomGenerator randomGenerator) {
 
-        this(new StringCriteria());
+        this(randomGenerator, new StringCriteria());
     }
 
 
@@ -25,9 +26,10 @@ public class StringCreator implements SimpleCreator<String> {
      *
      * @param  criteria  StringCriteria to use.
      */
-    public StringCreator(StringCriteria criteria) {
+    public StringCreator(RandomGenerator randomGenerator, StringCriteria criteria) {
 
         this.criteria = criteria;
+        this.randomGenerator = randomGenerator;
     }
 
     @Override
@@ -35,10 +37,10 @@ public class StringCreator implements SimpleCreator<String> {
 
         StringBuilder builder = new StringBuilder();
 
-        int length = RandomGenerator.getRandomIntBetween(criteria.getMinlength(), criteria.getMaxlength());
+        int length = randomGenerator.getRandomIntBetween(criteria.getMinlength(), criteria.getMaxlength());
 
         for (int i = 0; i < length; i++) {
-            builder.append(criteria.getCharset().charAt(RandomGenerator.getRandomInt(criteria.getCharset().length())));
+            builder.append(criteria.getCharset().charAt(randomGenerator.getRandomInt(criteria.getCharset().length())));
         }
 
         return builder.toString();

@@ -10,12 +10,19 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class ByteCreator implements SimpleCreator<Byte> {
 
+    private final RandomGenerator randomGenerator;
+
+    public ByteCreator(RandomGenerator randomGenerator) {
+
+        this.randomGenerator = randomGenerator;
+    }
+
     @Override
     public Byte create() {
 
         byte[] bytes = new byte[1];
 
-        bytes = RandomGenerator.getRandomBytes(bytes);
+        bytes = randomGenerator.getRandomBytes(bytes);
 
         return bytes[0];
     }

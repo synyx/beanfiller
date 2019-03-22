@@ -14,14 +14,17 @@ import java.util.Date;
  */
 public class DateCreator implements SimpleCreator<Date> {
 
+    private final RandomGenerator randomGenerator;
     private final DateCriteria criteria;
 
     /**
      * Create a new DateCreator with the default DateCriteria.
+     *
+     * @param  randomGenerator
      */
-    public DateCreator() {
+    public DateCreator(RandomGenerator randomGenerator) {
 
-        this.criteria = new DateCriteria();
+        this(randomGenerator, new DateCriteria());
     }
 
 
@@ -30,8 +33,9 @@ public class DateCreator implements SimpleCreator<Date> {
      *
      * @param  dateCriteria  the criteria to use.
      */
-    public DateCreator(DateCriteria dateCriteria) {
+    public DateCreator(RandomGenerator randomGenerator, DateCriteria dateCriteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = dateCriteria;
     }
 
@@ -40,7 +44,7 @@ public class DateCreator implements SimpleCreator<Date> {
 
         // just use the long values for getting a random Date
         return new Date(Math.round(
-                    RandomGenerator.getRandomDouble() * (criteria.getMaxDate().getTime()
+                    randomGenerator.getRandomDouble() * (criteria.getMaxDate().getTime()
                         - criteria.getMinDate().getTime()) + criteria.getMinDate().getTime()));
     }
 }

@@ -11,9 +11,16 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class BooleanCreator implements SimpleCreator<Boolean> {
 
+    private final RandomGenerator randomGenerator;
+
+    public BooleanCreator(RandomGenerator randomGenerator) {
+
+        this.randomGenerator = randomGenerator;
+    }
+
     @Override
     public Boolean create() {
 
-        return RandomGenerator.getRandomBoolean();
+        return randomGenerator.getRandomBoolean();
     }
 }

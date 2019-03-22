@@ -69,7 +69,7 @@ public class CollectionStrategy extends AbstractCreatorStrategy {
     protected List<Object> getValues(ObjectInformation valueInformation, CollectionCreator collectionCreator)
         throws FillingException {
 
-        List<Object> values = new ArrayList<Object>();
+        List<Object> values = new ArrayList<>();
 
         for (int i = 0; i < collectionCreator.getSize(); i++) {
             Object typeObject = createObjectFromObjectInformation(valueInformation);

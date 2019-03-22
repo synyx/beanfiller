@@ -20,16 +20,4 @@ public class WrongCreatorException extends FillingException {
 
         super(message);
     }
-
-
-    /**
-     * Creates new WrongCreatorException with the given message and cause.
-     *
-     * @param  message  the message.
-     * @param  cause  the throwable cause.
-     */
-    public WrongCreatorException(String message, Throwable cause) {
-
-        super(message, cause);
-    }
 }

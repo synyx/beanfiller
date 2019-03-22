@@ -234,7 +234,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     protected List<ObjectInformation> getTypeArgumentObjectInformation(ObjectInformation objectInformation)
         throws FillingException {
 
-        List<ObjectInformation> typeArgumentObjectInformationList = new ArrayList<ObjectInformation>();
+        List<ObjectInformation> typeArgumentObjectInformationList = new ArrayList<>();
 
         List<Type> actualTypeArguments = GenericsUtils.getActualTypeArguments(objectInformation.getField());
 
@@ -276,7 +276,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
     protected List<Object> createObjectNumberOfTimes(ObjectInformation objectInformation, int number)
         throws FillingException {
 
-        List<Object> objectList = new ArrayList<Object>();
+        List<Object> objectList = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
             Object typeObject = createObjectFromObjectInformation(objectInformation);
@@ -296,11 +296,12 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @throws  WrongCreatorException  if the creator is not or does not derive from the desiredCreatorClass
      */
-    protected void checkCreatorHasRightClass(Creator creator, Class desiredCreatorClass,
+    protected void checkCreatorHasRightClass(Creator creator, Class<?> desiredCreatorClass,
         ObjectInformation objectInformation) throws WrongCreatorException {
 
         if (!desiredCreatorClass.isAssignableFrom(creator.getClass())) {
-            throw new WrongCreatorException("The Creator got for class " + objectInformation.getClazz().getName()
+            throw new WrongCreatorException("The Creator got for class " + objectInformation
+                .getClazz().getName()
                 + " and field " + objectInformation.getField().getName()
                 + "  is not or does not derive from " + desiredCreatorClass.getName() + ", but is: "
                 + creator.getClass().getName());
@@ -318,7 +319,8 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
                     parentObjectInformation);
         } catch (ClassNotFoundException ex) {
             throw new FillingException("Could not find the class of the type " + type.toString()
-                + " on Filling the Generic Parameters of the class " + parentObjectInformation.getClazz().getName()
+                + " on Filling the Generic Parameters of the class " + parentObjectInformation
+                .getClazz().getName()
                 + " (Tried to get it from the String '" + type.toString() + "'", ex);
         }
     }

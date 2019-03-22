@@ -46,7 +46,7 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
     @Override
     public Object createObjectInternal(ObjectInformation parentInformation) throws FillingException {
 
-        Class parentClazz = parentInformation.getClazz();
+        Class<?> parentClazz = parentInformation.getClazz();
 
         // TODO handle non default constructors!
         try {
@@ -70,18 +70,21 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
             }
 
             return BeanSetter.setBean(instance, objectInformationList, createdObjectMap);
-        } catch (InstantiationException | InvocationTargetException ex) {
-            throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
-                + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
-                + " So we tried to instantiate it with the default constructor, but it failed! ", ex);
         } catch (IllegalAccessException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
                 + " So we tried to instantiate it with the default constructor, but couldn't access it!", ex);
-        } catch (NoSuchMethodException ex) {
-            throw new FillingException("There was no Creator set for the class " + parentClazz.getName() + " (field '"
-                + parentInformation.getField().getName() + "' of class " + parentClazz.getDeclaringClass() + "). "
-                + " So we tried to instantiate it with the default constructor, but there was no default constructor! ",
-                ex);
+        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException ex) {
+            if (parentInformation.getField() == null) {
+                throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
+                    + " So we tried to instantiate it with the default constructor, but there was no default constructor or it failed! ",
+                    ex);
+            } else {
+                throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
+                    + " (field '" + parentInformation.getField().getName() + "' of class "
+                    + parentClazz.getDeclaringClass() + "). "
+                    + " So we tried to instantiate it with the default constructor, "
+                    + "but there was no default constructor or it failed! ", ex);
+            }
         }
     }
 }

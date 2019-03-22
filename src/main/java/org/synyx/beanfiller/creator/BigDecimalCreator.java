@@ -14,14 +14,17 @@ import java.math.BigDecimal;
  */
 public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
 
+    private final RandomGenerator randomGenerator;
     private final DecimalsNumberCriteria<BigDecimal> criteria;
 
     /**
      * Create a new BigDecimalCreator with the default BigDecimalCriteria.
+     *
+     * @param  randomGenerator
      */
-    public BigDecimalCreator() {
+    public BigDecimalCreator(RandomGenerator randomGenerator) {
 
-        this(new BigDecimalCriteria());
+        this(randomGenerator, new BigDecimalCriteria());
     }
 
 
@@ -30,7 +33,9 @@ public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
      *
      * @param  criteria  the criteria to use.
      */
-    public BigDecimalCreator(DecimalsNumberCriteria<BigDecimal> criteria) {
+    public BigDecimalCreator(RandomGenerator randomGenerator, DecimalsNumberCriteria<BigDecimal> criteria) {
+
+        this.randomGenerator = randomGenerator;
 
         this.criteria = criteria;
     }
@@ -43,6 +48,6 @@ public class BigDecimalCreator implements SimpleCreator<BigDecimal> {
 
         BigDecimal range = max.subtract(min);
 
-        return min.add(range.multiply(BigDecimal.valueOf(RandomGenerator.getRandomDouble())));
+        return min.add(range.multiply(BigDecimal.valueOf(randomGenerator.getRandomDouble())));
     }
 }

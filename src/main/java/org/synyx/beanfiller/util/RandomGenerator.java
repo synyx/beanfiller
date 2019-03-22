@@ -10,21 +10,16 @@ import java.util.Random;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public final class RandomGenerator {
+public class RandomGenerator {
 
     private static final Random RANDOM = new Random(System.currentTimeMillis());
-
-    private RandomGenerator() {
-
-        // only has static methods, so we hide the default constructor
-    }
 
     /**
      * Wrapper for Random.nextInt().
      *
      * @return  random int.
      */
-    public static int getRandomInt() {
+    public int getRandomInt() {
 
         return RANDOM.nextInt();
     }
@@ -35,7 +30,7 @@ public final class RandomGenerator {
      *
      * @return  random Boolean.
      */
-    public static Boolean getRandomBoolean() {
+    public Boolean getRandomBoolean() {
 
         return RANDOM.nextBoolean();
     }
@@ -46,7 +41,7 @@ public final class RandomGenerator {
      *
      * @return  the byte array with filled in random bytes.
      */
-    public static byte[] getRandomBytes(byte[] bytes) {
+    public byte[] getRandomBytes(byte[] bytes) {
 
         RANDOM.nextBytes(bytes);
 
@@ -59,7 +54,7 @@ public final class RandomGenerator {
      *
      * @return  random double.
      */
-    public static double getRandomDouble() {
+    public double getRandomDouble() {
 
         return RANDOM.nextDouble();
     }
@@ -70,7 +65,7 @@ public final class RandomGenerator {
      *
      * @return  random float.
      */
-    public static float getRandomFloat() {
+    public float getRandomFloat() {
 
         return RANDOM.nextFloat();
     }
@@ -83,7 +78,7 @@ public final class RandomGenerator {
      *
      * @return  random BigInteger with the given number of bits.
      */
-    public static BigInteger getRandomBigInteger(int bitlength) {
+    public BigInteger getRandomBigInteger(int bitlength) {
 
         return new BigInteger(bitlength, RANDOM);
     }
@@ -94,7 +89,7 @@ public final class RandomGenerator {
      *
      * @return  random int < max.
      */
-    public static int getRandomInt(int max) {
+    public int getRandomInt(int max) {
 
         return RANDOM.nextInt(max);
     }
@@ -108,7 +103,7 @@ public final class RandomGenerator {
      *
      * @return  random int between the two values.
      */
-    public static int getRandomIntBetween(int min, int max) {
+    public int getRandomIntBetween(int min, int max) {
 
         return getRandomInt(max - min + 1) + min;
     }

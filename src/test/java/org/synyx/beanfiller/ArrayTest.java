@@ -12,6 +12,7 @@ import org.synyx.beanfiller.creator.StringCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.ArraysObject;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -149,7 +150,7 @@ public class ArrayTest {
     @Test(expected = WrongCreatorException.class)
     public void testWrongCreatorExceptionIsThrownIfNonArrayCreatorIsUsed() throws FillingException {
 
-        StringCreator stringCreator = new StringCreator();
+        StringCreator stringCreator = new StringCreator(new RandomGenerator());
 
         beanfiller.addCreatorForClassAndAttribute(ArraysObject.class, "stringArray", stringCreator);
 

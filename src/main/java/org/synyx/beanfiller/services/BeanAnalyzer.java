@@ -73,7 +73,7 @@ public class BeanAnalyzer {
         // get the methods of the class
         Method[] methods = clazz.getMethods();
 
-        Map<String, Method> setters = new HashMap<String, Method>();
+        Map<String, Method> setters = new HashMap<>();
 
         for (Method method : methods) {
             // method name start with set, it is public and it has exactly one parameter.

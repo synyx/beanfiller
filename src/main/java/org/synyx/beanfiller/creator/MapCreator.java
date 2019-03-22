@@ -45,7 +45,7 @@ public class MapCreator implements Creator {
      */
     public Map<?, ?> create(List<Object> keys, List<Object> values) {
 
-        Map<Object, Object> map = new HashMap<Object, Object>();
+        Map<Object, Object> map = new HashMap<>();
 
         for (int i = 0; i < keys.size(); i++) {
             map.put(keys.get(i), values.get(i));

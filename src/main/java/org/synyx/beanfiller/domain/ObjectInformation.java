@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  */
 public class ObjectInformation {
 
-    private Class clazz;
+    private Class<?> clazz;
     private Field field;
     private Method accessor;
     private Type type;
@@ -28,7 +28,7 @@ public class ObjectInformation {
      * @param  path  the object path of the object
      * @param  parent  the parent ObjectInformation of this one
      */
-    public ObjectInformation(Class clazz, Field field, Type type, Method accessor, String path,
+    public ObjectInformation(Class<?> clazz, Field field, Type type, Method accessor, String path,
         ObjectInformation parent) {
 
         this.clazz = clazz;
@@ -39,13 +39,13 @@ public class ObjectInformation {
         createHistory(parent);
     }
 
-    public Class getClazz() {
+    public Class<?> getClazz() {
 
         return clazz;
     }
 
 
-    public void setClazz(Class clazz) {
+    public void setClazz(Class<?> clazz) {
 
         this.clazz = clazz;
     }

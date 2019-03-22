@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public abstract class CollectionCreator<T extends Collection> implements Creator {
+public abstract class CollectionCreator implements Creator {
 
     private final CollectionCriteria criteria;
 
@@ -29,11 +29,9 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
      */
     public <T> Collection<T> createCollection(List<T> values) {
 
-        Collection collection = getImplementationOfCollectionsClass();
+        Collection<T> collection = getImplementationOfCollectionsClass(values);
 
-        for (T value : values) {
-            collection.add(value);
-        }
+        collection.addAll(values);
 
         return collection;
     }
@@ -55,5 +53,5 @@ public abstract class CollectionCreator<T extends Collection> implements Creator
      *
      * @return  Instance of a Collection Implementation
      */
-    protected abstract Collection<?> getImplementationOfCollectionsClass();
+    protected abstract <T> Collection<T> getImplementationOfCollectionsClass(List<T> values);
 }

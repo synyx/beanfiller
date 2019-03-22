@@ -13,31 +13,36 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class LongCreator implements SimpleCreator<Long> {
 
+    private final RandomGenerator randomGenerator;
     private final NumberCriteria<Long> criteria;
 
     /**
      * Create a new LongCreator with the default LongCriteria.
+     *
+     * @param  randomGenerator
      */
-    public LongCreator() {
+    public LongCreator(RandomGenerator randomGenerator) {
 
-        this(new LongCriteria());
+        this(randomGenerator, new LongCriteria());
     }
 
 
     /**
      * Create a new LongCreator with the given criteria.
      *
+     * @param  randomGenerator
      * @param  criteria  the criteria to use.
      */
-    public LongCreator(NumberCriteria<Long> criteria) {
+    public LongCreator(RandomGenerator randomGenerator, NumberCriteria<Long> criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
     @Override
     public Long create() {
 
-        return Math.round(RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin())
+        return Math.round(randomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin())
                 + criteria.getMin());
     }
 }

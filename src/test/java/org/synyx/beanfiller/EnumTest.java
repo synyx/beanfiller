@@ -13,6 +13,7 @@ import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.EnumsObject;
 import org.synyx.beanfiller.testobjects.ErrorEnumObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -76,7 +77,7 @@ public class EnumTest {
     @Test(expected = WrongCreatorException.class)
     public void testWrongCreatorExceptionIsThrownIfNonEnumCreatorIsUsed() throws FillingException {
 
-        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
 
         beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", stringCreator);
 

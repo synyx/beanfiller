@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-public class ListCreator extends CollectionCreator<List<?>> {
+public class ListCreator extends CollectionCreator {
 
     /**
      * Create new ListCreator using the default Criteria.
@@ -34,8 +34,8 @@ public class ListCreator extends CollectionCreator<List<?>> {
     }
 
     @Override
-    protected Collection<Object> getImplementationOfCollectionsClass() {
+    protected <T> Collection<T> getImplementationOfCollectionsClass(List<T> values) {
 
-        return new ArrayList<Object>();
+        return new ArrayList<>();
     }
 }

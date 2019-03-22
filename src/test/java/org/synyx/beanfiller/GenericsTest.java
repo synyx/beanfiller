@@ -3,17 +3,18 @@ package org.synyx.beanfiller;
 import org.junit.Assert;
 import org.junit.Test;
 
-import org.mockito.Mockito;
-
 import org.synyx.beanfiller.creator.ListCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.GenericsObject;
 import org.synyx.beanfiller.testobjects.SimpleGenericsObject;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Matchers.anyList;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -70,14 +71,14 @@ public class GenericsTest {
 
         ListCreator listCreator = mock(ListCreator.class);
 
-        when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
+        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<String>());
 
         beanfiller.addCreator(List.class, listCreator);
 
         beanfiller.fillBean(SimpleGenericsObject.class);
 
         // assert that our mock was called
-        verify(listCreator).createCollection(Mockito.anyList());
+        verify(listCreator).createCollection(anyList());
     }
 
 
@@ -85,20 +86,20 @@ public class GenericsTest {
     public void testAddedSpecificGenericsCreatorIsUsed() throws FillingException {
 
         ListCreator listCreator = mock(ListCreator.class);
-        when(listCreator.createCollection(Mockito.anyList())).thenReturn(new ArrayList<String>());
+        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<String>());
         beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", listCreator);
 
         beanfiller.fillBean(SimpleGenericsObject.class);
 
         // assert that our mock was called
-        verify(listCreator).createCollection(Mockito.anyList());
+        verify(listCreator).createCollection(anyList());
     }
 
 
     @Test(expected = WrongCreatorException.class)
     public void testWrongCreatorExceptionIsThrownIfNonGenericsCreatorIsUsed() throws FillingException {
 
-        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
 
         beanfiller.addCreatorForClassAndAttribute(GenericsObject.class, "stringList", stringCreator);
 

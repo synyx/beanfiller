@@ -1,7 +1,6 @@
 package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.CharCriteria;
-import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 
@@ -10,30 +9,35 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class CharCreator implements SimpleCreator<Character> {
 
+    private final RandomGenerator randomGenerator;
     private final CharCriteria criteria;
 
     /**
      * Create a new CharCreator using the default CharCriteria.
+     *
+     * @param  randomGenerator
      */
-    public CharCreator() {
+    public CharCreator(RandomGenerator randomGenerator) {
 
-        this.criteria = new CharCriteria();
+        this(randomGenerator, new CharCriteria());
     }
 
 
     /**
      * Create a new CharCreator using the given criteria.
      *
+     * @param  randomGenerator
      * @param  criteria  the criteria to use.
      */
-    public CharCreator(CharCriteria criteria) {
+    public CharCreator(RandomGenerator randomGenerator, CharCriteria criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
     @Override
-    public Character create() throws FillingException {
+    public Character create() {
 
-        return criteria.getCharset().charAt(RandomGenerator.getRandomInt(criteria.getCharset().length()));
+        return criteria.getCharset().charAt(randomGenerator.getRandomInt(criteria.getCharset().length()));
     }
 }

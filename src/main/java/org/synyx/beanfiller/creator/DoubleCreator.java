@@ -6,6 +6,7 @@ import org.synyx.beanfiller.criteria.DoubleCriteria;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 /**
@@ -15,14 +16,17 @@ import java.math.BigDecimal;
  */
 public class DoubleCreator implements SimpleCreator<Double> {
 
+    private final RandomGenerator randomGenerator;
     private final DecimalsNumberCriteria<Double> criteria;
 
     /**
      * Create a new DoubleCreator with the default DoubleCriteria.
+     *
+     * @param  randomGenerator
      */
-    public DoubleCreator() {
+    public DoubleCreator(RandomGenerator randomGenerator) {
 
-        this(new DoubleCriteria());
+        this(randomGenerator, new DoubleCriteria());
     }
 
 
@@ -31,17 +35,18 @@ public class DoubleCreator implements SimpleCreator<Double> {
      *
      * @param  criteria  the criteria to use.
      */
-    public DoubleCreator(DecimalsNumberCriteria<Double> criteria) {
+    public DoubleCreator(RandomGenerator randomGenerator, DecimalsNumberCriteria<Double> criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
     @Override
     public Double create() {
 
-        double d = RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
+        double d = randomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 
-        d = BigDecimal.valueOf(d).setScale(criteria.getNumberOfDecimals(), BigDecimal.ROUND_HALF_UP).doubleValue();
+        d = BigDecimal.valueOf(d).setScale(criteria.getNumberOfDecimals(), RoundingMode.HALF_UP).doubleValue();
 
         return d;
     }

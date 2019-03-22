@@ -26,7 +26,7 @@ public class GenericsUtils {
      */
     public static List<Type> getActualTypeArguments(Field field) {
 
-        List<Type> actualTypeList = new ArrayList<Type>();
+        List<Type> actualTypeList = new ArrayList<>();
 
         if (field != null) {
             Type genericType = field.getGenericType();

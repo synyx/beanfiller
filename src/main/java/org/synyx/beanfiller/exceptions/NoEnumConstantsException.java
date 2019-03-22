@@ -19,16 +19,4 @@ public class NoEnumConstantsException extends FillingException {
 
         super(message);
     }
-
-
-    /**
-     * Creates new NoEnumConstantsException with the given message and cause.
-     *
-     * @param  message  the message.
-     * @param  cause  the throwable cause.
-     */
-    public NoEnumConstantsException(String message, Throwable cause) {
-
-        super(message, cause);
-    }
 }

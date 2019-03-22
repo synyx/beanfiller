@@ -96,7 +96,7 @@ public class MapStrategy extends AbstractCreatorStrategy {
     protected List<Object> getValues(ObjectInformation valueInformation, MapCreator mapCreator)
         throws FillingException {
 
-        List<Object> values = new ArrayList<Object>();
+        List<Object> values = new ArrayList<>();
 
         for (int i = 0; i < mapCreator.getSize(); i++) {
             Object typeObject = createObjectFromObjectInformation(valueInformation);

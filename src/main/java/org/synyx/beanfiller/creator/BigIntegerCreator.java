@@ -15,13 +15,16 @@ import java.math.BigInteger;
 public class BigIntegerCreator implements SimpleCreator<BigInteger> {
 
     private final NumberCriteria<BigInteger> criteria;
+    private final RandomGenerator randomGenerator;
 
     /**
      * Create a new BigIntegerCreator with the default BigIntegerCriteria.
+     *
+     * @param  randomGenerator
      */
-    public BigIntegerCreator() {
+    public BigIntegerCreator(RandomGenerator randomGenerator) {
 
-        this(new BigIntegerCriteria());
+        this(randomGenerator, new BigIntegerCriteria());
     }
 
 
@@ -30,8 +33,9 @@ public class BigIntegerCreator implements SimpleCreator<BigInteger> {
      *
      * @param  criteria  the criteria to use.
      */
-    public BigIntegerCreator(NumberCriteria<BigInteger> criteria) {
+    public BigIntegerCreator(RandomGenerator randomGenerator, NumberCriteria<BigInteger> criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
@@ -41,7 +45,7 @@ public class BigIntegerCreator implements SimpleCreator<BigInteger> {
         BigInteger b;
 
         do {
-            b = RandomGenerator.getRandomBigInteger(criteria.getMax().bitLength());
+            b = randomGenerator.getRandomBigInteger(criteria.getMax().bitLength());
         } while (b.compareTo(criteria.getMax()) >= 0);
 
         return b;

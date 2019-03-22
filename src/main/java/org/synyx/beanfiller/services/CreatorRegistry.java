@@ -1,33 +1,10 @@
 package org.synyx.beanfiller.services;
 
-import org.synyx.beanfiller.creator.ArrayCreator;
-import org.synyx.beanfiller.creator.BigDecimalCreator;
-import org.synyx.beanfiller.creator.BigIntegerCreator;
-import org.synyx.beanfiller.creator.BooleanCreator;
-import org.synyx.beanfiller.creator.ByteCreator;
-import org.synyx.beanfiller.creator.CharCreator;
 import org.synyx.beanfiller.creator.Creator;
-import org.synyx.beanfiller.creator.DateCreator;
-import org.synyx.beanfiller.creator.DoubleCreator;
-import org.synyx.beanfiller.creator.EnumCreator;
-import org.synyx.beanfiller.creator.FloatCreator;
-import org.synyx.beanfiller.creator.IntegerCreator;
-import org.synyx.beanfiller.creator.ListCreator;
-import org.synyx.beanfiller.creator.LongCreator;
-import org.synyx.beanfiller.creator.MapCreator;
-import org.synyx.beanfiller.creator.ShortCreator;
-import org.synyx.beanfiller.creator.SimpleArrayCreator;
-import org.synyx.beanfiller.creator.SimpleEnumCreator;
-import org.synyx.beanfiller.creator.StringCreator;
 
 import java.lang.reflect.Field;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -39,29 +16,16 @@ import java.util.Map;
 public class CreatorRegistry {
 
     private final Map<String, Creator> creatorMap;
-    private final Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<String, Creator>();
+    private final Map<String, Creator> classAndAttributeSpecificCreatorMap = new HashMap<>();
 
     /**
-     * Create new CreatorRegistry using the default creator map.
-     */
-    public CreatorRegistry() {
-
-        this(null);
-    }
-
-
-    /**
-     * Create a new CreatorRegistry using the given creatorMap. If the map is null, the default map is used.
+     * Create a new CreatorRegistry using the given creatorMap.
      *
      * @param  creatorMap  Map of Creators to use.
      */
     public CreatorRegistry(Map<String, Creator> creatorMap) {
 
-        if (creatorMap != null) {
-            this.creatorMap = creatorMap;
-        } else {
-            this.creatorMap = getDefaultCreatorMap();
-        }
+        this.creatorMap = creatorMap;
     }
 
     /**
@@ -159,73 +123,5 @@ public class CreatorRegistry {
     public Map<String, Creator> getClassAndAttributeSpecificCreatorMap() {
 
         return classAndAttributeSpecificCreatorMap;
-    }
-
-
-    /**
-     * Gets the default creator Map that contains the basic set of creators.
-     *
-     * @return  Map of Creators
-     */
-    private Map<String, Creator> getDefaultCreatorMap() {
-
-        Map<String, Creator> map = new HashMap<String, Creator>();
-
-        map.put(String.class.getName(), new StringCreator());
-
-        IntegerCreator integerCreator = new IntegerCreator();
-        map.put("int", integerCreator);
-        map.put(Integer.class.getName(), integerCreator);
-
-        FloatCreator floatCreator = new FloatCreator();
-        map.put("float", floatCreator);
-        map.put(Float.class.getName(), floatCreator);
-
-        LongCreator longCreator = new LongCreator();
-        map.put("long", longCreator);
-        map.put(Long.class.getName(), longCreator);
-
-        DoubleCreator doubleCreator = new DoubleCreator();
-        map.put("double", doubleCreator);
-        map.put(Double.class.getName(), doubleCreator);
-
-        BooleanCreator booleanCreator = new BooleanCreator();
-        map.put("boolean", booleanCreator);
-        map.put(Boolean.class.getName(), booleanCreator);
-
-        ByteCreator byteCreator = new ByteCreator();
-        map.put("byte", byteCreator);
-        map.put(Byte.class.getName(), byteCreator);
-
-        BigIntegerCreator bigIntegerCreator = new BigIntegerCreator();
-        map.put(BigInteger.class.getName(), bigIntegerCreator);
-
-        BigDecimalCreator bigDecimalCreator = new BigDecimalCreator();
-        map.put(BigDecimal.class.getName(), bigDecimalCreator);
-
-        MapCreator mapCreator = new MapCreator();
-        map.put(Map.class.getName(), mapCreator);
-
-        ListCreator listCreator = new ListCreator();
-        map.put(List.class.getName(), listCreator);
-
-        EnumCreator enumCreator = new SimpleEnumCreator();
-        map.put(Enum.class.getName(), enumCreator);
-
-        ArrayCreator arrayCreator = new SimpleArrayCreator();
-        map.put("org.synyx.beanfiller.creator.ArrayCreator", arrayCreator);
-
-        DateCreator dateCreator = new DateCreator();
-        map.put(Date.class.getName(), dateCreator);
-
-        CharCreator charCreator = new CharCreator();
-        map.put(Character.class.getName(), charCreator);
-        map.put("char", charCreator);
-
-        ShortCreator shortCreator = new ShortCreator();
-        map.put(Short.class.getName(), shortCreator);
-        map.put("short", shortCreator);
-
-        return map;
     }
 }

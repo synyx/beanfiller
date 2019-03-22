@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.creator.SimpleCreator;
+import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class SettersAndConstructorsTest {
         BeanFiller beanfiller = new BeanFiller();
         Assert.assertNotNull("The CreatorMap shouldn't be null if the default Creator map is used!",
             beanfiller.getCreatorMap());
-        Assert.assertEquals("The CreatorMap shouldn't be empty if the default Creator map is used!", false,
+        Assert.assertFalse("The CreatorMap shouldn't be empty if the default Creator map is used!",
             beanfiller.getCreatorMap().isEmpty());
     }
 
@@ -32,10 +33,9 @@ public class SettersAndConstructorsTest {
     @Test
     public void testSetCreatorMapWithConstructor() {
 
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
         Assert.assertNotNull("The CreatorMap shouldn't be null", beanfiller.getCreatorMap());
-        Assert.assertEquals("The CreatorMap should be empty as we set it above!", true,
-            beanfiller.getCreatorMap().isEmpty());
+        Assert.assertTrue("The CreatorMap should be empty as we set it above!", beanfiller.getCreatorMap().isEmpty());
     }
 
 
@@ -47,7 +47,7 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreator(this.getClass(), creator);
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
@@ -65,7 +65,7 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreator(String[].class, creator);
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
@@ -82,9 +82,9 @@ public class SettersAndConstructorsTest {
     public void testAddCreatorWithoutClass() {
 
         // we need an empty Creator map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreator(null, creator);
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
@@ -100,7 +100,7 @@ public class SettersAndConstructorsTest {
     public void testAddCreatorWithoutCreator() {
 
         // we need an empty Creator map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
 
         beanfiller.addCreator(this.getClass(), null);
 
@@ -118,7 +118,7 @@ public class SettersAndConstructorsTest {
 
         BeanFiller beanfiller = new BeanFiller();
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", creator);
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
@@ -135,9 +135,9 @@ public class SettersAndConstructorsTest {
     public void testAddSpecificCreatorWithoutClass() {
 
         // we need an empty Creator map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreatorForClassAndAttribute(null, "test", creator);
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
@@ -153,9 +153,9 @@ public class SettersAndConstructorsTest {
     public void testAddSpecificCreatorWithoutAttributeName() {
 
         // we need an empty Creator map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
 
-        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator();
+        SimpleCreator creator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreatorForClassAndAttribute(this.getClass(), null, creator);
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
@@ -171,7 +171,7 @@ public class SettersAndConstructorsTest {
     public void testAddSpecificCreatorWithoutCreator() {
 
         // we need an empty Creator map for this test
-        BeanFiller beanfiller = new BeanFiller(new HashMap<String, Creator>());
+        BeanFiller beanfiller = new BeanFiller(new HashMap<>());
 
         beanfiller.addCreatorForClassAndAttribute(this.getClass(), "test", null);
 

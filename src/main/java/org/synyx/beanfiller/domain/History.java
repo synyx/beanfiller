@@ -30,7 +30,7 @@ public class History {
      */
     public History(ObjectInformation objectInformation) {
 
-        filledClasses = new ArrayList<Class>();
+        filledClasses = new ArrayList<>();
         update(objectInformation);
     }
 
@@ -53,7 +53,7 @@ public class History {
      */
     public List<Class> getFilledClasses() {
 
-        return new ArrayList<Class>(filledClasses);
+        return new ArrayList<>(filledClasses);
     }
 
 
@@ -108,7 +108,7 @@ public class History {
      */
     private void checkForCycle(Class currentClass, Field currentField) {
 
-        List<Class> classesToCheck = new ArrayList<Class>();
+        List<Class> classesToCheck = new ArrayList<>();
         classesToCheck.add(currentClass);
 
         // we also have to check for the actual type arguments for the case we have a class with generics.

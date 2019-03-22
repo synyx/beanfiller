@@ -5,6 +5,7 @@ import org.synyx.beanfiller.criteria.FloatCriteria;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 /**
@@ -14,33 +15,38 @@ import java.math.BigDecimal;
  */
 public class FloatCreator implements SimpleCreator<Float> {
 
+    private final RandomGenerator randomGenerator;
     private final DecimalsNumberCriteria<Float> criteria;
 
     /**
      * Create a new FloatCreator with the default FloatCriteria.
+     *
+     * @param  randomGenerator
      */
-    public FloatCreator() {
+    public FloatCreator(RandomGenerator randomGenerator) {
 
-        this(new FloatCriteria());
+        this(randomGenerator, new FloatCriteria());
     }
 
 
     /**
      * Create a new FloatCreator with the given criteria.
      *
+     * @param  randomGenerator
      * @param  criteria  the criteria to use.
      */
-    public FloatCreator(DecimalsNumberCriteria<Float> criteria) {
+    public FloatCreator(RandomGenerator randomGenerator, DecimalsNumberCriteria<Float> criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
     @Override
     public Float create() {
 
-        float f = RandomGenerator.getRandomFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
+        float f = randomGenerator.getRandomFloat() * (criteria.getMax() - criteria.getMin()) + criteria.getMin();
 
-        f = BigDecimal.valueOf(f).setScale(criteria.getNumberOfDecimals(), BigDecimal.ROUND_HALF_UP).floatValue();
+        f = BigDecimal.valueOf(f).setScale(criteria.getNumberOfDecimals(), RoundingMode.HALF_UP).floatValue();
 
         return f;
     }

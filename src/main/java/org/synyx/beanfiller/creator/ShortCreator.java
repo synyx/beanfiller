@@ -1,7 +1,6 @@
 package org.synyx.beanfiller.creator;
 
 import org.synyx.beanfiller.criteria.ShortCriteria;
-import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 
@@ -10,31 +9,36 @@ import org.synyx.beanfiller.util.RandomGenerator;
  */
 public class ShortCreator implements SimpleCreator<Short> {
 
+    private final RandomGenerator randomGenerator;
     private final ShortCriteria criteria;
 
     /**
      * Creates new ShortCreator using the default ShortCriteria.
+     *
+     * @param  randomGenerator
      */
-    public ShortCreator() {
+    public ShortCreator(RandomGenerator randomGenerator) {
 
-        this.criteria = new ShortCriteria();
+        this(randomGenerator, new ShortCriteria());
     }
 
 
     /**
      * Creates new ShortCreator using the given ShortCriteria.
      *
+     * @param  randomGenerator
      * @param  criteria  the ShortCriteria to use.
      */
-    public ShortCreator(ShortCriteria criteria) {
+    public ShortCreator(RandomGenerator randomGenerator, ShortCriteria criteria) {
 
+        this.randomGenerator = randomGenerator;
         this.criteria = criteria;
     }
 
     @Override
-    public Short create() throws FillingException {
+    public Short create() {
 
-        return (short) Math.round(RandomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin())
+        return (short) Math.round(randomGenerator.getRandomDouble() * (criteria.getMax() - criteria.getMin())
                 + criteria.getMin());
     }
 }

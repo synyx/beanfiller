@@ -2,19 +2,14 @@
 package org.synyx.beanfiller.util;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
-import org.mockito.Matchers;
+import org.junit.runners.JUnit4;
 
-import org.powermock.api.mockito.PowerMockito;
-
-import org.powermock.core.classloader.annotations.PrepareForTest;
-
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.fail;
 
 
 /**
@@ -22,38 +17,76 @@ import static org.mockito.Mockito.when;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ RandomGenerator.class })
+@RunWith(JUnit4.class)
 public class RandomGeneratorTest {
+
+    private RandomGenerator sut;
+
+    @Before
+    public void setUp() {
+
+        sut = new RandomGenerator();
+    }
+
 
     @Test
     public void testGetIntBetweenCanReturnMinimum() {
 
-        PowerMockito.mockStatic(RandomGenerator.class);
-
         int min = 0;
-        int max = 5;
+        int max = 2;
 
-        when(RandomGenerator.getRandomInt(Matchers.anyInt())).thenReturn(min);
+        boolean hasReturnedMinimum = false;
 
-        int number = RandomGenerator.getRandomIntBetween(min, max);
+        for (int i = 0; i < 1000; i++) {
+            int number = sut.getRandomIntBetween(min, max);
 
-        Assert.assertEquals("RandomGenerator did not return the minimum number!", min, number);
+            if (number == min) {
+                hasReturnedMinimum = true;
+
+                break;
+            }
+        }
+
+        Assert.assertTrue("Minimum was never returned!", hasReturnedMinimum);
     }
 
 
     @Test
     public void testGetIntBetweenCanReturnMaximum() {
 
-        PowerMockito.mockStatic(RandomGenerator.class);
+        int min = 0;
+        int max = 2;
+
+        boolean hasReturnedMaximum = false;
+
+        for (int i = 0; i < 1000; i++) {
+            int number = sut.getRandomIntBetween(min, max);
+
+            if (number == max) {
+                hasReturnedMaximum = true;
+
+                break;
+            }
+        }
+
+        Assert.assertTrue("Maximum was never returned!", hasReturnedMaximum);
+    }
+
+
+    @Test
+    public void testGetIntBetweenDoesNotExceedMinAndMax() {
 
         int min = 0;
-        int max = 5;
+        int max = 2;
 
-        when(RandomGenerator.getRandomInt(Matchers.anyInt())).thenReturn(max);
+        for (int i = 0; i < 1000; i++) {
+            int number = sut.getRandomIntBetween(min, max);
 
-        int number = RandomGenerator.getRandomIntBetween(min, max);
+            if (number < min || number > max) {
+                fail("Random generator broke the bounds (%d - %d) with number: " + number);
 
-        Assert.assertEquals("RandomGenerator did not return the maximum number!", min, number);
+                break;
+            }
+        }
     }
 }
