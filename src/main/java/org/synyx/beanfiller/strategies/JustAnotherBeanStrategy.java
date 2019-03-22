@@ -11,6 +11,8 @@ import org.synyx.beanfiller.services.BeanSetter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,12 +50,37 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
         Class<?> parentClazz = parentInformation.getClazz();
 
-        // TODO handle non default constructors!
+        List<Constructor<?>> declaredConstructors = Arrays.asList(parentClazz.getDeclaredConstructors());
+
+        if (declaredConstructors.isEmpty()) {
+            throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
+                + " And we also could not find a constructor!");
+        }
+
+        declaredConstructors.sort(Comparator.comparingInt(Constructor::getParameterCount));
+
+        Constructor declaredConstructor = declaredConstructors.get(0);
+
         try {
-            Constructor declaredConstructor = parentClazz.getDeclaredConstructor();
             declaredConstructor.setAccessible(true);
 
-            Object instance = declaredConstructor.newInstance();
+            Object instance;
+
+            if (declaredConstructor.getParameterCount() == 0) {
+                instance = declaredConstructor.newInstance();
+            } else {
+                Class[] parameterTypes = declaredConstructor.getParameterTypes();
+                Object[] parameters = new Object[declaredConstructor.getParameterCount()];
+
+                for (int i = 0; i < parameterTypes.length; i++) {
+                    ObjectInformation information = new ObjectInformation(parameterTypes[i], null, null, null, null,
+                            null);
+                    AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(information);
+                    parameters[i] = strategy.createObject(information);
+                }
+
+                instance = declaredConstructor.newInstance(parameters);
+            }
 
             List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(parentClazz);
             Map<String, Object> createdObjectMap = new HashMap<>(objectInformationList.size());
@@ -73,17 +100,17 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
         } catch (IllegalAccessException ex) {
             throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
                 + " So we tried to instantiate it with the default constructor, but couldn't access it!", ex);
-        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException ex) {
+        } catch (InstantiationException | InvocationTargetException ex) {
             if (parentInformation.getField() == null) {
                 throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
-                    + " So we tried to instantiate it with the default constructor, but there was no default constructor or it failed! ",
-                    ex);
+                    + " So we tried to instantiate it via constructor (" + declaredConstructor.toString()
+                    + ") but it failed! ", ex);
             } else {
                 throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
                     + " (field '" + parentInformation.getField().getName() + "' of class "
                     + parentClazz.getDeclaringClass() + "). "
-                    + " So we tried to instantiate it with the default constructor, "
-                    + "but there was no default constructor or it failed! ", ex);
+                    + " So we tried to instantiate it via constructor (" + declaredConstructor.toString()
+                    + "), but it failed!  ", ex);
             }
         }
     }
