@@ -8,6 +8,8 @@ import org.synyx.beanfiller.exceptions.NoEnumConstantsException;
 import org.synyx.beanfiller.testobjects.EmptyEnum;
 import org.synyx.beanfiller.testobjects.TestEnum;
 
+import static org.junit.Assert.assertNotNull;
+
 
 /**
  * Tests for the SimpleEnumCreator.
@@ -23,7 +25,7 @@ public class SimpleEnumCreatorTest {
         TestEnum testEnum = (TestEnum) enumCreator.createEnum(TestEnum.class);
 
         // assert that a TestEnum was created
-        Assert.assertNotNull("TestEnum is null!", testEnum);
+        assertNotNull("TestEnum is null!", testEnum);
     }
 
 

@@ -1,6 +1,5 @@
 package org.synyx.beanfiller.testobjects;
 
-import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -37,7 +36,7 @@ public class BaseObject {
     private BigDecimal bigDecimalNumber;
 
     private Date date;
-    private Date dateTime;
+    private Date timestamp;
 
     public String getText() {
 
@@ -231,15 +230,15 @@ public class BaseObject {
     }
 
 
-    public DateTime getDateTime() {
+    public long getDateFromTimestamp() {
 
-        return new DateTime(dateTime.getTime());
+        return timestamp.getTime();
     }
 
 
-    public void setDateTime(DateTime dateTime) {
+    public void setTimestamp(long timestamp) {
 
-        this.dateTime = new Date(dateTime.getMillis());
+        this.timestamp = new Date(timestamp);
     }
 
 

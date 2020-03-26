@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.synyx.beanfiller.criteria.StringCriteria;
 import org.synyx.beanfiller.util.RandomGenerator;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +40,7 @@ public class StringCreatorTest {
         StringCreator stringCreator = new StringCreator(randomGeneratorMock, new StringCriteria(min, max, "A"));
         String string = stringCreator.create();
 
-        Assert.assertEquals("StringCreator has not used the given minimum length!", min, string.length());
+        assertEquals("StringCreator has not used the given minimum length!", min, string.length());
     }
 
 
@@ -55,7 +56,7 @@ public class StringCreatorTest {
         StringCreator stringCreator = new StringCreator(randomGeneratorMock, new StringCriteria(min, max, "A"));
         String string = stringCreator.create();
 
-        Assert.assertEquals("StringCreator has not used the given maximum length!", max, string.length());
+        assertEquals("StringCreator has not used the given maximum length!", max, string.length());
     }
 
 
@@ -73,7 +74,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            Assert.assertEquals("StringCreator did not only use the first letter of the charset.", 'A',
+            assertEquals("StringCreator did not only use the first letter of the charset.", 'A',
                 string.charAt(i));
         }
     }
@@ -93,7 +94,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            Assert.assertEquals("StringCreator did not only use the last letter of the charset.", 'G',
+            assertEquals("StringCreator did not only use the last letter of the charset.", 'G',
                 string.charAt(i));
         }
     }

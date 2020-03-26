@@ -1,5 +1,6 @@
 package org.synyx.beanfiller.strategies;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 import org.synyx.beanfiller.BeanFiller;
@@ -10,10 +11,10 @@ import org.synyx.beanfiller.testobjects.MultipleConstructorsObject;
 import org.synyx.beanfiller.testobjects.NoDefaultConstructorObject;
 import org.synyx.beanfiller.testobjects.PrivateConstructorObject;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
-import static org.junit.Assert.assertThat;
 
 
 /**

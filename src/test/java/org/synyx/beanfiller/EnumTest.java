@@ -15,6 +15,7 @@ import org.synyx.beanfiller.testobjects.ErrorEnumObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
 import org.synyx.beanfiller.util.RandomGenerator;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,7 @@ public class EnumTest {
 
         EnumsObject o = beanfiller.fillBean(EnumsObject.class);
 
-        Assert.assertNotNull("TestEnum was not filled!", o.getTestEnum());
+        assertNotNull("TestEnum was not filled!", o.getTestEnum());
     }
 
 

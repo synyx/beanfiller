@@ -1,15 +1,15 @@
 
 package org.synyx.beanfiller;
 
-import org.junit.Assert;
 import org.junit.Test;
-
 import org.synyx.beanfiller.creator.Creator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.util.RandomGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 
 /**
@@ -23,9 +23,9 @@ public class SettersAndConstructorsTest {
     public void testDefaultCreatorMapIsUsed() {
 
         BeanFiller beanfiller = new BeanFiller();
-        Assert.assertNotNull("The CreatorMap shouldn't be null if the default Creator map is used!",
+        assertNotNull("The CreatorMap shouldn't be null if the default Creator map is used!",
             beanfiller.getCreatorMap());
-        Assert.assertFalse("The CreatorMap shouldn't be empty if the default Creator map is used!",
+        assertFalse("The CreatorMap shouldn't be empty if the default Creator map is used!",
             beanfiller.getCreatorMap().isEmpty());
     }
 
@@ -34,8 +34,8 @@ public class SettersAndConstructorsTest {
     public void testSetCreatorMapWithConstructor() {
 
         BeanFiller beanfiller = new BeanFiller(new HashMap<>());
-        Assert.assertNotNull("The CreatorMap shouldn't be null", beanfiller.getCreatorMap());
-        Assert.assertTrue("The CreatorMap should be empty as we set it above!", beanfiller.getCreatorMap().isEmpty());
+        assertNotNull("The CreatorMap shouldn't be null", beanfiller.getCreatorMap());
+        assertTrue("The CreatorMap should be empty as we set it above!", beanfiller.getCreatorMap().isEmpty());
     }
 
 
@@ -52,7 +52,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+        assertEquals("Creator wasn't added under the expected key!", creator,
             creatorMap.get(this.getClass().getName()));
     }
 
@@ -70,7 +70,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+        assertEquals("Creator wasn't added under the expected key!", creator,
             creatorMap.get("[Ljava.lang.String;"));
     }
 
@@ -89,7 +89,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
+        assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -106,7 +106,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
+        assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -123,7 +123,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator wasn't added under the expected key!", creator,
+        assertEquals("Creator wasn't added under the expected key!", creator,
             creatorMap.get(this.getClass().getName() + ".test"));
     }
 
@@ -142,7 +142,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
+        assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -160,7 +160,7 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
+        assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 
 
@@ -177,6 +177,6 @@ public class SettersAndConstructorsTest {
 
         Map<String, Creator> creatorMap = beanfiller.getClassAndAttributeSpecificCreatorMap();
 
-        Assert.assertEquals("Creator map should be empty!", 0, creatorMap.size());
+        assertEquals("Creator map should be empty!", 0, creatorMap.size());
     }
 }

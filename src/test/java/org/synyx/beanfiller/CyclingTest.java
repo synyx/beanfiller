@@ -13,6 +13,9 @@ import org.synyx.beanfiller.testobjects.cycling.CyclicObject2;
 import org.synyx.beanfiller.testobjects.cycling.ListCycleObject;
 import org.synyx.beanfiller.testobjects.cycling.MapCycleObject;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 
 /**
  * TestCases for testing the handling of cyclic Dependencies within Objects.
@@ -28,7 +31,7 @@ public class CyclingTest {
 
         CyclicObject object = beanfiller.fillBean(CyclicObject.class);
 
-        Assert.assertNull("The cycling Object should not be filled!", object.getCycle());
+        assertNull("The cycling Object should not be filled!", object.getCycle());
     }
 
 
@@ -37,11 +40,11 @@ public class CyclingTest {
 
         CyclicObject2 object = beanfiller.fillBean(CyclicObject2.class);
 
-        Assert.assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3());
+        assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3());
 
-        Assert.assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3().getCyclicObject4());
+        assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3().getCyclicObject4());
 
-        Assert.assertNull("The cycling Object should not be filled!",
+        assertNull("The cycling Object should not be filled!",
             object.getCyclicObject3().getCyclicObject4().getCyclicObject2());
     }
 
@@ -52,15 +55,15 @@ public class CyclingTest {
         ArrayCycleObject arrayCycleObject = beanfiller.fillBean(ArrayCycleObject.class);
 
         CyclicObject2[] cyclicObject2Array = arrayCycleObject.getCyclicObject2array();
-        Assert.assertNotNull("No cycle yet, this should be filled!", cyclicObject2Array);
+        assertNotNull("No cycle yet, this should be filled!", cyclicObject2Array);
 
         for (CyclicObject2 object : cyclicObject2Array) {
-            Assert.assertNotNull("No cycle yet, this should be filled!", object);
-            Assert.assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3());
+            assertNotNull("No cycle yet, this should be filled!", object);
+            assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3());
 
-            Assert.assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3().getCyclicObject4());
+            assertNotNull("No cycle yet, this should be filled!", object.getCyclicObject3().getCyclicObject4());
 
-            Assert.assertNull("The cycling Object should not be filled!",
+            assertNull("The cycling Object should not be filled!",
                 object.getCyclicObject3().getCyclicObject4().getCyclicObject2());
         }
     }
@@ -72,17 +75,17 @@ public class CyclingTest {
         ArrayCycleObject4 arrayCycleObject4 = beanfiller.fillBean(ArrayCycleObject4.class);
 
         ArrayCycleObject2[] array = arrayCycleObject4.getArrayCycleObject2Array();
-        Assert.assertNotNull("No cycle yet, the array on arrayCycleObject4 should be filled!", array);
+        assertNotNull("No cycle yet, the array on arrayCycleObject4 should be filled!", array);
 
         for (ArrayCycleObject2 arrayCycleObject2 : array) {
-            Assert.assertNotNull("No cycle yet, arrayCycleObject2 should be filled!", arrayCycleObject2);
+            assertNotNull("No cycle yet, arrayCycleObject2 should be filled!", arrayCycleObject2);
 
-            Assert.assertNotNull("No cycle yet, the array on arrayCycleObject2 should be filled!",
+            assertNotNull("No cycle yet, the array on arrayCycleObject2 should be filled!",
                 arrayCycleObject2.getArrayCycleObject3Array());
 
             for (ArrayCycleObject3 arrayCycleObject3 : arrayCycleObject2.getArrayCycleObject3Array()) {
-                Assert.assertNotNull("No cycle yet, arrayCycleObject3 should be filled!", arrayCycleObject3);
-                Assert.assertNull("The Array on arrayCycleObject3 should not be filled as it is introducing a cycle!",
+                assertNotNull("No cycle yet, arrayCycleObject3 should be filled!", arrayCycleObject3);
+                assertNull("The Array on arrayCycleObject3 should not be filled as it is introducing a cycle!",
                     arrayCycleObject3.getArrayCycleObject3Array());
             }
         }
@@ -94,7 +97,7 @@ public class CyclingTest {
 
         MapCycleObject mapCycleObject = beanfiller.fillBean(MapCycleObject.class);
 
-        Assert.assertNull("The map should not be filled, because it is introducing a cycle!", mapCycleObject.getMap());
+        assertNull("The map should not be filled, because it is introducing a cycle!", mapCycleObject.getMap());
     }
 
 
@@ -103,7 +106,7 @@ public class CyclingTest {
 
         ListCycleObject listCycleObject = beanfiller.fillBean(ListCycleObject.class);
 
-        Assert.assertNull("The list should not be filled, because it is introducing a cycle!",
+        assertNull("The list should not be filled, because it is introducing a cycle!",
             listCycleObject.getList());
     }
 }

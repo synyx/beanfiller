@@ -10,7 +10,7 @@ public enum TestEnum {
 
     private String value;
 
-    private TestEnum(String value) {
+    TestEnum(String value) {
 
         this.value = value;
     }

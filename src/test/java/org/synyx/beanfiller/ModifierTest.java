@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.testobjects.ModifierObject;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 
 /**
  * Tests using different modifiers on the methods and variables.
@@ -32,7 +35,7 @@ public class ModifierTest {
     @Test
     public void testPublicStaticSetter() {
 
-        Assert.assertNotNull(ModifierObject.getPUBLIC_STATIC_STRING());
+        assertNotNull(ModifierObject.getPUBLIC_STATIC_STRING());
     }
 
 
@@ -43,7 +46,7 @@ public class ModifierTest {
     public void testPackageStaticSetter() {
 
         // we can't do that, so it's still null
-        Assert.assertNull(ModifierObject.getPACKAGE_STATIC_STRING());
+        assertNull(ModifierObject.getPACKAGE_STATIC_STRING());
     }
 
 
@@ -54,7 +57,7 @@ public class ModifierTest {
     public void testProtectedStaticSetter() {
 
         // we can't do that, so it's still null
-        Assert.assertNull(ModifierObject.getPROTECTED_STATIC_STRING());
+        assertNull(ModifierObject.getPROTECTED_STATIC_STRING());
     }
 
 
@@ -65,7 +68,7 @@ public class ModifierTest {
     public void testPrivateStaticSetter() {
 
         // we can't do that, so it's still null
-        Assert.assertNull(ModifierObject.getPRIVATE_STATIC_STRING());
+        assertNull(ModifierObject.getPRIVATE_STATIC_STRING());
     }
 
 
@@ -76,6 +79,6 @@ public class ModifierTest {
     public void testPublicFinalString() {
 
         // has to be null, because it's final and initialized with null
-        Assert.assertNull(modifierObject.getPublicFinalString());
+        assertNull(modifierObject.getPublicFinalString());
     }
 }

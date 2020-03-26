@@ -14,6 +14,8 @@ import org.synyx.beanfiller.util.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyList;
 
 import static org.mockito.Mockito.mock;
@@ -35,7 +37,7 @@ public class GenericsTest {
     public void testGenericsObjectIsCreated() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        Assert.assertNotNull("GenericsObject is null!", genericsObject);
+        assertNotNull("GenericsObject is null!", genericsObject);
     }
 
 
@@ -43,8 +45,8 @@ public class GenericsTest {
     public void testListIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        Assert.assertNotNull("StringList is null!", genericsObject.getStringList());
-        Assert.assertFalse("StringList is empty!", genericsObject.getStringList().isEmpty());
+        assertNotNull("StringList is null!", genericsObject.getStringList());
+        assertFalse("StringList is empty!", genericsObject.getStringList().isEmpty());
     }
 
 
@@ -52,8 +54,8 @@ public class GenericsTest {
     public void testMapIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        Assert.assertNotNull("StringMap is null!", genericsObject.getStringMap());
-        Assert.assertFalse("StringMap is empty!", genericsObject.getStringMap().isEmpty());
+        assertNotNull("StringMap is null!", genericsObject.getStringMap());
+        assertFalse("StringMap is empty!", genericsObject.getStringMap().isEmpty());
     }
 
 
@@ -61,8 +63,8 @@ public class GenericsTest {
     public void testListMapIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        Assert.assertNotNull("StringListMap is null!", genericsObject.getStringListMap());
-        Assert.assertFalse("StringListMap is empty!", genericsObject.getStringListMap().isEmpty());
+        assertNotNull("StringListMap is null!", genericsObject.getStringListMap());
+        assertFalse("StringListMap is empty!", genericsObject.getStringListMap().isEmpty());
     }
 
 
@@ -71,7 +73,7 @@ public class GenericsTest {
 
         ListCreator listCreator = mock(ListCreator.class);
 
-        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<String>());
+        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<>());
 
         beanfiller.addCreator(List.class, listCreator);
 
@@ -86,7 +88,7 @@ public class GenericsTest {
     public void testAddedSpecificGenericsCreatorIsUsed() throws FillingException {
 
         ListCreator listCreator = mock(ListCreator.class);
-        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<String>());
+        when(listCreator.createCollection(anyList())).thenReturn(new ArrayList<>());
         beanfiller.addCreatorForClassAndAttribute(SimpleGenericsObject.class, "stringList", listCreator);
 
         beanfiller.fillBean(SimpleGenericsObject.class);
