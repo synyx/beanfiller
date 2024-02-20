@@ -1,6 +1,6 @@
 package org.synyx.beanfiller.strategies;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.BeanFiller;
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
@@ -9,6 +9,7 @@ import org.synyx.beanfiller.testobjects.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.synyx.beanfiller.testobjects.CopyConstructorObjectWithPrivateConstructor.COPY_CONSTRUCTOR_USED_VALUE;
 
 
@@ -52,14 +53,14 @@ public class JustAnotherBeanStrategyTest {
         assertThat(object.getBar(), notNullValue());
     }
 
-    @Test(expected = FillingException.class)
-    public void failsWhenOnlyCopyConstructorIsAvailable() throws FillingException {
+    @Test()
+    public void failsWhenOnlyCopyConstructorIsAvailable() {
 
         JustAnotherBeanStrategy strategy = setupStrategy();
 
-        strategy.createObject(new ObjectInformation(
-                CopyConstructorObject.class, null, null, null, null, null));
-    }
+        assertThrows(FillingException.class, () ->
+                strategy.createObject(new ObjectInformation(CopyConstructorObject.class, null, null, null, null, null)));
+       }
 
     @Test
     public void usesPrivateConstructorOverCopyConstructor() throws FillingException {

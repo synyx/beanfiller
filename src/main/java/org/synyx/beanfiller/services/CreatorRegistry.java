@@ -35,7 +35,7 @@ public class CreatorRegistry {
      * @param  attributeName  attribute name the creator should be used on
      * @param  creator  creator to add.
      */
-    public void addCreatorForClassAndAttribute(Class clazz, String attributeName, Creator creator) {
+    public void addCreatorForClassAndAttribute(Class<?> clazz, String attributeName, Creator creator) {
 
         classAndAttributeSpecificCreatorMap.put(clazz.getName() + "." + attributeName, creator);
     }
@@ -47,7 +47,7 @@ public class CreatorRegistry {
      * @param  clazz  class to use the creator on.
      * @param  creator  creator to add.
      */
-    public void addCreator(Class clazz, Creator creator) {
+    public void addCreator(Class<?> clazz, Creator creator) {
 
         creatorMap.put(clazz.getName(), creator);
     }
@@ -61,7 +61,7 @@ public class CreatorRegistry {
      *
      * @return  a Creator or null if none was found.
      */
-    public Creator getCreator(Class clazz, Field field) {
+    public Creator getCreator(Class<?> clazz, Field field) {
 
         Creator c = null;
 
@@ -86,7 +86,7 @@ public class CreatorRegistry {
      *
      * @return  the Creator or null, if none was found for this combination
      */
-    private Creator getSpecificCreator(Class clazz, Field field) {
+    private Creator getSpecificCreator(Class<?> clazz, Field field) {
 
         // get the creator for the class and attribute
         return classAndAttributeSpecificCreatorMap.get(clazz.getName() + "." + field.getName());
@@ -100,7 +100,7 @@ public class CreatorRegistry {
      *
      * @return  the Creator if found, or null.
      */
-    public Creator getCreatorForClass(Class clazz) {
+    public Creator getCreatorForClass(Class<?> clazz) {
 
         // if no specific creator for this field was set, get the creator for the class of the parameter
         // (class name because of primitive types)

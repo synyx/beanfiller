@@ -114,7 +114,7 @@ public class BeanFiller {
      * @param  clazz  class for which the creator should be used
      * @param  creator  creator that should be used for the given class
      */
-    public void addCreator(Class clazz, Creator creator) {
+    public void addCreator(Class<?> clazz, Creator creator) {
 
         if (clazz == null || creator == null) {
             LOG.warn("Class or Creator is null, abort adding the Creator!");
@@ -137,7 +137,7 @@ public class BeanFiller {
      * @param  attributeName  attribute for which the creator should be used
      * @param  creator  creator that should be used for the given attribute of the given class
      */
-    public void addCreatorForClassAndAttribute(Class clazz, String attributeName, Creator creator) {
+    public void addCreatorForClassAndAttribute(Class<?> clazz, String attributeName, Creator creator) {
 
         if (clazz == null || attributeName == null || creator == null) {
             LOG.warn("Class, attributeName, or Creator is null, abort adding the creator!");

@@ -71,7 +71,7 @@ public class GenericsUtils {
      *
      * @throws  ClassNotFoundException  if the class was not found.
      */
-    public static Class getClassForType(Type type) throws ClassNotFoundException {
+    public static Class<?> getClassForType(Type type) throws ClassNotFoundException {
 
         // get the class of the generic type and create it
         String classString = type.toString().contains("class ") ? type.toString().split(" ")[1] : type.toString();

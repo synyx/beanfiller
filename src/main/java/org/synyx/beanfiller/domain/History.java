@@ -20,7 +20,7 @@ import java.util.List;
 public class History {
 
     private static final Logger LOG = LoggerFactory.getLogger(History.class);
-    private List<Class> filledClasses;
+    private List<Class<?>> filledClasses;
     private boolean isRepeating = false;
 
     /**
@@ -51,13 +51,13 @@ public class History {
      *
      * @return  List of previously filled classes.
      */
-    public List<Class> getFilledClasses() {
+    public List<Class<?>> getFilledClasses() {
 
         return new ArrayList<>(filledClasses);
     }
 
 
-    public void setFilledClasses(List<Class> filledClasses) {
+    public void setFilledClasses(List<Class<?>> filledClasses) {
 
         this.filledClasses = filledClasses;
     }
@@ -92,7 +92,7 @@ public class History {
      */
     private void update(ObjectInformation objectInformation) {
 
-        Class currentClass = objectInformation.getClazz();
+        Class<?> currentClass = objectInformation.getClazz();
         Field currentField = objectInformation.getField();
         checkForCycle(currentClass, currentField);
 
@@ -106,9 +106,9 @@ public class History {
      * @param  currentClass  the current class to check.
      * @param  currentField  the current field to check.
      */
-    private void checkForCycle(Class currentClass, Field currentField) {
+    private void checkForCycle(Class<?> currentClass, Field currentField) {
 
-        List<Class> classesToCheck = new ArrayList<>();
+        List<Class<?>> classesToCheck = new ArrayList<>();
         classesToCheck.add(currentClass);
 
         // we also have to check for the actual type arguments for the case we have a class with generics.
@@ -116,7 +116,7 @@ public class History {
 
         for (Type type : actualTypeArguments) {
             try {
-                Class clazz = GenericsUtils.getClassForType(type);
+                Class<?> clazz = GenericsUtils.getClassForType(type);
 
                 classesToCheck.add(clazz);
             } catch (ClassNotFoundException ex) {
@@ -126,7 +126,7 @@ public class History {
         }
 
         // if one of the classes is contained in the history, the given objectInformation is creating a cycle.
-        for (Class clazz : classesToCheck) {
+        for (Class<?> clazz : classesToCheck) {
             if (filledClasses.contains(clazz)) {
                 isRepeating = true;
 

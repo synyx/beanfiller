@@ -1,8 +1,6 @@
 package org.synyx.beanfiller;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.creator.ListCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.exceptions.FillingException;
@@ -14,13 +12,12 @@ import org.synyx.beanfiller.util.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.anyList;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -37,7 +34,7 @@ public class GenericsTest {
     public void testGenericsObjectIsCreated() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        assertNotNull("GenericsObject is null!", genericsObject);
+        assertThat(genericsObject, notNullValue());
     }
 
 
@@ -45,8 +42,8 @@ public class GenericsTest {
     public void testListIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        assertNotNull("StringList is null!", genericsObject.getStringList());
-        assertFalse("StringList is empty!", genericsObject.getStringList().isEmpty());
+        assertThat(genericsObject.getStringList(), notNullValue());
+        assertThat(genericsObject.getStringList().isEmpty(), is(false));
     }
 
 
@@ -54,8 +51,8 @@ public class GenericsTest {
     public void testMapIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        assertNotNull("StringMap is null!", genericsObject.getStringMap());
-        assertFalse("StringMap is empty!", genericsObject.getStringMap().isEmpty());
+        assertThat(genericsObject.getStringMap(), notNullValue());
+        assertThat(genericsObject.getStringMap().isEmpty(), is(false));
     }
 
 
@@ -63,8 +60,8 @@ public class GenericsTest {
     public void testListMapIsFilled() throws FillingException {
 
         genericsObject = beanfiller.fillBean(GenericsObject.class);
-        assertNotNull("StringListMap is null!", genericsObject.getStringListMap());
-        assertFalse("StringListMap is empty!", genericsObject.getStringListMap().isEmpty());
+        assertThat(genericsObject.getStringListMap(), notNullValue());
+        assertThat(genericsObject.getStringListMap().isEmpty(), is(false));
     }
 
 
@@ -98,13 +95,13 @@ public class GenericsTest {
     }
 
 
-    @Test(expected = WrongCreatorException.class)
-    public void testWrongCreatorExceptionIsThrownIfNonGenericsCreatorIsUsed() throws FillingException {
+    @Test
+    public void testWrongCreatorExceptionIsThrownIfNonGenericsCreatorIsUsed() {
 
-        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
+        SimpleCreator<String> stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
 
         beanfiller.addCreatorForClassAndAttribute(GenericsObject.class, "stringList", stringCreator);
 
-        beanfiller.fillBean(GenericsObject.class);
+        assertThrows(WrongCreatorException.class, () -> beanfiller.fillBean(GenericsObject.class));
     }
 }

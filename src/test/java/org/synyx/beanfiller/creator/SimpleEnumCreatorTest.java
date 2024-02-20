@@ -1,14 +1,15 @@
 package org.synyx.beanfiller.creator;
 
-import org.junit.Assert;
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.NoEnumConstantsException;
 import org.synyx.beanfiller.testobjects.EmptyEnum;
 import org.synyx.beanfiller.testobjects.TestEnum;
 
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -24,17 +25,14 @@ public class SimpleEnumCreatorTest {
         EnumCreator enumCreator = new SimpleEnumCreator();
         TestEnum testEnum = (TestEnum) enumCreator.createEnum(TestEnum.class);
 
-        // assert that a TestEnum was created
-        assertNotNull("TestEnum is null!", testEnum);
+        assertThat(testEnum, notNullValue());
     }
 
 
-    @Test(expected = NoEnumConstantsException.class)
-    public void testEnumCreatorThrowsExceptionIfNoEnumConstants() throws FillingException {
+    @Test
+    public void testEnumCreatorThrowsExceptionIfNoEnumConstants() {
 
         EnumCreator enumCreator = new SimpleEnumCreator();
-
-        // the EmptyEnum does not have Enum Constants defined, so an Exception should be thrown.
-        enumCreator.createEnum(EmptyEnum.class);
+        assertThrows(NoEnumConstantsException.class, () -> enumCreator.createEnum(EmptyEnum.class));
     }
 }

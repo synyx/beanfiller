@@ -1,15 +1,14 @@
 
 package org.synyx.beanfiller;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.testobjects.ModifierObject;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 
 /**
@@ -19,56 +18,57 @@ import static org.junit.Assert.assertNull;
  */
 public class ModifierTest {
 
-    private final BeanFiller beanfiller = new BeanFiller();
+    private BeanFiller beanfiller;
     private ModifierObject modifierObject;
 
-    @Before
+    @BeforeEach
     public void setup() throws FillingException {
 
+        beanfiller = new BeanFiller();
         modifierObject = beanfiller.fillBean(ModifierObject.class);
     }
 
 
     /**
-     * Test that using public setters on domain objects works.
+     * Test that using public static setters on domain objects works.
      */
     @Test
     public void testPublicStaticSetter() {
 
-        assertNotNull(ModifierObject.getPUBLIC_STATIC_STRING());
+        assertThat(ModifierObject.getPUBLIC_STATIC_STRING(), notNullValue());
     }
 
 
     /**
-     * Test that using package protected setters on domain objects doesn't work.
+     * Test that using package protected static setters on domain objects doesn't work.
      */
     @Test
     public void testPackageStaticSetter() {
 
         // we can't do that, so it's still null
-        assertNull(ModifierObject.getPACKAGE_STATIC_STRING());
+        assertThat(ModifierObject.getPACKAGE_STATIC_STRING(), nullValue());
     }
 
 
     /**
-     * Test that using protected setters on domain objects doesn't work.
+     * Test that using protected static setters on domain objects doesn't work.
      */
     @Test
     public void testProtectedStaticSetter() {
 
         // we can't do that, so it's still null
-        assertNull(ModifierObject.getPROTECTED_STATIC_STRING());
+        assertThat(ModifierObject.getPROTECTED_STATIC_STRING(), nullValue());
     }
 
 
     /**
-     * Test that using private setters on domain objects doesn't work.
+     * Test that using private static setters on domain objects doesn't work.
      */
     @Test
     public void testPrivateStaticSetter() {
 
         // we can't do that, so it's still null
-        assertNull(ModifierObject.getPRIVATE_STATIC_STRING());
+        assertThat(ModifierObject.getPRIVATE_STATIC_STRING(), nullValue());
     }
 
 
@@ -79,6 +79,6 @@ public class ModifierTest {
     public void testPublicFinalString() {
 
         // has to be null, because it's final and initialized with null
-        assertNull(modifierObject.getPublicFinalString());
+        assertThat(modifierObject.getPublicFinalString(), nullValue());
     }
 }

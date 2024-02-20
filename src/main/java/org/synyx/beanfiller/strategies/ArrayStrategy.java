@@ -44,9 +44,9 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
 
             ArrayCreator arrayCreator = (ArrayCreator) creator;
 
-            Class arrayType = objectInformation.getClazz().getComponentType();
+            Class<?> arrayType = objectInformation.getClazz().getComponentType();
 
-            List<Object> objectsForArray = createObjectsForArray(arrayType, objectInformation.getField(),
+            List<?> objectsForArray = createObjectsForArray(arrayType, objectInformation.getField(),
                     arrayCreator.getSize(), objectInformation);
 
             return arrayCreator.createArray(objectsForArray, arrayType);

@@ -14,7 +14,7 @@ import java.util.List;
 public class SimpleEnumCreator implements EnumCreator {
 
     @Override
-    public Object createEnum(Class clazz) throws NoEnumConstantsException {
+    public Object createEnum(Class<?> clazz) throws NoEnumConstantsException {
 
         Object[] enumArray = clazz.getEnumConstants();
 

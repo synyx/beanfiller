@@ -33,7 +33,7 @@ public class SimpleObjectStrategy extends AbstractCreatorStrategy {
         Creator creator = getCreator(objectInformation);
         checkCreatorHasRightClass(creator, SimpleCreator.class, objectInformation);
 
-        SimpleCreator simpleCreator = (SimpleCreator) creator;
+        SimpleCreator<?> simpleCreator = (SimpleCreator<?>) creator;
 
         return simpleCreator.create();
     }

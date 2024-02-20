@@ -1,6 +1,6 @@
 package org.synyx.beanfiller;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.testobjects.ArrayConstructorObject;
 import org.synyx.beanfiller.testobjects.ListConstructorObject;
