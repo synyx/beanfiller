@@ -72,9 +72,9 @@ public class ArrayStrategy extends AbstractCreatorStrategy {
     private <T> List<T> createObjectsForArray(Class<T> arrayType, Field field, int size,
         ObjectInformation parentObjectInformation) throws FillingException {
 
-        Type type = field.getGenericType();
+        Type type = field == null ? null : field.getGenericType();
 
-        if (GenericArrayType.class.isAssignableFrom(type.getClass())) {
+        if (type != null && GenericArrayType.class.isAssignableFrom(type.getClass())) {
             // if we have an Array of a Type with Generics, this is needed!
             type = ((GenericArrayType) type).getGenericComponentType();
         }
