@@ -57,9 +57,10 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
                 + " And we also could not find a constructor!");
         }
 
-        declaredConstructors.sort(Comparator.comparingInt(Constructor::getParameterCount));
-
-        Constructor declaredConstructor = declaredConstructors.get(0);
+        // use constructor with most parameters to potentially set the most final fields
+        Constructor declaredConstructor = declaredConstructors.stream()
+                .max(Comparator.comparingInt(Constructor::getParameterCount))
+                .orElse(null);
 
         try {
             declaredConstructor.setAccessible(true);

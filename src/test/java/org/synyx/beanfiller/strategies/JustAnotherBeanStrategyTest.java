@@ -45,7 +45,7 @@ public class JustAnotherBeanStrategyTest {
 
 
     @Test
-    public void testTakesTheConstructorWithTheLeastNumberOfParameters() throws FillingException {
+    public void testTakesTheConstructorWithTheHighestNumberOfParameters() throws FillingException {
 
         JustAnotherBeanStrategy strategy = setupStrategy();
 
@@ -53,7 +53,7 @@ public class JustAnotherBeanStrategyTest {
                     MultipleConstructorsObject.class, null, null, null, null, null));
         assertThat(object, notNullValue());
         assertThat(object.getFoo(), notNullValue());
-        assertThat(object.getBar(), nullValue());
+        assertThat(object.getBar(), notNullValue());
     }
 
 
