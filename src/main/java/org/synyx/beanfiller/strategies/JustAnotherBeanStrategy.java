@@ -11,6 +11,7 @@ import org.synyx.beanfiller.services.BeanSetter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -82,10 +83,11 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
                 instance = declaredConstructor.newInstance();
             } else {
                 Class[] parameterTypes = declaredConstructor.getParameterTypes();
+                Type[] genericParameterTypes = declaredConstructor.getGenericParameterTypes();
                 Object[] parameters = new Object[declaredConstructor.getParameterCount()];
 
                 for (int i = 0; i < parameterTypes.length; i++) {
-                    ObjectInformation information = new ObjectInformation(parameterTypes[i], null, null, null, null,
+                    ObjectInformation information = new ObjectInformation(parameterTypes[i], null, genericParameterTypes[i], null, null,
                             null);
                     AbstractCreatorStrategy strategy = getStrategyManager().getStrategyFor(information);
                     parameters[i] = strategy.createObject(information);

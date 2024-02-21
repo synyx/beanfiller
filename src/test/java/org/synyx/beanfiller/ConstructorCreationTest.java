@@ -2,11 +2,13 @@ package org.synyx.beanfiller;
 
 import org.junit.Test;
 import org.synyx.beanfiller.exceptions.FillingException;
+import org.synyx.beanfiller.testobjects.ArrayConstructorObject;
+import org.synyx.beanfiller.testobjects.ListConstructorObject;
+import org.synyx.beanfiller.testobjects.MapConstructorObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class ConstructorCreationTest {
 
@@ -23,29 +25,44 @@ public class ConstructorCreationTest {
         assertThat(object.innerObject.foo, notNullValue());
     }
 
+    @Test
+    public void createsObjectWithListInConstructor() throws FillingException {
+
+        ListConstructorObject listConstructorObject = new BeanFiller().fillBean(ListConstructorObject.class);
+        assertThat(listConstructorObject,notNullValue());
+        assertThat(listConstructorObject.getValues(),notNullValue());
+        assertThat(listConstructorObject.getValues().size(), is(greaterThan(0)));
+    }
+
+    @Test
+    public void createsObjectWithArrayInConstructor() throws FillingException {
+
+        ArrayConstructorObject object = new BeanFiller().fillBean(ArrayConstructorObject.class);
+        assertThat(object,notNullValue());
+        assertThat(object.getValues(),notNullValue());
+        assertThat(object.getValues().length, is(greaterThan(0)));
+    }
+
+    @Test
+    public void createsObjectWithMapInConstructor() throws FillingException {
+
+        MapConstructorObject object = new BeanFiller().fillBean(MapConstructorObject.class);
+        assertThat(object,notNullValue());
+        assertThat(object.getValues(),notNullValue());
+        assertThat(object.getValues().size(), is(greaterThan(0)));
+    }
+
     public static class TestObjectWithConstructor{
 
         private final String[] array;
         private final TestEnum testEnum;
         private final InnerObject innerObject;
 
-        TestObjectWithConstructor(String[] array, TestEnum testEnum, InnerObject innerObject){
+        TestObjectWithConstructor(String[] array, TestEnum testEnum, InnerObject innerObject) {
 
             this.array = array;
             this.testEnum = testEnum;
             this.innerObject = innerObject;
-        }
-
-        public String[] getArray() {
-            return array;
-        }
-
-        public TestEnum getTestEnum() {
-            return testEnum;
-        }
-
-        public InnerObject getInnerObject() {
-            return innerObject;
         }
     }
 
@@ -55,10 +72,6 @@ public class ConstructorCreationTest {
 
         public InnerObject(String foo) {
             this.foo = foo;
-        }
-
-        public String getFoo() {
-            return foo;
         }
     }
 }
