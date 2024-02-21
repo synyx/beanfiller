@@ -177,7 +177,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @return  true if the given class is an enum, false otherwise.
      */
-    protected boolean isEnum(Class clazz) {
+    protected boolean isEnum(Class<?> clazz) {
 
         return clazz.isEnum();
     }
@@ -190,7 +190,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @return  true if the given class is an array, false otherwise.
      */
-    protected boolean isArray(Class clazz) {
+    protected boolean isArray(Class<?> clazz) {
 
         return clazz.isArray();
     }
@@ -203,7 +203,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
      *
      * @return  true if the given class is a collection, false otherwise.
      */
-    protected boolean isCollection(Class clazz) {
+    protected boolean isCollection(Class<?> clazz) {
 
         return Collection.class.isAssignableFrom(clazz);
     }
@@ -318,7 +318,7 @@ public abstract class AbstractCreatorStrategy implements Comparable<AbstractCrea
         throws FillingException {
 
         try {
-            Class clazz = GenericsUtils.getClassForType(type);
+            Class<?> clazz = GenericsUtils.getClassForType(type);
 
             return new ObjectInformation(clazz, parentObjectInformation.getField(), type, null, null,
                     parentObjectInformation);

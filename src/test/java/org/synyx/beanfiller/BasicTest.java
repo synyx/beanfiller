@@ -1,9 +1,7 @@
 
 package org.synyx.beanfiller;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.creator.EnumCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
 import org.synyx.beanfiller.creator.StringCreator;
@@ -11,11 +9,10 @@ import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.exceptions.WrongCreatorException;
 import org.synyx.beanfiller.testobjects.BaseObject;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -32,7 +29,7 @@ public class BasicTest {
     public void testObjectIsCreated() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("BaseObject is null!", baseObject);
+        assertThat(baseObject, notNullValue());
     }
 
 
@@ -40,7 +37,7 @@ public class BasicTest {
     public void testStringIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("String is not being filled!", baseObject.getText());
+        assertThat(baseObject.getText(), notNullValue());
     }
 
 
@@ -48,7 +45,7 @@ public class BasicTest {
     public void testIntegerIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Integer is not being filled!", baseObject.getIntegerNumber());
+        assertThat(baseObject.getIntegerNumber(), notNullValue());
     }
 
 
@@ -56,7 +53,7 @@ public class BasicTest {
     public void testPrimitiveIntegerIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("primitive Integer (int) is not being filled!", baseObject.getPrimitiveIntNumber());
+        assertThat(baseObject.getPrimitiveIntNumber(), greaterThan(0));
     }
 
 
@@ -64,7 +61,7 @@ public class BasicTest {
     public void testFloatIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Float is not being filled!", baseObject.getFloatNumber());
+        assertThat(baseObject.getFloatNumber(), notNullValue());
     }
 
 
@@ -72,7 +69,7 @@ public class BasicTest {
     public void testPrimitiveFloatIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("primitive Float (float) is not being filled!", baseObject.getPrimitiveFloatNumber());
+        assertThat(baseObject.getPrimitiveFloatNumber(), greaterThan(0F));
     }
 
 
@@ -80,7 +77,7 @@ public class BasicTest {
     public void testLongIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Long is not being filled!", baseObject.getLongNumber());
+        assertThat(baseObject.getLongNumber(), notNullValue());
     }
 
 
@@ -88,7 +85,7 @@ public class BasicTest {
     public void testPrimitiveLongIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("primitive Long (long) is not being filled!", baseObject.getPrimitiveLongNumber());
+        assertThat(baseObject.getPrimitiveLongNumber(), greaterThan(0L));
     }
 
 
@@ -96,7 +93,7 @@ public class BasicTest {
     public void testDoubleIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Double is not being filled!", baseObject.getDoubleNumber());
+        assertThat(baseObject.getDoubleNumber(), notNullValue());
     }
 
 
@@ -104,7 +101,7 @@ public class BasicTest {
     public void testPrimitiveDoubleIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("primitive Double (double) is not being filled!", baseObject.getPrimitiveDouble());
+        assertThat(baseObject.getPrimitiveDouble(), greaterThan(0D));
     }
 
 
@@ -112,7 +109,7 @@ public class BasicTest {
     public void testBooleanIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Boolean is not being filled!", baseObject.getBooleanObject());
+        assertThat(baseObject.getBooleanObject(), notNullValue());
     }
 
 
@@ -120,7 +117,7 @@ public class BasicTest {
     public void testPrimitiveBooleanIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("primitive Boolean (boolean) is not being filled!", baseObject.getPrimitiveBoolean());
+        assertThat(baseObject.getPrimitiveBoolean(), notNullValue());
     }
 
 
@@ -128,7 +125,7 @@ public class BasicTest {
     public void testByteIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Byte is not being filled!", baseObject.getByteObject());
+        assertThat(baseObject.getByteObject(), notNullValue());
     }
 
 
@@ -136,8 +133,7 @@ public class BasicTest {
     public void testPrimitiveByteIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-
-        assertNotNull("primitive Byte (byte) is not being filled!", baseObject.getPrimitiveByte());
+        assertThat(baseObject.getPrimitiveByte(), is(not(0)));
     }
 
 
@@ -145,7 +141,7 @@ public class BasicTest {
     public void testBigIntegerIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("BigInteger is not being filled!", baseObject.getBigIntegerNumber());
+        assertThat(baseObject.getBigIntegerNumber(), notNullValue());
     }
 
 
@@ -153,7 +149,7 @@ public class BasicTest {
     public void testBigDecimalIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("BigDecimal is not being filled!", baseObject.getBigDecimalNumber());
+        assertThat(baseObject.getBigDecimalNumber(), notNullValue());
     }
 
 
@@ -161,7 +157,7 @@ public class BasicTest {
     public void testDateIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Date is not being filled!", baseObject.getDate());
+        assertThat(baseObject.getDate(), notNullValue());
     }
 
 
@@ -169,7 +165,7 @@ public class BasicTest {
     public void testObjectShortIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("ObjectShort is not being filled!", baseObject.getObjectShort());
+        assertThat(baseObject.getObjectShort(), notNullValue());
     }
 
 
@@ -177,7 +173,7 @@ public class BasicTest {
     public void testPrimitiveShortIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("PrimitiveShort is not being filled!", baseObject.getPrimitiveShort());
+        assertThat(baseObject.getPrimitiveShort(), greaterThan((short)0));
     }
 
 
@@ -185,7 +181,7 @@ public class BasicTest {
     public void testCharacterIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("Character is not being filled!", baseObject.getCharacter());
+        assertThat(baseObject.getCharacter(), notNullValue());
     }
 
 
@@ -193,7 +189,7 @@ public class BasicTest {
     public void testPrimitiveCharacterIsFilled() throws FillingException {
 
         baseObject = beanfiller.fillBean(BaseObject.class);
-        assertNotNull("char is not being filled!", baseObject.getPrimitiveCharacter());
+        assertThat(baseObject.getPrimitiveCharacter(), greaterThan((char)0));
     }
 
 
@@ -227,14 +223,13 @@ public class BasicTest {
     }
 
 
-    @Test(expected = WrongCreatorException.class)
-    public void testWrongCreatorExceptionIsThrownIfNonSimpleCreatorIsUsed() throws FillingException {
+    @Test
+    public void testWrongCreatorExceptionIsThrownIfNonSimpleCreatorIsUsed() {
 
         EnumCreator enumCreator = new SimpleEnumCreator();
-
         beanfiller.addCreatorForClassAndAttribute(BaseObject.class, "text", enumCreator);
 
-        beanfiller.fillBean(BaseObject.class);
+        assertThrows(WrongCreatorException.class, () -> beanfiller.fillBean(BaseObject.class));
     }
 
 
@@ -242,6 +237,6 @@ public class BasicTest {
     public void testSetterObjectDiffersFromFieldObject() throws FillingException {
 
         BaseObject object = beanfiller.fillBean(BaseObject.class);
-        assertNotEquals(0, object.getDateFromTimestamp());
+        assertThat(object.getDateFromTimestamp(), greaterThan(0L));
     }
 }

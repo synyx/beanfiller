@@ -22,7 +22,7 @@ public interface ArrayCreator extends Creator {
      *
      * @throws  FillingException  if an error occurred.
      */
-    Object createArray(List<Object> objects, Class arrayType) throws FillingException;
+    Object createArray(List<?> objects, Class<?> arrayType) throws FillingException;
 
 
     /**

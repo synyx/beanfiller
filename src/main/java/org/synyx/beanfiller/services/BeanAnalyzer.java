@@ -32,9 +32,9 @@ public class BeanAnalyzer {
      *
      * @return  List of ObjectInformation from the given class.
      */
-    public static List<ObjectInformation> analyzeBean(Class clazz) {
+    public static List<ObjectInformation> analyzeBean(Class<?> clazz) {
 
-        List<ObjectInformation> objectInformation = new ArrayList<ObjectInformation>();
+        List<ObjectInformation> objectInformation = new ArrayList<>();
 
         String path = clazz.getSimpleName();
 
@@ -48,7 +48,7 @@ public class BeanAnalyzer {
 
             if (setter != null) {
                 // get the parameter type of the setter
-                Class parameterClazz = setter.getParameterTypes()[0];
+                Class<?> parameterClazz = setter.getParameterTypes()[0];
 
                 ObjectInformation parameterObjectInformation = new ObjectInformation(parameterClazz, field,
                         field.getType(), setter, fieldPath, null);
@@ -68,7 +68,7 @@ public class BeanAnalyzer {
      *
      * @return  Map of the setters.
      */
-    private static Map<String, Method> getSetters(Class clazz) {
+    private static Map<String, Method> getSetters(Class<?> clazz) {
 
         // get the methods of the class
         Method[] methods = clazz.getMethods();
@@ -78,7 +78,7 @@ public class BeanAnalyzer {
         for (Method method : methods) {
             // method name start with set, it is public and it has exactly one parameter.
             if (method.getName().startsWith("set") && Modifier.isPublic(method.getModifiers())
-                    && method.getParameterTypes() != null && method.getParameterTypes().length == 1) {
+                    && method.getParameterTypes().length == 1) {
                 setters.put(method.getName().toLowerCase(), method);
             }
         }

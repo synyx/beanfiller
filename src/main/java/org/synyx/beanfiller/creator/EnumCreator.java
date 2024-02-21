@@ -19,5 +19,5 @@ public interface EnumCreator extends Creator {
      *
      * @throws  FillingException  if an error occurred.
      */
-    Object createEnum(Class clazz) throws FillingException;
+    Object createEnum(Class<?> clazz) throws FillingException;
 }

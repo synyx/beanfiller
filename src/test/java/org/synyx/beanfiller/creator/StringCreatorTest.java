@@ -1,13 +1,12 @@
 package org.synyx.beanfiller.creator;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.criteria.StringCriteria;
 import org.synyx.beanfiller.util.RandomGenerator;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +20,7 @@ public class StringCreatorTest {
 
     private RandomGenerator randomGeneratorMock;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         randomGeneratorMock = mock(RandomGenerator.class);
@@ -40,7 +39,7 @@ public class StringCreatorTest {
         StringCreator stringCreator = new StringCreator(randomGeneratorMock, new StringCriteria(min, max, "A"));
         String string = stringCreator.create();
 
-        assertEquals("StringCreator has not used the given minimum length!", min, string.length());
+        assertThat(string.length(), is(min));
     }
 
 
@@ -56,7 +55,7 @@ public class StringCreatorTest {
         StringCreator stringCreator = new StringCreator(randomGeneratorMock, new StringCriteria(min, max, "A"));
         String string = stringCreator.create();
 
-        assertEquals("StringCreator has not used the given maximum length!", max, string.length());
+        assertThat(string.length(), is(max));
     }
 
 
@@ -74,8 +73,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            assertEquals("StringCreator did not only use the first letter of the charset.", 'A',
-                string.charAt(i));
+            assertThat(string.charAt(i), is("A"));
         }
     }
 
@@ -94,8 +92,7 @@ public class StringCreatorTest {
         String string = stringCreator.create();
 
         for (int i = 0; i < string.length(); i++) {
-            assertEquals("StringCreator did not only use the last letter of the charset.", 'G',
-                string.charAt(i));
+            assertThat(string.charAt(i), is("G"));
         }
     }
 }

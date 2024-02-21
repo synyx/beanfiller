@@ -35,7 +35,7 @@ public class SimpleArrayCreator implements ArrayCreator {
     }
 
     @Override
-    public Object createArray(List<Object> objects, Class arrayType) {
+    public Object createArray(List<?> objects, Class<?> arrayType) {
 
         // create a new instance of the array with the given type
         Object array = Array.newInstance(arrayType, getSize());

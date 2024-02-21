@@ -1,9 +1,7 @@
 
 package org.synyx.beanfiller;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.creator.EnumCreator;
 import org.synyx.beanfiller.creator.SimpleCreator;
 import org.synyx.beanfiller.creator.SimpleEnumCreator;
@@ -15,10 +13,10 @@ import org.synyx.beanfiller.testobjects.ErrorEnumObject;
 import org.synyx.beanfiller.testobjects.TestEnum;
 import org.synyx.beanfiller.util.RandomGenerator;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -34,15 +32,14 @@ public class EnumTest {
     public void testEnumIsFilled() throws FillingException {
 
         EnumsObject o = beanfiller.fillBean(EnumsObject.class);
-
-        assertNotNull("TestEnum was not filled!", o.getTestEnum());
+        assertThat(o.getTestEnum(), notNullValue());
     }
 
 
-    @Test(expected = NoEnumConstantsException.class)
-    public void testNoEnumConstantsExceptionIsThrownOnEmptyEnum() throws FillingException {
+    @Test
+    public void testNoEnumConstantsExceptionIsThrownOnEmptyEnum() {
 
-        beanfiller.fillBean(ErrorEnumObject.class);
+        assertThrows(NoEnumConstantsException.class, () -> beanfiller.fillBean(ErrorEnumObject.class));
     }
 
 
@@ -75,13 +72,12 @@ public class EnumTest {
     }
 
 
-    @Test(expected = WrongCreatorException.class)
-    public void testWrongCreatorExceptionIsThrownIfNonEnumCreatorIsUsed() throws FillingException {
+    @Test
+    public void testWrongCreatorExceptionIsThrownIfNonEnumCreatorIsUsed() {
 
-        SimpleCreator stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
-
+        SimpleCreator<String> stringCreator = new org.synyx.beanfiller.creator.StringCreator(new RandomGenerator());
         beanfiller.addCreatorForClassAndAttribute(EnumsObject.class, "testEnum", stringCreator);
 
-        beanfiller.fillBean(EnumsObject.class);
+        assertThrows(WrongCreatorException.class, () -> beanfiller.fillBean(EnumsObject.class));
     }
 }

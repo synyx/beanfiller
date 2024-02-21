@@ -1,8 +1,5 @@
 package org.synyx.beanfiller.strategies;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.services.BeanAnalyzer;
@@ -10,13 +7,8 @@ import org.synyx.beanfiller.services.BeanSetter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -27,7 +19,6 @@ import java.util.Map;
  */
 public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JustAnotherBeanStrategy.class);
 
     /**
      * Creates new JustAnotherBeanStrategy.
@@ -59,7 +50,7 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
         }
 
         // use constructor with most parameters to potentially set the most final fields
-        Constructor declaredConstructor = declaredConstructors.stream()
+        Constructor<?> declaredConstructor = declaredConstructors.stream()
                 .filter(constructor ->
                         // filter copy constructors as they will cause a stackoverflow
                     !Arrays.asList(constructor.getParameterTypes()).contains(parentClazz)
@@ -82,8 +73,9 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
             if (declaredConstructor.getParameterCount() == 0) {
                 instance = declaredConstructor.newInstance();
             } else {
-                Class[] parameterTypes = declaredConstructor.getParameterTypes();
+                Class<?>[] parameterTypes = declaredConstructor.getParameterTypes();
                 Type[] genericParameterTypes = declaredConstructor.getGenericParameterTypes();
+
                 Object[] parameters = new Object[declaredConstructor.getParameterCount()];
 
                 for (int i = 0; i < parameterTypes.length; i++) {

@@ -1,15 +1,12 @@
 
 package org.synyx.beanfiller.util;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.runner.RunWith;
-
-import org.junit.runners.JUnit4;
-
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
@@ -17,12 +14,11 @@ import static org.junit.Assert.fail;
  *
  * @author  Tobias Knell - knell@synyx.de
  */
-@RunWith(JUnit4.class)
 public class RandomGeneratorTest {
 
     private RandomGenerator sut;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         sut = new RandomGenerator();
@@ -47,7 +43,7 @@ public class RandomGeneratorTest {
             }
         }
 
-        Assert.assertTrue("Minimum was never returned!", hasReturnedMinimum);
+        assertThat(hasReturnedMinimum, is(true));
     }
 
 
@@ -69,7 +65,7 @@ public class RandomGeneratorTest {
             }
         }
 
-        Assert.assertTrue("Maximum was never returned!", hasReturnedMaximum);
+        assertThat(hasReturnedMaximum, is(true));
     }
 
 

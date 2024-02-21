@@ -1,8 +1,6 @@
 package org.synyx.beanfiller.services;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.testobjects.BaseObject;
 import org.synyx.beanfiller.testobjects.ObjectWithBeans;
@@ -10,7 +8,8 @@ import org.synyx.beanfiller.testobjects.TestEnum;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 
 /**
@@ -22,8 +21,7 @@ public class AnalyzerTest {
     public void testAnalyzerReturnsListWithRightSize() {
 
         List<ObjectInformation> objectInformationList = BeanAnalyzer.analyzeBean(ObjectWithBeans.class);
-
-        assertEquals("Expected list to have 2 entries, one for each field!", 2, objectInformationList.size());
+        assertThat( objectInformationList.size(), is(2));
     }
 
 
@@ -35,8 +33,8 @@ public class AnalyzerTest {
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
 
-        assertEquals("Expected first entry to be BaseObject", BaseObject.class, information1.getClazz());
-        assertEquals("Expected second entry to be TestEnum", TestEnum.class, information2.getClazz());
+        assertThat(information1.getClazz(), is(BaseObject.class));
+        assertThat(information2.getClazz(), is(TestEnum.class));
     }
 
 
@@ -48,10 +46,8 @@ public class AnalyzerTest {
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
 
-        assertEquals("Expected first entry field to be baseObject", "baseObject",
-            information1.getField().getName());
-        assertEquals("Expected second entry field to be testEnum", "testEnum",
-            information2.getField().getName());
+        assertThat(information1.getField().getName(), is( "baseObject"));
+        assertThat(information2.getField().getName(), is( "testEnum"));
     }
 
 
@@ -63,10 +59,8 @@ public class AnalyzerTest {
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
 
-        assertEquals("Expected first entry type to be 'class org.synyx.beanfiller.testobjects.BaseObject'",
-            "class org.synyx.beanfiller.testobjects.BaseObject", information1.getType().toString());
-        assertEquals("Expected second entry type to be 'class org.synyx.beanfiller.testobjects.TestEnum'",
-            "class org.synyx.beanfiller.testobjects.TestEnum", information2.getType().toString());
+        assertThat(information1.getType().toString(), is( "class org.synyx.beanfiller.testobjects.BaseObject"));
+        assertThat(information2.getType().toString(), is( "class org.synyx.beanfiller.testobjects.TestEnum"));
     }
 
 
@@ -78,9 +72,7 @@ public class AnalyzerTest {
         ObjectInformation information1 = objectInformationList.get(0);
         ObjectInformation information2 = objectInformationList.get(1);
 
-        assertEquals("Expected first entry path to be ObjectWithBeans.baseObject", "ObjectWithBeans.baseObject",
-            information1.getPath());
-        assertEquals("Expected second entry path to be ObjectWithBeans.testEnum", "ObjectWithBeans.testEnum",
-            information2.getPath());
+        assertThat(information1.getPath(), is( "ObjectWithBeans.baseObject"));
+        assertThat(information2.getPath(), is( "ObjectWithBeans.testEnum"));
     }
 }
