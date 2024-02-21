@@ -1,26 +1,22 @@
 package org.synyx.beanfiller.strategies;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-
 import org.synyx.beanfiller.BeanFiller;
 import org.synyx.beanfiller.domain.ObjectInformation;
 import org.synyx.beanfiller.exceptions.FillingException;
 import org.synyx.beanfiller.services.CreatorRegistry;
-import org.synyx.beanfiller.testobjects.MultipleConstructorsObject;
-import org.synyx.beanfiller.testobjects.NoDefaultConstructorObject;
-import org.synyx.beanfiller.testobjects.PrivateConstructorObject;
+import org.synyx.beanfiller.testobjects.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-
+import static org.hamcrest.Matchers.*;
+import static org.synyx.beanfiller.testobjects.CopyConstructorObjectWithPrivateConstructor.COPY_CONSTRUCTOR_USED_VALUE;
 
 
 /**
  * @author  Tobias Knell - knell@synyx.de
  */
 public class JustAnotherBeanStrategyTest {
+
 
     @Test
     public void testPrivateConstructor() throws FillingException {
@@ -54,6 +50,29 @@ public class JustAnotherBeanStrategyTest {
         assertThat(object, notNullValue());
         assertThat(object.getFoo(), notNullValue());
         assertThat(object.getBar(), notNullValue());
+    }
+
+    @Test(expected = FillingException.class)
+    public void failsWhenOnlyCopyConstructorIsAvailable() throws FillingException {
+
+        JustAnotherBeanStrategy strategy = setupStrategy();
+
+        strategy.createObject(new ObjectInformation(
+                CopyConstructorObject.class, null, null, null, null, null));
+    }
+
+    @Test
+    public void usesPrivateConstructorOverCopyConstructor() throws FillingException {
+
+        assertThat(new CopyConstructorObjectWithPrivateConstructor(null).getValue(), is(COPY_CONSTRUCTOR_USED_VALUE));
+
+        JustAnotherBeanStrategy strategy = setupStrategy();
+
+        CopyConstructorObjectWithPrivateConstructor object = (CopyConstructorObjectWithPrivateConstructor)
+                strategy.createObject(new ObjectInformation(CopyConstructorObjectWithPrivateConstructor.class, null, null, null, null, null));
+        assertThat(object, notNullValue());
+
+        assertThat(object.getValue(), is(not(COPY_CONSTRUCTOR_USED_VALUE)));
     }
 
 

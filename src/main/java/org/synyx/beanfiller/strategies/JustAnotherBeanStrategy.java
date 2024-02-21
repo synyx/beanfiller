@@ -59,8 +59,19 @@ public class JustAnotherBeanStrategy extends AbstractCreatorStrategy {
 
         // use constructor with most parameters to potentially set the most final fields
         Constructor declaredConstructor = declaredConstructors.stream()
+                .filter(constructor ->
+                        // filter copy constructors as they will cause a stackoverflow
+                    !Arrays.asList(constructor.getParameterTypes()).contains(parentClazz)
+                )
                 .max(Comparator.comparingInt(Constructor::getParameterCount))
                 .orElse(null);
+
+        if(declaredConstructor==null){
+                throw new FillingException("There was no Creator set for the class " + parentClazz.getName()
+                        + " So we tried to instantiate it via constructor, but couldn't find a usable constructor. "
+                        + "Please provide at least a private empty constructor for usage. "
+                        + "Copy constructors will not be used.");
+        }
 
         try {
             declaredConstructor.setAccessible(true);
