@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '21' ]
+        java: [ '17' ]
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
@@ -28,14 +28,14 @@ jobs:
       - name: Compile
         run: ./mvnw --batch-mode clean compile
   build:
-    name: build with jdk 21
+    name: build with jdk 17
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 21
+          java-version: 17
       - uses: actions/cache@v2
         with:
           path: ~/.m2/repository
